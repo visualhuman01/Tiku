@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Tiku.control.ucTag"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tiku.control"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="200">
+    <Grid x:Name="gTag" Background="#FF007ACC" MouseUp="gTag_MouseUp">
+        <Grid x:Name="gTagFrame" Background="#FF333337" Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="imgTag" Grid.Column="0" Source="/Tiku;component/image/icon工程类考试.png" Stretch="Fill" Margin="10"></Image>
+            <TextBlock x:Name="txtTag" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White">test</TextBlock>
+        </Grid>
+    </Grid>
+</UserControl>

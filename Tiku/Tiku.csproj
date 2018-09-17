@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2FF2EB6B-FA07-478D-95A6-FE10B24BCA54}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tiku</RootNamespace>
+    <AssemblyName>Tiku</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="control\ucCourse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="control\ucTag.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frmLogin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="common\HttpHelper.cs" />
+    <Compile Include="control\ucCourse.xaml.cs">
+      <DependentUpon>ucCourse.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="control\ucTag.xaml.cs">
+      <DependentUpon>ucTag.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmLogin.xaml.cs">
+      <DependentUpon>frmLogin.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="frmMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="frmMain.xaml.cs">
+      <DependentUpon>frmMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="model\Config.cs" />
+    <Compile Include="model\model.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\14-时间.png" />
+    <Resource Include="image\bar.png" />
+    <Resource Include="image\bar_code1.png" />
+    <Resource Include="image\bar_code2.png" />
+    <Resource Include="image\close.png" />
+    <Resource Include="image\fenxiang.png" />
+    <Resource Include="image\icons\144.ico" />
+    <Resource Include="image\icons\192.ico" />
+    <Resource Include="image\icons\48.ico" />
+    <Resource Include="image\icons\72.ico" />
+    <Resource Include="image\icons\96.ico" />
+    <Resource Include="image\icon_4_01kechengchakan%402x.png" />
+    <Resource Include="image\icon_4_01wodedingdan%402x.png" />
+    <Resource Include="image\icon_4_01yijianfankui%402x.png" />
+    <Resource Include="image\icon_4_01youhuiquan%402x.png" />
+    <Resource Include="image\icon个人中心.png" />
+    <Resource Include="image\icon从业资格.png" />
+    <Resource Include="image\icon公务元.png" />
+    <Resource Include="image\icon其他考试.png" />
+    <Resource Include="image\icon医药卫生.png" />
+    <Resource Include="image\icon历年真题.png" />
+    <Resource Include="image\icon学历类.png" />
+    <Resource Include="image\icon工程类考试.png" />
+    <Resource Include="image\icon巩固练习.png" />
+    <Resource Include="image\icon弹窗关闭.png" />
+    <Resource Include="image\icon我的题库专家.png" />
+    <Resource Include="image\icon未选中.png" />
+    <Resource Include="image\icon模拟考试.png" />
+    <Resource Include="image\icon激活.png" />
+    <Resource Include="image\icon考试资讯.png" />
+    <Resource Include="image\icon财务会计.png" />
+    <Resource Include="image\icon进度分析.png" />
+    <Resource Include="image\icon选中.png" />
+    <Resource Include="image\icon重选课程.png" />
+    <Resource Include="image\icon错题强化.png" />
+    <Resource Include="image\icon题库专区.png" />
+    <Resource Include="image\icon题库练习.png" />
+    <Resource Include="image\img_btn1.png" />
+    <Resource Include="image\img_btn2.png" />
+    <Resource Include="image\img_btn3.png" />
+    <Resource Include="image\img_btn4.png" />
+    <Resource Include="image\img_btn5.png" />
+    <Resource Include="image\img_btn6.png" />
+    <Resource Include="image\img_btn7.png" />
+    <Resource Include="image\img_btn8.png" />
+    <Resource Include="image\img_btn9.png" />
+    <Resource Include="image\img_gradient.png" />
+    <Resource Include="image\img_header.png" />
+    <Resource Include="image\jixun.png" />
+    <Resource Include="image\logo.png" />
+    <Resource Include="image\maximize.png" />
+    <Resource Include="image\menu.png" />
+    <Resource Include="image\menu_icon.png" />
+    <Resource Include="image\menu_item1.png" />
+    <Resource Include="image\menu_item2.png" />
+    <Resource Include="image\menu_item3.png" />
+    <Resource Include="image\menu_item4.png" />
+    <Resource Include="image\menu_item5.png" />
+    <Resource Include="image\minimize.png" />
+    <Resource Include="image\min_icon.png" />
+    <Resource Include="image\qq.png" />
+    <Resource Include="image\QQ空间.png" />
+    <Resource Include="image\tiku.png" />
+    <Resource Include="image\userform1.png" />
+    <Resource Include="image\userform10.png" />
+    <Resource Include="image\userform2.png" />
+    <Resource Include="image\userform3.png" />
+    <Resource Include="image\userform4.png" />
+    <Resource Include="image\userform5.png" />
+    <Resource Include="image\userform6.png" />
+    <Resource Include="image\userform7.png" />
+    <Resource Include="image\userform8.png" />
+    <Resource Include="image\userform9.png" />
+    <Resource Include="image\个人中心选中框.png" />
+    <Resource Include="image\中国银联.png" />
+    <Resource Include="image\关于我们.png" />
+    <Resource Include="image\关闭拷贝2.png" />
+    <Resource Include="image\分享.png" />
+    <Resource Include="image\分享qq.png" />
+    <Resource Include="image\删除.png" />
+    <Resource Include="image\刷新.png" />
+    <Resource Include="image\图层1.png" />
+    <Resource Include="image\图层3.png" />
+    <Resource Include="image\学习.png" />
+    <Resource Include="image\导航bg.png" />
+    <Resource Include="image\形状1拷贝2.png" />
+    <Resource Include="image\成功.png" />
+    <Resource Include="image\扫码支付.png" />
+    <Resource Include="image\提交.png" />
+    <Resource Include="image\搜索.png" />
+    <Resource Include="image\支付宝.png" />
+    <Resource Include="image\浏览模式.png" />
+    <Resource Include="image\添加.png" />
+    <Resource Include="image\眼睛.png" />
+    <Resource Include="image\纠错.png" />
+    <Resource Include="image\纠错icon.png" />
+    <Resource Include="image\资讯收藏.png" />
+    <Resource Include="image\选中框.png" />
+    <Resource Include="image\锁.png" />
+    <Resource Include="image\问号.png" />
+    <Resource Include="image\随机组卷.png" />
+    <Resource Include="image\随机组卷icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\qq %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\选中.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\添加 %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\刷新 %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\分享 %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\view.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\Gf1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\icon1.png" />
+    <Resource Include="image\icon2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\p1.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
