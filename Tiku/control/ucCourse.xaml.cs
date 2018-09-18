@@ -21,18 +21,45 @@ namespace Tiku.control
     public partial class ucCourse : UserControl
     {
         private string _gid;
+        public string Gid
+        {
+            get
+            {
+                return _gid;
+            }
+        }
 
         public ucCourse()
         {
             InitializeComponent();
         }
-        public ucCourse(string gid, string goods_name,string price,string sale)
+        public delegate void Activate_Delegate(object sender);
+        public event Activate_Delegate Activate_Event;
+        public delegate void Tryout_Delegate(object sender);
+        public event Tryout_Delegate Tryout_Event;
+        public ucCourse(string gid, string goods_name, string price, string sale)
         {
             InitializeComponent();
             _gid = gid;
             txtName.Text = goods_name;
             txtPrice.Text = price;
             txtSale.Text = sale;
+        }
+
+        private void btnActivate_Click(object sender, RoutedEventArgs e)
+        {
+            if (Activate_Event != null)
+            {
+                Activate_Event(this);
+            }
+        }
+
+        private void btnTryout_Click(object sender, RoutedEventArgs e)
+        {
+            if (Tryout_Event != null)
+            {
+                Tryout_Event(this);
+            }
         }
     }
 }

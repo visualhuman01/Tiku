@@ -1,0 +1,22 @@
+﻿<Page x:Class="Tiku.page.pageTools"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Tiku.page"
+      mc:Ignorable="d" 
+      d:DesignHeight="84" d:DesignWidth="1280"
+      Title="pageTools" ShowsNavigationUI="False">
+
+    <Grid>
+        <Image Stretch="Fill" Source="/Tiku;component/image/导航bg.png"></Image>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel x:Name="spTools" Grid.Column="1" Orientation="Horizontal">
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

@@ -30,7 +30,7 @@ namespace Tiku.control
             set
             {
                 _is_select = value;
-                init_color();
+                setColor();
             }
         }
         private string _gid;
@@ -71,9 +71,9 @@ namespace Tiku.control
             this.Gid = gid;
             this.Goods_name = goods_name;
             this.Data = data;
-            init_color();
+            setColor();
         }
-        private void init_color()
+        private void setColor()
         {
             switch (this._level)
             {

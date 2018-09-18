@@ -65,7 +65,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="control\ucQuestion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="control\ucQuestionBottom.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="control\ucStudy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="control\ucTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="control\ucTableItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="control\ucTag.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="control\ucToolItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -81,14 +105,52 @@
     <Compile Include="control\ucCourse.xaml.cs">
       <DependentUpon>ucCourse.xaml</DependentUpon>
     </Compile>
+    <Compile Include="control\ucQuestion.xaml.cs">
+      <DependentUpon>ucQuestion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="control\ucQuestionBottom.xaml.cs">
+      <DependentUpon>ucQuestionBottom.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="control\ucStudy.xaml.cs">
+      <DependentUpon>ucStudy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="control\ucTable.xaml.cs">
+      <DependentUpon>ucTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="control\ucTableItem.xaml.cs">
+      <DependentUpon>ucTableItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="control\ucTag.xaml.cs">
       <DependentUpon>ucTag.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="control\ucToolItem.xaml.cs">
+      <DependentUpon>ucToolItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="frmLogin.xaml.cs">
       <DependentUpon>frmLogin.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="frmMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="page\pageLogo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="page\pageMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="page\pagePractice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="page\pageTools.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="page\pageUserInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -99,6 +161,21 @@
     </Compile>
     <Compile Include="model\Config.cs" />
     <Compile Include="model\model.cs" />
+    <Compile Include="page\pageLogo.xaml.cs">
+      <DependentUpon>pageLogo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="page\pageMain.xaml.cs">
+      <DependentUpon>pageMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="page\pagePractice.xaml.cs">
+      <DependentUpon>pagePractice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="page\pageTools.xaml.cs">
+      <DependentUpon>pageTools.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="page\pageUserInfo.xaml.cs">
+      <DependentUpon>pageUserInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

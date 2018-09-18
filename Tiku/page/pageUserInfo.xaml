@@ -1,0 +1,48 @@
+﻿<Page xmlns:control="clr-namespace:Tiku.control"  x:Class="Tiku.page.pageUserInfo"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Tiku.page"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1280"
+      Title="pageUserInfo" ShowsNavigationUI="False">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="2"></ColumnDefinition>
+            <ColumnDefinition Width="400"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="gContent" Grid.Column="0">
+            
+        </Grid>
+        <Grid Grid.Column="1" Background="#FF007ACC"></Grid>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="80,20"></Grid>
+            <Grid Grid.Row="1" Margin="50" Height="300" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <control:ucToolItem  Grid.Row="0" Grid.Column="0" Width="80" Height="90" ImageSource="/Tiku;component/image/icon_4_01wodedingdan@2x.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF" ForegroundUnSelect="#FF007ACC"/>
+                <control:ucToolItem  Grid.Row="0" Grid.Column="1" Width="80" Height="90" ImageSource="/Tiku;component/image/icon_4_01youhuiquan@2x.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
+                <control:ucToolItem  Grid.Row="0" Grid.Column="2" Width="80" Height="90" ImageSource="/Tiku;component/image/icon_4_01yijianfankui@2x.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
+                <control:ucToolItem  Grid.Row="1" Grid.Column="0" Width="80" Height="90" ImageSource="/Tiku;component/image/资讯收藏.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
+                <control:ucToolItem  Grid.Row="1" Grid.Column="1" Width="80" Height="90" ImageSource="/Tiku;component/image/icon_4_01kechengchakan@2x.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
+                <control:ucToolItem  Grid.Row="1" Grid.Column="2" Width="80" Height="90" ImageSource="/Tiku;component/image/关于我们.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
+                <control:ucToolItem  Grid.Row="2" Grid.Column="0" Width="80" Height="90" ImageSource="/Tiku;component/image/分享 (2).png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
