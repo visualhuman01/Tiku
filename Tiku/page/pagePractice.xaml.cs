@@ -25,13 +25,23 @@ namespace Tiku.page
         linian = 0,
         moni,
     }
+    public class Answer_Data
+    {
+        public string qid { get; set; }
+        public string select { get; set; }
+        public string type { get; set; }
+    }
+
     /// <summary>
     /// pagePractice.xaml 的交互逻辑
     /// </summary>
     public partial class pagePractice : Page
     {
         private frmMain _main = null;
-        private List<object> _questions = new List<object>();
+        private List<question_data> _questions = new List<question_data>();
+        private string _cate_id;
+        private Dictionary<int, Answer_Data> _answer_List = new Dictionary<int, Answer_Data>();
+        private int _max_index = 0;
         public pagePractice(frmMain main)
         {
             _main = main;
@@ -39,6 +49,7 @@ namespace Tiku.page
         }
         public void LoadWrong(List<dynamic> data)
         {
+            btnSubmit.IsEnabled = false;
             tvMenu.Items.Clear();
             _questions.Clear();
             foreach (var v in data)
@@ -51,15 +62,15 @@ namespace Tiku.page
             uc_question_bottom.Refresh(_questions.Count);
             showQuestion(0);
         }
-        public void LoadSpecial(string cate_id, E_Special_Type type)
+        public void LoadSpecial(E_Special_Type type)
         {
+            btnSubmit.IsEnabled = true;
             tvMenu.Items.Clear();
             _questions.Clear();
             if (!string.IsNullOrEmpty(_main.Cate_Id))
             {
                 var param = new
                 {
-                    id = _main.Cate_Id,
                     token = Config.Token,
                     phone = Config.Phone,
                 };
@@ -90,6 +101,7 @@ namespace Tiku.page
                     //    MessageBox.Show("尚未激活");
                     //    return;
                     //}
+                    _cate_id = data["gid"].ToString();
                     var param1 = new
                     {
                         id = data["gid"].ToString(),
@@ -117,6 +129,8 @@ namespace Tiku.page
         }
         public void LoadQuestionBank(string cate_id)
         {
+            btnSubmit.IsEnabled = true;
+            _cate_id = cate_id;
             tvMenu.Items.Clear();
             _questions.Clear();
             if (!string.IsNullOrEmpty(_main.Cate_Id))
@@ -188,7 +202,7 @@ namespace Tiku.page
                     {
                         //E_Question_Type type = (E_Question_Type)Enum.Parse(typeof(E_Question_Type), vv.Name, true);
                         var json = v.ToString();
-                        Object obj = JsonConvert.DeserializeObject<question_data>(json);
+                        question_data obj = JsonConvert.DeserializeObject<question_data>(json);
                         _questions.Add(obj);
                     }
                     uc_question_bottom.Refresh(_questions.Count);
@@ -198,15 +212,98 @@ namespace Tiku.page
         }
         private void showQuestion(int index)
         {
-            uc_question.SetData(index + 1, _questions[index]);
+            if (_answer_List.ContainsKey(index))
+            {
+                var a = _answer_List[index];
+                var aa = a.select.Split(',');
+                uc_question.SetData(index, _questions[index], aa.ToList());
+            }
+            else
+                uc_question.SetData(index, _questions[index],null);
         }
 
-        private void uc_question_bottom_Select_Event(int index, int old)
+        private void uc_question_bottom_Select_Event(int index, int next)
         {
             var b = uc_question.JudgeAnswer();
             if (b != null)
-                uc_question_bottom.SetColor(old, (bool)b);
-            showQuestion(index);
+            {
+                var arr = uc_question.Answer;
+                string str = string.Join(",", arr);
+                question_data qd = _questions[index];
+                Answer_Data ad = new Answer_Data
+                {
+                    qid = qd.qid,
+                    select = str,
+                    type = qd.type,
+                };
+                if (!_answer_List.ContainsKey(index))
+                    _answer_List.Add(index, ad);
+                else
+                    _answer_List[index] = ad;
+                uc_question_bottom.SetColor(index, (bool)b);
+                if (index > _max_index)
+                    _max_index = index;
+            }
+            showQuestion(next);
+        }
+
+        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            int index = uc_question_bottom.CurrentIndex;
+            var b = uc_question.JudgeAnswer();
+            if (b != null)
+            {
+                var arr = uc_question.Answer;
+                string str = string.Join(",", arr);
+                question_data qd = _questions[index];
+                Answer_Data ad = new Answer_Data
+                {
+                    qid = qd.qid,
+                    select = str,
+                    type = qd.type,
+                };
+                if (!_answer_List.ContainsKey(index))
+                    _answer_List.Add(index, ad);
+                else
+                    _answer_List[index] = ad;
+                uc_question_bottom.SetColor(index, (bool)b);
+                if (index > _max_index)
+                    _max_index = index;
+            }
+            List<Answer_Data> adlist = new List<Answer_Data>();
+            foreach(var kv in _answer_List)
+            {
+                adlist.Add(kv.Value);
+            }
+            var json = JsonConvert.SerializeObject(adlist);
+            var param = new
+            {
+                token = Config.Token,
+                phone = Config.Phone,
+                cid = _cate_id,
+                answer = json,
+                sign = _max_index,
+            };
+            var re = HttpHelper.Post(Config.Server + "/record/mark", param);
+            if(re != null && HttpHelper.IsOk(re))
+            {
+                var data = re["data"];
+                string msg = string.Format("总分：{0}\r\n总得分:{1}\r\n答对题数：{2}\r\n答错题数：{3}\r\n已做题总数：{4}\r\n试卷总题数：{5}\r\n未做题数：{6}\r\n正确率：{7}\r\n", data["max"], data["mark"], data["success"], data["error"], data["all"], data["num"], data["done"], data["CorrectRate"]);
+                MessageBox.Show(msg);
+            }
+        }
+
+        private void btnRedo_Click(object sender, RoutedEventArgs e)
+        {
+            _answer_List.Clear();
+            uc_question_bottom.Refresh(_questions.Count);
+            showQuestion(0);
+        }
+
+        private void uc_question_Redo_Event(object sender,int index)
+        {
+            _answer_List.Remove(index);
+            uc_question_bottom.SetColor(index, null);
         }
     }
 }

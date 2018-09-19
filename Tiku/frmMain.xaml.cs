@@ -58,7 +58,7 @@ namespace Tiku
             SwitchPage(E_Page_Type.Main);
         }
 
-        public void SwitchPage(E_Page_Type type,object data = null)
+        public void SwitchPage(E_Page_Type type, object data = null)
         {
             switch (type)
             {
@@ -86,12 +86,12 @@ namespace Tiku
                 case E_Page_Type.Linian:
                     fmMain.Navigate(_practice);
                     fmTitle.Navigate(_tools);
-                    _practice.LoadSpecial(Cate_Id,E_Special_Type.linian);
+                    _practice.LoadSpecial(E_Special_Type.linian);
                     break;
                 case E_Page_Type.Moni:
                     fmMain.Navigate(_practice);
                     fmTitle.Navigate(_tools);
-                    _practice.LoadSpecial(Cate_Id, E_Special_Type.moni);
+                    _practice.LoadSpecial(E_Special_Type.moni);
                     break;
                 case E_Page_Type.WrongToPractice:
                     fmMain.Navigate(_practice);

@@ -76,6 +76,8 @@
                         <ColumnDefinition Width="30"></ColumnDefinition>
                         <ColumnDefinition Width="20"></ColumnDefinition>
                         <ColumnDefinition Width="30"></ColumnDefinition>
+                        <ColumnDefinition Width="20"></ColumnDefinition>
+                        <ColumnDefinition Width="30"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <RadioButton x:Name="rdOneA" Grid.Column="0" VerticalAlignment="Center" GroupName="radio" Tag="A"></RadioButton>
@@ -86,6 +88,8 @@
                     <TextBlock Grid.Column="5" FontSize="16" VerticalAlignment="Center">C</TextBlock>
                     <RadioButton x:Name="rdOneD" Grid.Column="6" VerticalAlignment="Center" GroupName="radio" Tag="D"></RadioButton>
                     <TextBlock Grid.Column="7" FontSize="16" VerticalAlignment="Center">D</TextBlock>
+                    <RadioButton x:Name="rdOneE" Grid.Column="8" VerticalAlignment="Center" GroupName="radio" Tag="E"></RadioButton>
+                    <TextBlock Grid.Column="9" FontSize="16" VerticalAlignment="Center">D</TextBlock>
                 </Grid>
                 <Grid x:Name="gJudge_Answer" Grid.Column="1" Visibility="Hidden">
                     <Grid.ColumnDefinitions>
@@ -101,7 +105,7 @@
                     <TextBlock Grid.Column="3" FontSize="16" VerticalAlignment="Center">否</TextBlock>
                 </Grid>
                 <Button x:Name="btn_show_answer" Grid.Column="2" Margin="10" Click="btn_show_answer_Click">显示答案</Button>
-                <Button x:Name="btn_redo" Grid.Column="3" Margin="10">重做</Button>
+                <Button x:Name="btn_redo" Grid.Column="3" Margin="10" Click="btn_redo_Click">重做</Button>
                 <Button x:Name="btn_note" Grid.Column="4" Margin="10">笔记</Button>
                 <Button x:Name="btn_collection" Grid.Column="5" Margin="10">收藏</Button>
                 <Button x:Name="btn_error" Grid.Column="6" Margin="10">纠错</Button>

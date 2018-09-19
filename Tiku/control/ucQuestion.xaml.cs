@@ -55,20 +55,45 @@ namespace Tiku.control
     public partial class ucQuestion : UserControl
     {
         private E_Question_Type type;
-        private object _data = null;
+        private question_data _data = null;
+        private List<string> _answer = null;
+        public List<string> Answer
+        {
+            get { return _answer; }
+        }
+        public delegate void Redo_Delegate(object sender,int index);
+        public event Redo_Delegate Redo_Event;
+        private int _index;
         public ucQuestion()
         {
             InitializeComponent();
         }
-        public void SetData(int index, dynamic data)
+        public void Init()
         {
+            ckQuestionA.IsChecked = false;
+            ckQuestionB.IsChecked = false;
+            ckQuestionC.IsChecked = false;
+            ckQuestionD.IsChecked = false;
+            ckQuestionE.IsChecked = false;
+            rdJudgeA.IsChecked = false;
+            rdJudgeB.IsChecked = false;
+            rdOneA.IsChecked = false;
+            rdOneB.IsChecked = false;
+            rdOneC.IsChecked = false;
+            rdOneD.IsChecked = false;
+            rdOneE.IsChecked = false;
+        }
+        public void SetData(int index, question_data data, List<string> answer)
+        {
+            _index = index;
+            Init();
             _data = data;
             sp_answer.Children.Clear();
             question_data qd = (question_data)data;
             type = (E_Question_Type)Enum.Parse(typeof(E_Question_Type), qd.type, true);
-            txt_title.Text = index + ".  " + qd.title;
+            txt_title.Text = (index+1) + ".  " + qd.title;
             string s = "";
-            foreach(var ss in qd.analysis)
+            foreach (var ss in qd.analysis)
             {
                 s += ss;
             }
@@ -129,6 +154,97 @@ namespace Tiku.control
             }
             gAnswer.Visibility = Visibility.Hidden;
             btn_show_answer.Content = "显示答案";
+            if(answer != null && answer.Count > 0)
+            {
+                foreach(var a in answer)
+                {
+                    switch (a)
+                    {
+                        case "A":
+                            switch (type)
+                            {
+                                case E_Question_Type.question:
+                                    ckQuestionA.IsChecked = true;
+                                    break;
+                                case E_Question_Type.one:
+                                    rdOneA.IsChecked = true;
+                                    break;
+                                case E_Question_Type.judge:
+                                    rdJudgeA.IsChecked = true;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case "B":
+                            switch (type)
+                            {
+                                case E_Question_Type.question:
+                                    ckQuestionB.IsChecked = true;
+                                    break;
+                                case E_Question_Type.one:
+                                    rdOneB.IsChecked = true;
+                                    break;
+                                case E_Question_Type.judge:
+                                    rdJudgeB.IsChecked = true;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case "C":
+                            switch (type)
+                            {
+                                case E_Question_Type.question:
+                                    ckQuestionC.IsChecked = true;
+                                    break;
+                                case E_Question_Type.one:
+                                    rdOneC.IsChecked = true;
+                                    break;
+                                case E_Question_Type.judge:
+                                    //rdJudgeC.IsChecked = true;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case "D":
+                            switch (type)
+                            {
+                                case E_Question_Type.question:
+                                    ckQuestionD.IsChecked = true;
+                                    break;
+                                case E_Question_Type.one:
+                                    rdOneD.IsChecked = true;
+                                    break;
+                                case E_Question_Type.judge:
+                                    //rdJudgeD.IsChecked = true;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case "E":
+                            switch (type)
+                            {
+                                case E_Question_Type.question:
+                                    ckQuestionE.IsChecked = true;
+                                    break;
+                                case E_Question_Type.one:
+                                    rdOneE.IsChecked = true;
+                                    break;
+                                case E_Question_Type.judge:
+                                    //rdJudgeE.IsChecked = true;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
         }
         public bool? JudgeAnswer()
         {
@@ -202,7 +318,8 @@ namespace Tiku.control
             question_data qb = (question_data)_data;
             if (asw.Count > 0)
             {
-                if (HttpHelper.CompareArr(asw.ToArray(),qb.answer.ToArray()))
+                _answer = asw;
+                if (HttpHelper.CompareArr(asw.ToArray(), qb.answer.ToArray()))
                 {
                     return true;
                 }
@@ -225,6 +342,15 @@ namespace Tiku.control
             {
                 gAnswer.Visibility = Visibility.Hidden;
                 btn_show_answer.Content = "显示答案";
+            }
+        }
+
+        private void btn_redo_Click(object sender, RoutedEventArgs e)
+        {
+            Init();
+            if(Redo_Event != null)
+            {
+                Redo_Event(this,_index);
             }
         }
     }

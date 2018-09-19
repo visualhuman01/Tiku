@@ -21,26 +21,35 @@ namespace Tiku.control
     public partial class ucQuestionBottom : UserControl
     {
         private int _current_index = 0;
+        public int CurrentIndex
+        {
+            get { return _current_index; }
+        }
         private int _max_index = 0;
         private int _min_index = 0;
         private List<Button> _btn = new List<Button>();
-        public delegate void Select_Delegate(int index, int old);
+        public delegate void Select_Delegate(int index, int next);
         public event Select_Delegate Select_Event;
         public ucQuestionBottom()
         {
             InitializeComponent();
         }
-        public void SetColor(int index, bool answer)
+        public void SetColor(int index, bool? answer)
         {
-            if (answer)
+            if (answer == true)
             {
                 _btn[index].Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF0EF922"));
             }
-            else
+            else if (answer == false)
             {
                 _btn[index].Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF0202"));
             }
+            else
+            {
+                _btn[index].Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFDDDDDD"));
+            }
         }
+
         public void Refresh(int count)
         {
             _btn.Clear();
@@ -96,7 +105,7 @@ namespace Tiku.control
             setColor();
             if (Select_Event != null)
             {
-                Select_Event(_current_index, old);
+                Select_Event(old, _current_index);
             }
         }
 
@@ -117,7 +126,7 @@ namespace Tiku.control
             setColor();
             if (Select_Event != null)
             {
-                Select_Event(_current_index, old);
+                Select_Event(old, _current_index);
             }
         }
 
@@ -138,7 +147,7 @@ namespace Tiku.control
             setColor();
             if (Select_Event != null)
             {
-                Select_Event(_current_index, old);
+                Select_Event(old, _current_index);
             }
         }
     }

@@ -25,13 +25,13 @@
                 <RowDefinition Height="200"></RowDefinition>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10,0,0,0">
-                <Button Width="100" Height="30">
+                <Button x:Name="btnRedo" Width="100" Height="30" Click="btnRedo_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Width="30" Height="20" Source="/Tiku;component/image/刷新.png" />
                         <TextBlock VerticalAlignment="Center">重新做题</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Width="100" Height="30">
+                <Button x:Name="btnSubmit" Width="100" Height="30" Click="btnSubmit_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Width="30" Height="20" Source="/Tiku;component/image/提交.png" />
                         <TextBlock VerticalAlignment="Center">提交答案</TextBlock>
@@ -39,7 +39,7 @@
                 </Button>
             </StackPanel>
             <Grid Grid.Row="1" Margin="15">
-                <control:ucQuestion x:Name="uc_question"/>
+                <control:ucQuestion x:Name="uc_question" Redo_Event="uc_question_Redo_Event"/>
             </Grid>
             <Grid Grid.Row="2">
                 <control:ucQuestionBottom x:Name="uc_question_bottom" Select_Event="uc_question_bottom_Select_Event"/>
