@@ -1,18 +1,21 @@
 ﻿
 
 FC:\Project\git\Tiku\Tiku\control\ucCourse.xaml;;
+FC:\Project\git\Tiku\Tiku\control\ucNews.xaml;;
+FC:\Project\git\Tiku\Tiku\control\ucQuestion.xaml;;
+FC:\Project\git\Tiku\Tiku\control\ucQuestionBottom.xaml;;
+FC:\Project\git\Tiku\Tiku\control\ucStudy.xaml;;
+FC:\Project\git\Tiku\Tiku\control\ucTable.xaml;;
+FC:\Project\git\Tiku\Tiku\control\ucTableItem.xaml;;
 FC:\Project\git\Tiku\Tiku\control\ucTag.xaml;;
 FC:\Project\git\Tiku\Tiku\control\ucToolItem.xaml;;
 FC:\Project\git\Tiku\Tiku\frmLogin.xaml;;
 FC:\Project\git\Tiku\Tiku\frmMain.xaml;;
 FC:\Project\git\Tiku\Tiku\page\pageLogo.xaml;;
 FC:\Project\git\Tiku\Tiku\page\pageMain.xaml;;
+FC:\Project\git\Tiku\Tiku\page\pageNews.xaml;;
+FC:\Project\git\Tiku\Tiku\page\pagePractice.xaml;;
 FC:\Project\git\Tiku\Tiku\page\pageTools.xaml;;
 FC:\Project\git\Tiku\Tiku\page\pageUserInfo.xaml;;
-FC:\Project\git\Tiku\Tiku\control\ucStudy.xaml;;
-FC:\Project\git\Tiku\Tiku\control\ucTableItem.xaml;;
-FC:\Project\git\Tiku\Tiku\control\ucTable.xaml;;
-FC:\Project\git\Tiku\Tiku\page\pagePractice.xaml;;
-FC:\Project\git\Tiku\Tiku\control\ucQuestion.xaml;;
-FC:\Project\git\Tiku\Tiku\control\ucQuestionBottom.xaml;;
+FC:\Project\git\Tiku\Tiku\page\pageWrong.xaml;;
 

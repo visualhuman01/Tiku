@@ -20,6 +20,11 @@ namespace Tiku.control
     /// </summary>
     public partial class ucTable : UserControl
     {
+        private List<ucTableItem> _select_item = new List<ucTableItem>();
+        public List<ucTableItem> SelectItems
+        {
+            get { return _select_item; }
+        }
         private List<TableColumn> _columns = new List<TableColumn>();
         public List<TableColumn> Columns
         {
@@ -82,8 +87,21 @@ namespace Tiku.control
                     ti.Columns = _columns;
                     ti.Data = d;
                     ti.Height = 30;
+                    ti.Checked_Event += Ti_Checked_Event;
                     spTable.Children.Add(ti);
                 }
+            }
+        }
+
+        private void Ti_Checked_Event(object sender, bool check)
+        {
+            if (check)
+            {
+                _select_item.Add((ucTableItem)sender);
+            }
+            else
+            {
+                _select_item.Remove((ucTableItem)sender);
             }
         }
     }

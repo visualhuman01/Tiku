@@ -65,3 +65,9 @@ C:\Project\git\Tiku\Tiku\obj\Debug\control\ucQuestion.g.cs
 C:\Project\git\Tiku\Tiku\obj\Debug\control\ucQuestion.baml
 C:\Project\git\Tiku\Tiku\obj\Debug\control\ucQuestionBottom.g.cs
 C:\Project\git\Tiku\Tiku\obj\Debug\control\ucQuestionBottom.baml
+C:\Project\git\Tiku\Tiku\obj\Debug\page\pageNews.g.cs
+C:\Project\git\Tiku\Tiku\obj\Debug\page\pageWrong.g.cs
+C:\Project\git\Tiku\Tiku\obj\Debug\page\pageNews.baml
+C:\Project\git\Tiku\Tiku\obj\Debug\page\pageWrong.baml
+C:\Project\git\Tiku\Tiku\obj\Debug\control\ucNews.g.cs
+C:\Project\git\Tiku\Tiku\obj\Debug\control\ucNews.baml

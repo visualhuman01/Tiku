@@ -13,15 +13,39 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="300"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0"></Button>
-            <Button Grid.Column="1"></Button>
-            <TextBlock>总题量：0题  已完成：0题  未完成：0题</TextBlock>
+            <Button Grid.Column="0" Margin="10" x:Name="btn_last" Click="btn_last_Click">上一题</Button>
+            <Button Grid.Column="1" Margin="10" x:Name="btn_next" Click="btn_next_Click">下一题</Button>
+            <StackPanel Grid.Column="2" VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock  VerticalAlignment="Center" >总题量：</TextBlock>
+                <TextBlock  VerticalAlignment="Center" x:Name="txtAll">0</TextBlock>
+                <TextBlock  VerticalAlignment="Center" >题</TextBlock>
+                <TextBlock  VerticalAlignment="Center" Width="20"></TextBlock>
+                <TextBlock  VerticalAlignment="Center" >已完成：</TextBlock>
+                <TextBlock  VerticalAlignment="Center" x:Name="txtOver">0</TextBlock>
+                <TextBlock  VerticalAlignment="Center" >题</TextBlock>
+                <TextBlock  VerticalAlignment="Center" Width="20"></TextBlock>
+                <TextBlock  VerticalAlignment="Center" >未完成：</TextBlock>
+                <TextBlock  VerticalAlignment="Center" x:Name="txtNo">0</TextBlock>
+                <TextBlock  VerticalAlignment="Center" >题</TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Column="3" Orientation="Horizontal">
+                <Grid Width="20" Height="20" HorizontalAlignment="Center" Background="#FFFF0202"></Grid>
+                <TextBlock VerticalAlignment="Center" Margin="5">错误</TextBlock>
+                <Grid Width="20" Height="20" HorizontalAlignment="Center" Background="#FF0EF922"></Grid>
+                <TextBlock VerticalAlignment="Center" Margin="5">正确</TextBlock>
+            </StackPanel>
         </Grid>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20">
+            <ScrollViewer.Content>
+                <StackPanel x:Name="spNoList" Grid.Row="1" Orientation="Vertical" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                </StackPanel>
+            </ScrollViewer.Content>
+        </ScrollViewer>
     </Grid>
 </UserControl>

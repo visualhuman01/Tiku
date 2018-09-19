@@ -74,8 +74,10 @@ namespace Tiku.page
                     _main.SwitchPage(E_Page_Type.Practice);
                     break;
                 case "历年真题":
+                    _main.SwitchPage(E_Page_Type.Linian);
                     break;
                 case "模拟考试":
+                    _main.SwitchPage(E_Page_Type.Moni);
                     break;
                 case "巩固练习":
                     break;
@@ -84,11 +86,13 @@ namespace Tiku.page
                 case "激活软件":
                     break;
                 case "考试资讯":
+                    _main.SwitchPage(E_Page_Type.News);
                     break;
                 case "重选课程":
                     _main.SwitchPage(E_Page_Type.Main);
                     break;
                 case "错题强化":
+                    _main.SwitchPage(E_Page_Type.Wrong);
                     break;
             }
         }

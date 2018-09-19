@@ -52,5 +52,16 @@ namespace Tiku.common
             else
                 return false;
         }
+        public static bool CompareArr(string[] arr1, string[] arr2)
+
+        {
+
+            var q = from a in arr1 join b in arr2 on a equals b select a;
+
+            bool flag = arr1.Length == arr2.Length && q.Count() == arr1.Length;
+
+            return flag;//内容相同返回true,反之返回false。
+
+        }
     }
 }

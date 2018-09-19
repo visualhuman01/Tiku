@@ -20,6 +20,11 @@ using Tiku.model;
 
 namespace Tiku.page
 {
+    public enum E_Special_Type
+    {
+        linian = 0,
+        moni,
+    }
     /// <summary>
     /// pagePractice.xaml 的交互逻辑
     /// </summary>
@@ -32,9 +37,88 @@ namespace Tiku.page
             _main = main;
             InitializeComponent();
         }
-        public void init()
+        public void LoadWrong(List<dynamic> data)
         {
             tvMenu.Items.Clear();
+            _questions.Clear();
+            foreach (var v in data)
+            {
+                var vv = (JObject)v;
+                var json = vv.ToString();
+                var obj = JsonConvert.DeserializeObject<question_data>(json);
+                _questions.Add(obj);
+            }
+            uc_question_bottom.Refresh(_questions.Count);
+            showQuestion(0);
+        }
+        public void LoadSpecial(string cate_id, E_Special_Type type)
+        {
+            tvMenu.Items.Clear();
+            _questions.Clear();
+            if (!string.IsNullOrEmpty(_main.Cate_Id))
+            {
+                var param = new
+                {
+                    id = _main.Cate_Id,
+                    token = Config.Token,
+                    phone = Config.Phone,
+                };
+                var re = HttpHelper.Post(Config.Server + "/record/special", param);
+                if (re != null && HttpHelper.IsOk(re))
+                {
+                    var data = re["data"];
+                    TreeViewItem tvi = new TreeViewItem();
+                    TextBlock tb = new TextBlock();
+                    switch (type)
+                    {
+                        case E_Special_Type.linian:
+                            tb.Text = "历年真题";
+                            data = data["linian"];
+                            break;
+                        case E_Special_Type.moni:
+                            tb.Text = "模拟考试";
+                            data = data["moni"];
+                            break;
+                        default:
+                            break;
+                    }
+                    tb.FontSize = 14;
+                    tvi.Header = tb;
+                    tvMenu.Items.Add(tvi);
+                    //if(data["is_act"] == 0)
+                    //{
+                    //    MessageBox.Show("尚未激活");
+                    //    return;
+                    //}
+                    var param1 = new
+                    {
+                        id = data["gid"].ToString(),
+                        token = Config.Token,
+                        phone = Config.Phone,
+                    };
+                    var ree = HttpHelper.Post(Config.Server + "/api/course", param1);
+                    if (ree != null && HttpHelper.IsOk(ree))
+                    {
+                        var data1 = ree["data"];
+                        foreach (var dd in data1)
+                        {
+                            TreeViewItem tvi1 = new TreeViewItem();
+                            TextBlock tb1 = new TextBlock();
+                            tb1.Text = dd["goods_name"].ToString() + "(" + dd["num"].ToString() + ")";
+                            tb1.FontSize = 14;
+                            tvi1.Header = tb1;
+                            tvi1.Tag = dd;
+                            tvi1.Selected += Tvi_Selected;
+                            tvi.Items.Add(tvi1);
+                        }
+                    }
+                }
+            }
+        }
+        public void LoadQuestionBank(string cate_id)
+        {
+            tvMenu.Items.Clear();
+            _questions.Clear();
             if (!string.IsNullOrEmpty(_main.Cate_Id))
             {
                 var param = new
@@ -96,50 +180,33 @@ namespace Tiku.page
                     token = Config.Token,
                     phone = Config.Phone,
                 };
-                var re = HttpHelper.Post(Config.Server + "/index/question", param);
+                var re = HttpHelper.Post(Config.Server + "/api/app", param);
                 if (re != null && HttpHelper.IsOk(re))
                 {
                     var data1 = re["data"];
                     foreach (var v in data1)
                     {
-                        var vv = (JProperty)v;
-                        E_Question_Type type = (E_Question_Type)Enum.Parse(typeof(E_Question_Type), vv.Name, true);
-                        var dd = vv.Value;
-                        var ddd = dd.ToList();
-                        foreach (var d1 in ddd)
-                        {
-                            var json = d1.ToString();
-                            Object obj = null;
-                            switch (type)
-                            {
-                                case E_Question_Type.brief:
-                                    obj = JsonConvert.DeserializeObject<brief_data>(json);
-                                    break;
-                                case E_Question_Type.judge:
-                                    obj = JsonConvert.DeserializeObject<judge_data>(json);
-                                    break;
-                                case E_Question_Type.one:
-                                    obj = JsonConvert.DeserializeObject<one_data>(json);
-                                    break;
-                                case E_Question_Type.pack:
-                                    obj = JsonConvert.DeserializeObject<pack_data>(json);
-                                    break;
-                                case E_Question_Type.question:
-                                    obj = JsonConvert.DeserializeObject<question_data>(json);
-                                    break;
-                            }
-                            _questions.Add(obj);
-                        }
-
+                        //E_Question_Type type = (E_Question_Type)Enum.Parse(typeof(E_Question_Type), vv.Name, true);
+                        var json = v.ToString();
+                        Object obj = JsonConvert.DeserializeObject<question_data>(json);
+                        _questions.Add(obj);
                     }
+                    uc_question_bottom.Refresh(_questions.Count);
+                    showQuestion(0);
                 }
-                uc_question.SetData(1, _questions[0]);
             }
         }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private void showQuestion(int index)
         {
-            init();
+            uc_question.SetData(index + 1, _questions[index]);
+        }
+
+        private void uc_question_bottom_Select_Event(int index, int old)
+        {
+            var b = uc_question.JudgeAnswer();
+            if (b != null)
+                uc_question_bottom.SetColor(old, (bool)b);
+            showQuestion(index);
         }
     }
 }
