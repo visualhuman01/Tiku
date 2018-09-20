@@ -29,13 +29,24 @@ namespace Tiku.control
         public string field_name { get; set; }
         public HorizontalAlignment ha { get; set; }
         public E_Field_Type field_type { get; set; }
+        public delegate void FieldFormat_Delegate(string value, out string new_value);
+        public event FieldFormat_Delegate FieldFormat_Event;
+        internal string act_fieldformat(string value)
+        {
+            string new_value = null;
+            if (FieldFormat_Event != null)
+            {
+                FieldFormat_Event(value, out new_value);
+            }
+            return new_value;
+        }
     }
     /// <summary>
     /// ucTableItem.xaml 的交互逻辑
     /// </summary>
     public partial class ucTableItem : UserControl
     {
-        public delegate void Checked_Delegate(object sender,bool check);
+        public delegate void Checked_Delegate(object sender, bool check);
         public event Checked_Delegate Checked_Event;
         private List<TableColumn> _columns;
         public List<TableColumn> Columns
@@ -89,10 +100,15 @@ namespace Tiku.control
                         switch (v.field_type)
                         {
                             case E_Field_Type.text:
-                                if(_data[v.field] != null)
+                                if (_data[v.field] != null)
                                 {
                                     TextBlock tb = new TextBlock();
                                     tb.Text = _data[v.field].ToString();
+                                    var s = v.act_fieldformat(tb.Text);
+                                    if (!string.IsNullOrEmpty(s))
+                                    {
+                                        tb.Text = s;
+                                    }
                                     tb.HorizontalAlignment = v.ha;
                                     tb.TextTrimming = TextTrimming.CharacterEllipsis;
                                     tb.SetValue(Grid.ColumnProperty, index);
@@ -139,7 +155,7 @@ namespace Tiku.control
         private void Ck_Checked(object sender, RoutedEventArgs e)
         {
             CheckBox ck = (CheckBox)sender;
-            if(Checked_Event != null)
+            if (Checked_Event != null)
             {
                 Checked_Event(this, ck.IsChecked == true ? true : false);
             }

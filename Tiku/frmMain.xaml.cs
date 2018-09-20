@@ -28,6 +28,7 @@ namespace Tiku
         Linian,
         Moni,
         WrongToPractice,
+        Consolidate,
     }
     /// <summary>
     /// frmMain.xaml 的交互逻辑
@@ -42,19 +43,21 @@ namespace Tiku
         private pagePractice _practice = null;
         private pageNews _news = null;
         private pageWrong _wrong = null;
+        private pageConsolidate _consolidate= null;
         public string Cate_Id { get; set; }
 
         public frmMain(frmLogin frm)
         {
             InitializeComponent();
             _frmlogin = frm;
-            _logo = new pageLogo();
+            _logo = new pageLogo(this);
             _main = new pageMain(this);
             _tools = new pageTools(this);
             _userinfo = new pageUserInfo();
             _practice = new pagePractice(this);
             _news = new pageNews();
             _wrong = new pageWrong(this);
+            _consolidate = new pageConsolidate(this);
             SwitchPage(E_Page_Type.Main);
         }
 
@@ -97,6 +100,10 @@ namespace Tiku
                     fmMain.Navigate(_practice);
                     fmTitle.Navigate(_tools);
                     _practice.LoadWrong((List<dynamic>)data);
+                    break;
+                case E_Page_Type.Consolidate:
+                    fmMain.Navigate(_consolidate);
+                    fmTitle.Navigate(_tools);
                     break;
                 default:
                     break;

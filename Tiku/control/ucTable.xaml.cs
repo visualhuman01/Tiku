@@ -58,6 +58,7 @@ namespace Tiku.control
         }
         public void reload()
         {
+            spTable.Children.Clear();
             if (_columns != null && _columns.Count > 0)
             {
                 gTitle.ColumnDefinitions.Clear();

@@ -50,7 +50,12 @@ namespace Tiku.page
 
         private void btnAll_Click(object sender, RoutedEventArgs e)
         {
-
+            List<dynamic> data = new List<dynamic>();
+            foreach(var d in tbWrong.Data)
+            {
+                data.Add(d);
+            }
+            _main.SwitchPage(E_Page_Type.WrongToPractice, data);
         }
 
         private void btnSelect_Click(object sender, RoutedEventArgs e)

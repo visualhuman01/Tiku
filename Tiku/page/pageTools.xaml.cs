@@ -31,6 +31,7 @@ namespace Tiku.page
         public void init()
         {
             ucToolItem item1 = new ucToolItem("个人中心", "/Tiku;component/image/userform1.png");
+            item1.IsSelect = true;
             item1.Click_Event += Item_Click_Event;
             spTools.Children.Add(item1);
             ucToolItem item2 = new ucToolItem("题库练习", "/Tiku;component/image/userform2.png");
@@ -61,9 +62,20 @@ namespace Tiku.page
             item10.Click_Event += Item_Click_Event;
             spTools.Children.Add(item10);
         }
-
+        private void itemAllUnSelect(object obj)
+        {
+            foreach(var o in spTools.Children)
+            {
+                if(o != obj)
+                {
+                    ucToolItem ti = (ucToolItem)o;
+                    ti.IsSelect = false;
+                }
+            }
+        }
         private void Item_Click_Event(object sender)
         {
+            itemAllUnSelect(sender);
             ucToolItem uti = (ucToolItem)sender;
             switch (uti.Text)
             {
@@ -80,6 +92,7 @@ namespace Tiku.page
                     _main.SwitchPage(E_Page_Type.Moni);
                     break;
                 case "巩固练习":
+                    _main.SwitchPage(E_Page_Type.Consolidate);
                     break;
                 case "进度分析":
                     break;
@@ -95,6 +108,11 @@ namespace Tiku.page
                     _main.SwitchPage(E_Page_Type.Wrong);
                     break;
             }
+        }
+
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            _main.DragMove();
         }
     }
 }

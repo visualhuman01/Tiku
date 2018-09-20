@@ -9,7 +9,7 @@
       Title="pageTools" ShowsNavigationUI="False">
 
     <Grid>
-        <Image Stretch="Fill" Source="/Tiku;component/image/导航bg.png"></Image>
+        <Image Stretch="Fill" Source="/Tiku;component/image/导航bg.png" MouseLeftButtonDown="Grid_MouseLeftButtonDown"></Image>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"></ColumnDefinition>

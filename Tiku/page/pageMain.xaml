@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Tiku"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="1280"
-      Title="pageMain" ShowsNavigationUI="False">
+      Title="pageMain" ShowsNavigationUI="False" Loaded="Page_Loaded">
 
     <Grid>
         <Grid.ColumnDefinitions>

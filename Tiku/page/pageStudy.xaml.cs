@@ -15,17 +15,16 @@ using System.Windows.Shapes;
 using Tiku.common;
 using Tiku.model;
 
-namespace Tiku.control
+namespace Tiku.page
 {
     /// <summary>
     /// ucStudy.xaml 的交互逻辑
     /// </summary>
-    public partial class ucStudy : UserControl
+    public partial class pageStudy : Page
     {
-        public ucStudy()
+        public pageStudy()
         {
             InitializeComponent();
-            init();
         }
         public void init()
         {
@@ -52,6 +51,11 @@ namespace Tiku.control
                 txt_all_pre.Text = data["all_pre"];
                 txt_right_pre.Text = data["right_pre"];
             }
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            init();
         }
     }
 }

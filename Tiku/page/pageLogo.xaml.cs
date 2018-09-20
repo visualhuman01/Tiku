@@ -20,9 +20,16 @@ namespace Tiku.page
     /// </summary>
     public partial class pageLogo : Page
     {
-        public pageLogo()
+        private frmMain _main = null;
+        public pageLogo(frmMain main)
         {
             InitializeComponent();
+            _main = main;
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            _main.DragMove();
         }
     }
 }

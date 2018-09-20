@@ -22,10 +22,30 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition Width="150"></ColumnDefinition>
                     <ColumnDefinition Width="80"></ColumnDefinition>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="txtTitle" Grid.Column="0" VerticalAlignment="Center" FontSize="18">title</TextBlock>
                 <TextBlock x:Name="txtTime" Grid.Column="1" VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Center" Foreground="#FF3E3E42">0000-00-00 00:00:00</TextBlock>
-                <Button x:Name="btnLink" Grid.Column="2" Content="查看详情>>" Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Right" Click="btnLink_Click">
+                <Button x:Name="btnCollection" Grid.Column="2" Content="收藏" Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Right" Click="btnCollection_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <TextBlock TextDecorations="Underline">  
+                <ContentPresenter />
+                            </TextBlock>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Foreground" Value="Blue" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Foreground" Value="Red" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button x:Name="btnLink" Grid.Column="3" Content="查看详情>>" Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Right" Click="btnLink_Click">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <TextBlock TextDecorations="Underline">  

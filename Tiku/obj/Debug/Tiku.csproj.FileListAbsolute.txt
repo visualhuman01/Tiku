@@ -53,8 +53,6 @@ C:\Project\git\Tiku\Tiku\obj\Debug\control\ucToolItem.baml
 C:\Project\git\Tiku\Tiku\obj\Debug\page\pageUserInfo.g.cs
 C:\Project\git\Tiku\Tiku\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Project\git\Tiku\Tiku\obj\Debug\page\pageUserInfo.baml
-C:\Project\git\Tiku\Tiku\obj\Debug\control\ucStudy.g.cs
-C:\Project\git\Tiku\Tiku\obj\Debug\control\ucStudy.baml
 C:\Project\git\Tiku\Tiku\obj\Debug\control\ucTableItem.g.cs
 C:\Project\git\Tiku\Tiku\obj\Debug\control\ucTableItem.baml
 C:\Project\git\Tiku\Tiku\obj\Debug\control\ucTable.g.cs
@@ -122,3 +120,15 @@ D:\Git\JQ\Tiku\Tiku\obj\Debug\page\pageWrong.baml
 D:\Git\JQ\Tiku\Tiku\obj\Debug\Tiku.g.resources
 D:\Git\JQ\Tiku\Tiku\obj\Debug\Tiku.Properties.Resources.resources
 D:\Git\JQ\Tiku\Tiku\obj\Debug\Tiku.csproj.GenerateResource.Cache
+C:\Project\git\Tiku\Tiku\obj\Debug\page\pageStudy.g.cs
+C:\Project\git\Tiku\Tiku\obj\Debug\page\pageActive.g.cs
+C:\Project\git\Tiku\Tiku\obj\Debug\page\pageActive.baml
+C:\Project\git\Tiku\Tiku\obj\Debug\page\pageStudy.baml
+C:\Project\git\Tiku\Tiku\obj\Debug\page\pageCollection.g.cs
+C:\Project\git\Tiku\Tiku\obj\Debug\page\pageCollection.baml
+C:\Project\git\Tiku\Tiku\obj\Debug\windows\frmFeedback.g.cs
+C:\Project\git\Tiku\Tiku\obj\Debug\windows\frmFeedback.baml
+C:\Project\git\Tiku\Tiku\obj\Debug\windows\frmAbout.g.cs
+C:\Project\git\Tiku\Tiku\obj\Debug\windows\frmAbout.baml
+C:\Project\git\Tiku\Tiku\obj\Debug\page\pageConsolidate.g.cs
+C:\Project\git\Tiku\Tiku\obj\Debug\page\pageConsolidate.baml

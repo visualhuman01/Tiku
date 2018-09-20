@@ -29,7 +29,6 @@ namespace Tiku.page
         {
             _main = main;
             InitializeComponent();
-            init();
         }
         private void init()
         {
@@ -42,20 +41,39 @@ namespace Tiku.page
             if (cate_res != null && HttpHelper.IsOk(cate_res))
             {
                 var data = cate_res["data"];
+                bool b = true;
                 foreach (var d in data)
                 {
                     ucTag ot = new ucTag(1, d["gid"].ToString(), d["goods_name"].ToString(), d["detail"]);
                     ot.Click_Event += Ot_Click_Event;
                     spOneTag.Children.Add(ot);
+                    if (b)
+                    {
+                        b = false;
+                        ot.IsSelect = true;
+                    }
                 }
             }
         }
-
+        private void otAllUnSelect(StackPanel sp, object obj)
+        {
+            spCourse.Children.Clear();
+            foreach (var o in sp.Children)
+            {
+                if(o != obj)
+                {
+                    ucTag ot = (ucTag)o;
+                    ot.IsSelect = false;
+                }
+            }
+        }
         private void Ot_Click_Event(object sender)
         {
+            otAllUnSelect(spOneTag, sender);
             ucTag ot = (ucTag)sender;
             var data = ot.Data;
             spTwoTag.Children.Clear();
+            bool b = true;
             foreach (var d in data)
             {
                 ucTag tt = new ucTag(2, d["gid"].ToString(), d["goods_name"].ToString(), d["detail"]);
@@ -63,11 +81,17 @@ namespace Tiku.page
                 tt.Height = 30;
                 tt.Click_Event += Tt_Click_Event;
                 spTwoTag.Children.Add(tt);
+                if (b)
+                {
+                    b = false;
+                    tt.IsSelect = true;
+                }
             }
         }
 
         private void Tt_Click_Event(object sender)
         {
+            otAllUnSelect(spTwoTag, sender);
             ucTag tt = (ucTag)sender;
             var data = tt.Data;
             spCourse.Children.Clear();
@@ -110,6 +134,11 @@ namespace Tiku.page
             ucCourse uc = (ucCourse)sender;
             _main.Cate_Id = uc.Gid;
             _main.SwitchPage(E_Page_Type.User);
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            init();
         }
     }
 }

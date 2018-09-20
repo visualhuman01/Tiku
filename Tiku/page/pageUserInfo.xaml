@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Tiku.page"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1280"
-      Title="pageUserInfo" ShowsNavigationUI="False">
+      Title="pageUserInfo" ShowsNavigationUI="False" Loaded="Page_Loaded">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -14,9 +14,7 @@
             <ColumnDefinition Width="2"></ColumnDefinition>
             <ColumnDefinition Width="400"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="gContent" Grid.Column="0">
-            
-        </Grid>
+        <Frame x:Name="fmContent"></Frame>
         <Grid Grid.Column="1" Background="#FF007ACC"></Grid>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
@@ -24,7 +22,7 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="80,20"></Grid>
-            <Grid Grid.Row="1" Margin="50" Height="300" VerticalAlignment="Top">
+            <Grid x:Name="gMenu" Grid.Row="1" Margin="30" Height="300" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -35,13 +33,12 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <control:ucToolItem  Grid.Row="0" Grid.Column="0" Width="80" Height="90" ImageSource="/Tiku;component/image/icon_4_01wodedingdan@2x.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF" ForegroundUnSelect="#FF007ACC"/>
-                <control:ucToolItem  Grid.Row="0" Grid.Column="1" Width="80" Height="90" ImageSource="/Tiku;component/image/icon_4_01youhuiquan@2x.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
-                <control:ucToolItem  Grid.Row="0" Grid.Column="2" Width="80" Height="90" ImageSource="/Tiku;component/image/icon_4_01yijianfankui@2x.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
-                <control:ucToolItem  Grid.Row="1" Grid.Column="0" Width="80" Height="90" ImageSource="/Tiku;component/image/资讯收藏.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
-                <control:ucToolItem  Grid.Row="1" Grid.Column="1" Width="80" Height="90" ImageSource="/Tiku;component/image/icon_4_01kechengchakan@2x.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
-                <control:ucToolItem  Grid.Row="1" Grid.Column="2" Width="80" Height="90" ImageSource="/Tiku;component/image/关于我们.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
-                <control:ucToolItem  Grid.Row="2" Grid.Column="0" Width="80" Height="90" ImageSource="/Tiku;component/image/分享 (2).png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
+                <control:ucToolItem Text="最近学习章节" Click_Event="ucToolItem_Click_Event" Grid.Row="0" Grid.Column="0" Width="100" Height="90" ImageSource="/Tiku;component/image/icon_4_01wodedingdan@2x.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF" ForegroundUnSelect="#FF007ACC"/>
+                <control:ucToolItem Text="激活的题目" Click_Event="ucToolItem_Click_Event" Grid.Row="0" Grid.Column="1" Width="100" Height="90" ImageSource="/Tiku;component/image/icon_4_01yijianfankui@2x.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
+                <control:ucToolItem Text="资讯收藏" Click_Event="ucToolItem_Click_Event" Grid.Row="0" Grid.Column="2" Width="100" Height="90" ImageSource="/Tiku;component/image/资讯收藏.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
+                <control:ucToolItem Text="意见反馈" Click_Event="ucToolItem_Click_Event" Grid.Row="1" Grid.Column="0" Width="100" Height="90" ImageSource="/Tiku;component/image/icon_4_01kechengchakan@2x.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
+                <control:ucToolItem Text="关于我们" Click_Event="ucToolItem_Click_Event" Grid.Row="1" Grid.Column="1" Width="100" Height="90" ImageSource="/Tiku;component/image/关于我们.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
+                <control:ucToolItem Text="分享" Click_Event="ucToolItem_Click_Event" Grid.Row="1" Grid.Column="2" Width="100" Height="90" ImageSource="/Tiku;component/image/分享 (2).png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
             </Grid>
         </Grid>
     </Grid>

@@ -22,6 +22,8 @@ namespace Tiku.control
     {
         public delegate void Link_Delegate(object sender);
         public event Link_Delegate Link_Event;
+        public delegate void Collection_Delegate(object sender);
+        public event Collection_Delegate Collection_Event;
         private string _imgurl;
         public string ImgUrl
         {
@@ -72,6 +74,14 @@ namespace Tiku.control
             if(Link_Event != null)
             {
                 Link_Event(this);
+            }
+        }
+
+        private void btnCollection_Click(object sender, RoutedEventArgs e)
+        {
+            if(Collection_Event != null)
+            {
+                Collection_Event(this);
             }
         }
     }

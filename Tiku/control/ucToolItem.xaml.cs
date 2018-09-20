@@ -33,6 +33,13 @@ namespace Tiku.control
             {
                 _is_select = value;
                 setColor();
+                if (_is_select)
+                {
+                    if (Click_Event != null)
+                    {
+                        Click_Event(this);
+                    }
+                }
             }
         }
         private string _image_source;
@@ -154,10 +161,6 @@ namespace Tiku.control
         private void gButton_MouseUp(object sender, MouseButtonEventArgs e)
         {
             this.IsSelect = true;
-            if (Click_Event != null)
-            {
-                Click_Event(this);
-            }
         }
     }
 }

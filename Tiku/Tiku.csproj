@@ -43,6 +43,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,6 +62,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="page\pageConsolidate.xaml.cs">
+      <DependentUpon>pageConsolidate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\frmAbout.xaml.cs">
+      <DependentUpon>frmAbout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\frmFeedback.xaml.cs">
+      <DependentUpon>frmFeedback.xaml</DependentUpon>
+    </Compile>
+    <Page Include="page\pageActive.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="control\ucCourse.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -77,7 +91,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="control\ucStudy.xaml">
+    <Page Include="page\pageCollection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="page\pageConsolidate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="page\pageStudy.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -106,6 +128,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="common\HttpHelper.cs" />
+    <Compile Include="page\pageActive.xaml.cs">
+      <DependentUpon>pageActive.xaml</DependentUpon>
+    </Compile>
     <Compile Include="control\ucCourse.xaml.cs">
       <DependentUpon>ucCourse.xaml</DependentUpon>
     </Compile>
@@ -118,8 +143,11 @@
     <Compile Include="control\ucQuestionBottom.xaml.cs">
       <DependentUpon>ucQuestionBottom.xaml</DependentUpon>
     </Compile>
-    <Compile Include="control\ucStudy.xaml.cs">
-      <DependentUpon>ucStudy.xaml</DependentUpon>
+    <Compile Include="page\pageCollection.xaml.cs">
+      <DependentUpon>pageCollection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="page\pageStudy.xaml.cs">
+      <DependentUpon>pageStudy.xaml</DependentUpon>
     </Compile>
     <Compile Include="control\ucTable.xaml.cs">
       <DependentUpon>ucTable.xaml</DependentUpon>
@@ -166,6 +194,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="page\pageWrong.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\frmAbout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\frmFeedback.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
