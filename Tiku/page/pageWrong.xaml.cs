@@ -45,9 +45,15 @@ namespace Tiku.page
             {
                 var data = re["data"];
                 tbWrong.Data = data;
+            }else
+            {
+                frmMain.ShowLogin(callBack);
             }
         }
-
+        private void callBack(dynamic param)
+        {
+            init();
+        }
         private void btnAll_Click(object sender, RoutedEventArgs e)
         {
             List<dynamic> data = new List<dynamic>();

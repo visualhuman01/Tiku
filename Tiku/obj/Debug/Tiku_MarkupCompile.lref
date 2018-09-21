@@ -6,6 +6,7 @@ FC:\Project\git\Tiku\Tiku\control\ucNews.xaml;;
 FC:\Project\git\Tiku\Tiku\control\ucQuestion.xaml;;
 FC:\Project\git\Tiku\Tiku\control\ucQuestionBottom.xaml;;
 FC:\Project\git\Tiku\Tiku\page\pageCollection.xaml;;
+FC:\Project\git\Tiku\Tiku\page\pageConsolidate.xaml;;
 FC:\Project\git\Tiku\Tiku\page\pageStudy.xaml;;
 FC:\Project\git\Tiku\Tiku\control\ucTable.xaml;;
 FC:\Project\git\Tiku\Tiku\control\ucTableItem.xaml;;
@@ -22,5 +23,4 @@ FC:\Project\git\Tiku\Tiku\page\pageUserInfo.xaml;;
 FC:\Project\git\Tiku\Tiku\page\pageWrong.xaml;;
 FC:\Project\git\Tiku\Tiku\windows\frmAbout.xaml;;
 FC:\Project\git\Tiku\Tiku\windows\frmFeedback.xaml;;
-FC:\Project\git\Tiku\Tiku\page\pageConsolidate.xaml;;
 

@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tiku.common;
+using Tiku.model;
+using Tiku.windows;
 
 namespace Tiku.control
 {
@@ -352,6 +354,28 @@ namespace Tiku.control
             {
                 Redo_Event(this,_index);
             }
+        }
+
+        private void btn_collection_Click(object sender, RoutedEventArgs e)
+        {
+            var param = new
+            {
+                phone = Config.Phone,
+                token = Config.Token,
+                type = _data.type,
+                qid = _data.qid,
+            };
+            var re = HttpHelper.Post(Config.Server + "/record/collect", param);
+            if(re!=null && HttpHelper.IsOk(re))
+            {
+                MessageBox.Show("收藏成功");
+            }
+        }
+
+        private void btn_error_Click(object sender, RoutedEventArgs e)
+        {
+            frmFeedback fb = new frmFeedback(E_Feedback_Type.question, _data.type, _data.qid);
+            fb.ShowDialog();
         }
     }
 }

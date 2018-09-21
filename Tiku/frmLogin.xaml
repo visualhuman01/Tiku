@@ -66,7 +66,7 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnCancel" Grid.Column="0" Margin="10">取消</Button>
+                <Button x:Name="btnCancel" Grid.Column="0" Margin="10" Click="btnCancel_Click">取消</Button>
                 <Button x:Name="btnOk" Grid.Column="1" Margin="10" Click="btnOk_Click">确定</Button>
             </Grid>
         </Grid>

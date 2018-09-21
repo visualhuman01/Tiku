@@ -32,6 +32,9 @@ namespace Tiku.page
         }
         private void init()
         {
+            spOneTag.Children.Clear();
+            spTwoTag.Children.Clear();
+            spCourse.Children.Clear();
             var param = new
             {
                 phone = Config.Phone,
@@ -54,13 +57,21 @@ namespace Tiku.page
                     }
                 }
             }
+            else
+            {
+                frmMain.ShowLogin(callBack);
+            }
+        }
+        private void callBack(dynamic param)
+        {
+            init();
         }
         private void otAllUnSelect(StackPanel sp, object obj)
         {
             spCourse.Children.Clear();
             foreach (var o in sp.Children)
             {
-                if(o != obj)
+                if (o != obj)
                 {
                     ucTag ot = (ucTag)o;
                     ot.IsSelect = false;
@@ -101,22 +112,24 @@ namespace Tiku.page
                 g.ColumnDefinitions.Add(new ColumnDefinition());
                 g.ColumnDefinitions.Add(new ColumnDefinition());
                 var d = data[i];
-                ucCourse uc1 = new ucCourse(d["gid"].ToString(), d["goods_name"].ToString(), d["price"].ToString(), d["sale"].ToString());
+                ucCourse uc1 = new ucCourse(d["gid"].ToString(), d["goods_name"].ToString(), d["price"].ToString(), d["sale"].ToString(), ((int)d["is_sale"]) == 1 ? true : false, ((int)d["is_act"]) == 1 ? true : false);
                 uc1.SetValue(Grid.ColumnProperty, 0);
                 uc1.Height = 100;
                 uc1.Width = 400;
                 uc1.Activate_Event += Uc_Activate_Event;
                 uc1.Tryout_Event += Uc_Tryout_Event;
+                uc1.Click_Event += Uc_Click_Event;
                 g.Children.Add(uc1);
                 if (i + 1 < data.Count)
                 {
                     d = data[i + 1];
-                    ucCourse uc2 = new ucCourse(d["gid"].ToString(), d["goods_name"].ToString(), d["price"].ToString(), d["sale"].ToString());
+                    ucCourse uc2 = new ucCourse(d["gid"].ToString(), d["goods_name"].ToString(), d["price"].ToString(), d["sale"].ToString(), ((int)d["is_sale"]) == 1 ? true : false, ((int)d["is_act"]) == 1 ? true : false);
                     uc2.SetValue(Grid.ColumnProperty, 1);
                     uc2.Height = 100;
                     uc2.Width = 400;
                     uc2.Activate_Event += Uc_Activate_Event;
                     uc2.Tryout_Event += Uc_Tryout_Event;
+                    uc2.Click_Event += Uc_Click_Event;
                     g.Children.Add(uc2);
                 }
                 g.Margin = new Thickness(10);
@@ -124,16 +137,39 @@ namespace Tiku.page
             }
         }
 
-        private void Uc_Tryout_Event(object sender)
-        {
-            
-        }
-
-        private void Uc_Activate_Event(object sender)
+        private void Uc_Click_Event(object sender)
         {
             ucCourse uc = (ucCourse)sender;
             _main.Cate_Id = uc.Gid;
+            selectCate(_main.Cate_Id);
             _main.SwitchPage(E_Page_Type.User);
+        }
+
+        private void Uc_Tryout_Event(object sender)
+        {
+            ucCourse uc = (ucCourse)sender;
+            _main.Cate_Id = uc.Gid;
+            selectCate(_main.Cate_Id);
+            _main.SwitchPage(E_Page_Type.User);
+        }
+        private bool selectCate(string cate_id)
+        {
+            var param = new
+            {
+                token = Config.Token,
+                phone = Config.Phone,
+                id = cate_id,
+            };
+            var re = HttpHelper.Post(Config.Server + "/index/select", param);
+            if(re !=null && HttpHelper.IsOk(re))
+            {
+                return true;
+            }
+            return false;
+        }
+        private void Uc_Activate_Event(object sender)
+        {
+            
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

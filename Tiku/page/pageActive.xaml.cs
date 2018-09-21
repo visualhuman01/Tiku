@@ -49,8 +49,15 @@ namespace Tiku.page
                 var data = re["data"]["data"];
                 _hasNext = re["data"]["hasNext"];
                 table.Data = data;
+            }else
+            {
+                frmMain.ShowLogin(callBack);
             }
             setBtnEnabled();
+        }
+        private void callBack(dynamic param)
+        {
+            Reload();
         }
         private void setBtnEnabled()
         {

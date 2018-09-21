@@ -70,7 +70,14 @@ namespace Tiku.page
             {
                 var data = re["data"];
                 table.Data = data;
+            }else
+            {
+                frmMain.ShowLogin(callback);
             }
+        }
+        private void callback(dynamic param)
+        {
+            Reload();
         }
         private void btnCollectList_Click(object sender, RoutedEventArgs e)
         {

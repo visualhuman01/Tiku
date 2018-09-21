@@ -107,8 +107,8 @@
                 <Button x:Name="btn_show_answer" Grid.Column="2" Margin="10" Click="btn_show_answer_Click">显示答案</Button>
                 <Button x:Name="btn_redo" Grid.Column="3" Margin="10" Click="btn_redo_Click">重做</Button>
                 <Button x:Name="btn_note" Grid.Column="4" Margin="10">笔记</Button>
-                <Button x:Name="btn_collection" Grid.Column="5" Margin="10">收藏</Button>
-                <Button x:Name="btn_error" Grid.Column="6" Margin="10">纠错</Button>
+                <Button x:Name="btn_collection" Grid.Column="5" Margin="10" Click="btn_collection_Click">收藏</Button>
+                <Button x:Name="btn_error" Grid.Column="6" Margin="10" Click="btn_error_Click">纠错</Button>
             </Grid>
             <Grid Grid.Row="2" Background="#FF007ACC"></Grid>
         </Grid>

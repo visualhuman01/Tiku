@@ -40,9 +40,9 @@ namespace Tiku.page
         }
         private void itemAllUnSelect(object obj)
         {
-            foreach(var o in gMenu.Children)
+            foreach (var o in gMenu.Children)
             {
-                if(o != obj)
+                if (o != obj)
                 {
                     ucToolItem ti = (ucToolItem)o;
                     ti.IsSelect = false;
@@ -65,7 +65,7 @@ namespace Tiku.page
                     fmContent.Navigate(_collection);
                     break;
                 case "意见反馈":
-                    frmFeedback fb = new frmFeedback();
+                    frmFeedback fb = new frmFeedback(E_Feedback_Type.option);
                     fb.ShowDialog();
                     break;
                 case "关于我们":

@@ -61,10 +61,38 @@ namespace Tiku.page
                     news.Margin = new Thickness(20);
                     news.Tag = d["rid"];
                     news.Link_Event += News_Link_Event;
+                    news.Collection_Event += News_Collection_Event;
+                    news.Width = 1200;
                     spNews.Children.Add(news);
                 }
+            }else
+            {
+                frmMain.ShowLogin(callback);
             }
             setBtnEnabled();
+        }
+
+        private void News_Collection_Event(object sender)
+        {
+            ucNews uc = (ucNews)sender;
+            string id = uc.Tag.ToString();
+            var param = new
+            {
+                token = Config.Token,
+                phone = Config.Phone,
+                id = id,
+                status = 1,
+            };
+            var re = HttpHelper.Post(Config.Server + "/Record/newsEdit", param);
+            if(re !=null && HttpHelper.IsOk(re))
+            {
+                MessageBox.Show("收藏成功");
+            }
+        }
+
+        private void callback(dynamic param)
+        {
+            Reload();
         }
 
         private void News_Link_Event(object sender)

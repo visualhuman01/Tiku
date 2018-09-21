@@ -35,7 +35,6 @@ namespace Tiku
     /// </summary>
     public partial class frmMain : Window
     {
-        private frmLogin _frmlogin = null;
         private pageMain _main = null;
         private pageLogo _logo = null;
         private pageTools _tools = null;
@@ -46,10 +45,9 @@ namespace Tiku
         private pageConsolidate _consolidate= null;
         public string Cate_Id { get; set; }
 
-        public frmMain(frmLogin frm)
+        public frmMain()
         {
             InitializeComponent();
-            _frmlogin = frm;
             _logo = new pageLogo(this);
             _main = new pageMain(this);
             _tools = new pageTools(this);
@@ -60,7 +58,18 @@ namespace Tiku
             _consolidate = new pageConsolidate(this);
             SwitchPage(E_Page_Type.Main);
         }
-
+        public delegate void CallBack(dynamic param);
+        public static void ShowLogin(CallBack callback,dynamic param = null)
+        {
+            frmLogin frmlogin = new frmLogin();
+            if (frmlogin.ShowDialog() == true)
+            {
+                if(callback != null)
+                {
+                    callback(param);
+                }
+            }
+        }
         public void SwitchPage(E_Page_Type type, object data = null)
         {
             switch (type)
@@ -113,7 +122,18 @@ namespace Tiku
         private void menu_Exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-            _frmlogin.Close();
+        }
+
+        private void menu_logout_Click(object sender, RoutedEventArgs e)
+        {
+            Config.Token = "";
+            Config.Save();
+            ShowLogin(null);
+        }
+
+        private void menu_min_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
         }
     }
 }

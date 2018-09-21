@@ -64,6 +64,23 @@ namespace Tiku.control
                 txtContent.Text = _content;
             }
         }
+        private bool _is_collection;
+        public bool IsCollection
+        {
+            get { return _is_collection; }
+            set
+            {
+                _is_collection = value;
+                if (_is_collection)
+                {
+                    btnCollection.Content = "取消收藏";
+                }
+                else
+                {
+                    btnCollection.Content = "收藏";
+                }
+            }
+        }
         public ucNews()
         {
             InitializeComponent();
@@ -71,7 +88,7 @@ namespace Tiku.control
 
         private void btnLink_Click(object sender, RoutedEventArgs e)
         {
-            if(Link_Event != null)
+            if (Link_Event != null)
             {
                 Link_Event(this);
             }
@@ -79,7 +96,7 @@ namespace Tiku.control
 
         private void btnCollection_Click(object sender, RoutedEventArgs e)
         {
-            if(Collection_Event != null)
+            if (Collection_Event != null)
             {
                 Collection_Event(this);
             }

@@ -16,9 +16,9 @@
                 <Frame x:Name="fmTitle" NavigationUIVisibility="Hidden"></Frame>
                 <Menu Grid.Column="2" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right">
                     <MenuItem Header="菜单">
-                        <MenuItem x:Name="menu_logout" Header="退出登录"/>
+                        <MenuItem x:Name="menu_logout" Header="退出登录" Click="menu_logout_Click"/>
                     </MenuItem>
-                    <MenuItem x:Name="menu_min" Header="_" Click="menu_Exit_Click"/>
+                    <MenuItem x:Name="menu_min" Header="_" Click="menu_min_Click"/>
                     <MenuItem x:Name="menu_Exit" Header="X" Click="menu_Exit_Click"/>
                 </Menu>
             </Grid>

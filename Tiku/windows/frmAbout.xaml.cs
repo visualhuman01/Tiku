@@ -33,13 +33,17 @@ namespace Tiku.windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            
+        }
+        private void init ()
+        {
             var param = new
             {
                 token = Config.Token,
                 phone = Config.Phone,
             };
             var re = HttpHelper.Post(Config.Server + "/index/custom", param);
-            if(re!= null && HttpHelper.IsOk(re))
+            if (re != null && HttpHelper.IsOk(re))
             {
                 var data = re["data"];
                 txt_pre.Text = data["pre"].ToString();
@@ -50,8 +54,15 @@ namespace Tiku.windows
                 btnIOS.Tag = data["ios"].ToString();
                 btnWeb.Tag = data["url"].ToString();
             }
+            else
+            {
+                frmMain.ShowLogin(callBack);
+            }
         }
-
+        private void callBack(dynamic param)
+        {
+            init();
+        }
         private void Link_Click(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;

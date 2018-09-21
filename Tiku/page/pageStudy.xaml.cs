@@ -39,6 +39,10 @@ namespace Tiku.page
                 var data = re["data"];
                 tbStudy.Data = data;
             }
+            else
+            {
+                frmMain.ShowLogin(callBack);
+            }
             re = HttpHelper.Post(Config.Server + "/record/practice", param);
             if (re != null && HttpHelper.IsOk(re))
             {
@@ -51,8 +55,15 @@ namespace Tiku.page
                 txt_all_pre.Text = data["all_pre"];
                 txt_right_pre.Text = data["right_pre"];
             }
+            else
+            {
+                frmMain.ShowLogin(callBack);
+            }
         }
-
+        private void callBack(dynamic param)
+        {
+            init();
+        }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             init();

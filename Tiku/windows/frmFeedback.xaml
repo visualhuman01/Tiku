@@ -5,21 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tiku.windows"
         mc:Ignorable="d"
-        Title="意见反馈" Height="600" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+        Title="意见反馈" Height="300" Width="600" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Margin="20" FontSize="18">意见</TextBlock>
-        <TextBox x:Name="txtContent" Grid.Row="0" Grid.Column="1" Margin="10" FontSize="16" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible">test</TextBox>
-        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18">联系电话</TextBlock>
-        <TextBox x:Name="txtTel" Grid.Row="1" Grid.Column="1" Margin="10" FontSize="16" VerticalAlignment="Center">test</TextBox>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="txtLabel" Grid.Column="0" HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="18">错误描述</TextBlock>
+            <TextBox x:Name="txtContent" Grid.Column="1" Margin="10" FontSize="16" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"></TextBox>
+        </Grid>
+        <Grid x:Name="gPhone" Grid.Row="1" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock  Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18">联系电话</TextBlock>
+            <TextBox x:Name="txtTel" Grid.Column="1" Margin="10" FontSize="16" VerticalAlignment="Center"></TextBox>
+        </Grid>
+        <Grid x:Name="gError" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock  Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18">错误类型</TextBlock>
+            <ComboBox x:Name="cbError" Grid.Column="1" Margin="10" FontSize="16" VerticalAlignment="Center">
+                <ComboBoxItem IsSelected="True" Tag="1">题干有误</ComboBoxItem>
+                <ComboBoxItem Tag="2">答案有误</ComboBoxItem>
+                <ComboBoxItem Tag="3">答案解析有误</ComboBoxItem>
+            </ComboBox>
+        </Grid>
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button x:Name="btnCancel" Width="80" Height="30" Margin="10" Click="btnCancel_Click">取消</Button>
             <Button x:Name="btnOk" Width="80" Height="30" Margin="10" Click="btnOk_Click">确定</Button>

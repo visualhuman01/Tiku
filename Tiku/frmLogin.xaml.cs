@@ -26,16 +26,6 @@ namespace Tiku
         public frmLogin()
         {
             InitializeComponent();
-            init();
-        }
-        private void init()
-        {
-            string phone = Config.Phone;
-            string token = Config.Token;
-            if (!string.IsNullOrEmpty(phone) && !string.IsNullOrEmpty(token))
-            {
-                login(phone, null, null, token);
-            }
         }
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
@@ -63,9 +53,8 @@ namespace Tiku
                 Config.Phone = lp.phone;
                 Config.Token = re["data"]["token"].ToString();
                 Config.Save();
-                this.Hide();
-                frmMain main = new frmMain(this);
-                main.Show();
+                this.DialogResult = true;
+                this.Close();
             }
             else
             {
@@ -118,6 +107,11 @@ namespace Tiku
                     timer.Stop();
                 }
             }));
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

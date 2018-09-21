@@ -96,6 +96,7 @@ namespace Tiku.page
                     tb.FontSize = 14;
                     tvi.Header = tb;
                     tvMenu.Items.Add(tvi);
+                    tvi.IsExpanded = true;
                     //if(data["is_act"] == 0)
                     //{
                     //    MessageBox.Show("尚未激活");
@@ -123,9 +124,26 @@ namespace Tiku.page
                             tvi1.Selected += Tvi_Selected;
                             tvi.Items.Add(tvi1);
                         }
+                        if(tvi.Items != null && tvi.Items.Count > 0)
+                        {
+                            var tt = (TreeViewItem)tvi.Items[0];
+                            tt.IsSelected = true;
+                        }
+                    }
+                    else
+                    {
+                        frmMain.ShowLogin(callback_Special, type);
                     }
                 }
             }
+            else
+            {
+                frmMain.ShowLogin(callback_Special, type);
+            }
+        }
+        private void callback_Special(dynamic param)
+        {
+            LoadSpecial((E_Special_Type)param);
         }
         public void LoadQuestionBank(string cate_id)
         {
@@ -176,15 +194,41 @@ namespace Tiku.page
                                 tvi.Items.Add(tvi1);
                             }
                         }
+                        else
+                        {
+                            frmMain.ShowLogin(callback_QuestionBank, cate_id);
+                        }
+                    }
+                    if(tvMenu.Items != null && tvMenu.Items.Count > 0)
+                    {
+                        TreeViewItem tvi1 = (TreeViewItem)tvMenu.Items[0];
+                        tvi1.IsExpanded = true;
+                        if(tvi1.Items!=null && tvi1.Items.Count > 0)
+                        {
+                            TreeViewItem tvi2 = (TreeViewItem)tvi1.Items[0];
+                            tvi2.IsSelected = true;
+                        }
                     }
                 }
+                else
+                {
+                    frmMain.ShowLogin(callback_QuestionBank, cate_id);
+                }
             }
+        }
+        private void callback_QuestionBank(dynamic param)
+        {
+            LoadQuestionBank((string)param);
         }
 
         private void Tvi_Selected(object sender, RoutedEventArgs e)
         {
             TreeViewItem tvi = (TreeViewItem)sender;
             dynamic data = tvi.Tag;
+            Selected_App(data);
+        }
+        private void Selected_App(JObject data)
+        {
             if (data != null)
             {
                 _questions.Clear();
@@ -208,7 +252,15 @@ namespace Tiku.page
                     uc_question_bottom.Refresh(_questions.Count);
                     showQuestion(0);
                 }
+                else
+                {
+                    frmMain.ShowLogin(callback_Selected, data);
+                }
             }
+        }
+        private void callback_Selected(dynamic param)
+        {
+            Selected_App(param);
         }
         private void showQuestion(int index)
         {
@@ -219,7 +271,7 @@ namespace Tiku.page
                 uc_question.SetData(index, _questions[index], aa.ToList());
             }
             else
-                uc_question.SetData(index, _questions[index],null);
+                uc_question.SetData(index, _questions[index], null);
         }
 
         private void uc_question_bottom_Select_Event(int index, int next)
@@ -249,6 +301,10 @@ namespace Tiku.page
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
+            submit();
+        }
+        private void submit()
+        {
             int index = uc_question_bottom.CurrentIndex;
             var b = uc_question.JudgeAnswer();
             if (b != null)
@@ -271,7 +327,7 @@ namespace Tiku.page
                     _max_index = index;
             }
             List<Answer_Data> adlist = new List<Answer_Data>();
-            foreach(var kv in _answer_List)
+            foreach (var kv in _answer_List)
             {
                 adlist.Add(kv.Value);
             }
@@ -285,14 +341,21 @@ namespace Tiku.page
                 sign = _max_index,
             };
             var re = HttpHelper.Post(Config.Server + "/record/mark", param);
-            if(re != null && HttpHelper.IsOk(re))
+            if (re != null && HttpHelper.IsOk(re))
             {
                 var data = re["data"];
                 string msg = string.Format("总分：{0}\r\n总得分:{1}\r\n答对题数：{2}\r\n答错题数：{3}\r\n已做题总数：{4}\r\n试卷总题数：{5}\r\n未做题数：{6}\r\n正确率：{7}\r\n", data["max"], data["mark"], data["success"], data["error"], data["all"], data["num"], data["done"], data["CorrectRate"]);
                 MessageBox.Show(msg);
             }
+            else
+            {
+                frmMain.ShowLogin(callBack_submit);
+            }
         }
-
+        private void callBack_submit(dynamic param)
+        {
+            submit();
+        }
         private void btnRedo_Click(object sender, RoutedEventArgs e)
         {
             _answer_List.Clear();
@@ -300,7 +363,7 @@ namespace Tiku.page
             showQuestion(0);
         }
 
-        private void uc_question_Redo_Event(object sender,int index)
+        private void uc_question_Redo_Event(object sender, int index)
         {
             _answer_List.Remove(index);
             uc_question_bottom.SetColor(index, null);

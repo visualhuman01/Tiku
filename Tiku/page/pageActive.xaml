@@ -13,8 +13,8 @@
         </Grid.RowDefinitions>
         <local:ucTable Grid.Row="0" x:Name="table" Margin="10">
             <local:ucTable.Columns>
-                <local:TableColumn field_name="激活类型" field="type" type="Pixel" width="100" FieldFormat_Event="ActType_FieldFormat_Event"/>
                 <local:TableColumn field_name="题库名" field="goods_name"/>
+                <local:TableColumn field_name="激活类型" field="type" type="Pixel" width="100" FieldFormat_Event="ActType_FieldFormat_Event"/>
                 <local:TableColumn field_name="激活时间" field="create_time" field_type="datatime" type="Pixel" width="150"/>
                 <local:TableColumn field_name="过期时间" field="end_time" field_type="datatime" type="Pixel" width="150"/>
                 <local:TableColumn field_name="题数" field="num" type="Pixel" width="30"/>
