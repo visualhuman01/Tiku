@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tiku.control;
+using Tiku.windows;
 
 namespace Tiku.page
 {
@@ -49,9 +50,9 @@ namespace Tiku.page
             ucToolItem item6 = new ucToolItem("巩固练习", "/Tiku;component/image/userform6.png");
             item6.Click_Event += Item_Click_Event;
             spTools.Children.Add(item6);
-            ucToolItem item7 = new ucToolItem("进度分析", "/Tiku;component/image/userform7.png");
-            item7.Click_Event += Item_Click_Event;
-            spTools.Children.Add(item7);
+            //ucToolItem item7 = new ucToolItem("进度分析", "/Tiku;component/image/userform7.png");
+            //item7.Click_Event += Item_Click_Event;
+            //spTools.Children.Add(item7);
             ucToolItem item8 = new ucToolItem("激活软件", "/Tiku;component/image/userform8.png");
             item8.Click_Event += Item_Click_Event;
             spTools.Children.Add(item8);
@@ -97,6 +98,7 @@ namespace Tiku.page
                 case "进度分析":
                     break;
                 case "激活软件":
+                    frmMain.ShowActive(_main.Cate_Id);
                     break;
                 case "考试资讯":
                     _main.SwitchPage(E_Page_Type.News);

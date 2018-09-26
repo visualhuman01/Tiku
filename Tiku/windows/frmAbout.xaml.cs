@@ -43,7 +43,7 @@ namespace Tiku.windows
                 phone = Config.Phone,
             };
             var re = HttpHelper.Post(Config.Server + "/index/custom", param);
-            if (re != null && HttpHelper.IsOk(re))
+            if (re != null && HttpHelper.IsOk(re) == true)
             {
                 var data = re["data"];
                 txt_pre.Text = data["pre"].ToString();
@@ -54,9 +54,14 @@ namespace Tiku.windows
                 btnIOS.Tag = data["ios"].ToString();
                 btnWeb.Tag = data["url"].ToString();
             }
-            else
+            else if (re != null && HttpHelper.IsOk(re) == null)
             {
                 frmMain.ShowLogin(callBack);
+            }
+            else
+            {
+                //frmMain.ShowLogin(callBack);
+                MessageBox.Show(re["msg"].ToString());
             }
         }
         private void callBack(dynamic param)

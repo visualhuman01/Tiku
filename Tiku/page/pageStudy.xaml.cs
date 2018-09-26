@@ -28,23 +28,29 @@ namespace Tiku.page
         }
         public void init()
         {
+            tbStudy.Data = null;
             var param = new
             {
                 phone = Config.Phone,
                 token = Config.Token,
             };
             var re = HttpHelper.Post(Config.Server + "/record/study", param);
-            if (re != null && HttpHelper.IsOk(re))
+            if (re != null && HttpHelper.IsOk(re) == true)
             {
                 var data = re["data"];
                 tbStudy.Data = data;
             }
-            else
+            else if (re != null && HttpHelper.IsOk(re) == null)
             {
                 frmMain.ShowLogin(callBack);
             }
+            else
+            {
+                //frmMain.ShowLogin(callBack);
+                MessageBox.Show(re["msg"].ToString());
+            }
             re = HttpHelper.Post(Config.Server + "/record/practice", param);
-            if (re != null && HttpHelper.IsOk(re))
+            if (re != null && HttpHelper.IsOk(re) == true)
             {
                 var data = re["data"];
                 txt_all.Text = data["all"];
@@ -55,9 +61,14 @@ namespace Tiku.page
                 txt_all_pre.Text = data["all_pre"];
                 txt_right_pre.Text = data["right_pre"];
             }
-            else
+            else if (re != null && HttpHelper.IsOk(re) == null)
             {
                 frmMain.ShowLogin(callBack);
+            }
+            else
+            {
+                //frmMain.ShowLogin(callBack);
+                MessageBox.Show(re["msg"].ToString());
             }
         }
         private void callBack(dynamic param)

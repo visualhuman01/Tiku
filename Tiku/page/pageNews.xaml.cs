@@ -46,7 +46,7 @@ namespace Tiku.page
                 page = _current_page,
             };
             var re = HttpHelper.Post(Config.Server + "/index/news", param);
-            if (re != null && HttpHelper.IsOk(re))
+            if (re != null && HttpHelper.IsOk(re) == true)
             {
                 var data = re["data"]["data"];
                 _hasNext = re["data"]["hasNext"];
@@ -65,9 +65,15 @@ namespace Tiku.page
                     news.Width = 1200;
                     spNews.Children.Add(news);
                 }
-            }else
+            }
+            else if (re != null && HttpHelper.IsOk(re) == null)
             {
-                frmMain.ShowLogin(callback);
+                frmMain.ShowLogin(callBack);
+            }
+            else
+            {
+                //frmMain.ShowLogin(callback);
+                MessageBox.Show(re["msg"].ToString());
             }
             setBtnEnabled();
         }
@@ -84,13 +90,16 @@ namespace Tiku.page
                 status = 1,
             };
             var re = HttpHelper.Post(Config.Server + "/Record/newsEdit", param);
-            if(re !=null && HttpHelper.IsOk(re))
+            if(re !=null && HttpHelper.IsOk(re) == true)
             {
                 MessageBox.Show("收藏成功");
+            }else
+            {
+                MessageBox.Show(re["msg"].ToString());
             }
         }
 
-        private void callback(dynamic param)
+        private void callBack(dynamic param)
         {
             Reload();
         }

@@ -45,10 +45,14 @@ namespace Tiku.common
 
             return json;
         }
-        public static bool IsOk(dynamic res)
+        public static bool? IsOk(dynamic res)
         {
             if (res["code"].ToString() == "1")
                 return true;
+            else if (res["code"].ToString() == "-1")
+            {
+                return null;
+            }
             else
                 return false;
         }

@@ -75,7 +75,7 @@ namespace Tiku.page
                     phone = Config.Phone,
                 };
                 var re = HttpHelper.Post(Config.Server + "/record/special", param);
-                if (re != null && HttpHelper.IsOk(re))
+                if (re != null && HttpHelper.IsOk(re) == true)
                 {
                     var data = re["data"];
                     TreeViewItem tvi = new TreeViewItem();
@@ -110,7 +110,7 @@ namespace Tiku.page
                         phone = Config.Phone,
                     };
                     var ree = HttpHelper.Post(Config.Server + "/api/course", param1);
-                    if (ree != null && HttpHelper.IsOk(ree))
+                    if (ree != null && HttpHelper.IsOk(ree) == true)
                     {
                         var data1 = ree["data"];
                         foreach (var dd in data1)
@@ -130,15 +130,25 @@ namespace Tiku.page
                             tt.IsSelected = true;
                         }
                     }
-                    else
+                    else if (ree != null && HttpHelper.IsOk(ree) == null)
                     {
                         frmMain.ShowLogin(callback_Special, type);
                     }
+                    else
+                    {
+                        //frmMain.ShowLogin(callback_Special, type);
+                        MessageBox.Show(ree["msg"].ToString());
+                    }
                 }
-            }
-            else
-            {
-                frmMain.ShowLogin(callback_Special, type);
+                else if (re != null && HttpHelper.IsOk(re) == null)
+                {
+                    frmMain.ShowLogin(callback_Special, type);
+                }
+                else
+                {
+                    //frmMain.ShowLogin(callback_Special, type);
+                    MessageBox.Show(re["msg"].ToString());
+                }
             }
         }
         private void callback_Special(dynamic param)
@@ -160,7 +170,7 @@ namespace Tiku.page
                     phone = Config.Phone,
                 };
                 var re = HttpHelper.Post(Config.Server + "/record/questionBank", param);
-                if (re != null && HttpHelper.IsOk(re))
+                if (re != null && HttpHelper.IsOk(re) == true)
                 {
                     var data = re["data"];
                     foreach (var d in data)
@@ -179,7 +189,7 @@ namespace Tiku.page
                             phone = Config.Phone,
                         };
                         var ree = HttpHelper.Post(Config.Server + "/api/course", param1);
-                        if (ree != null && HttpHelper.IsOk(ree))
+                        if (ree != null && HttpHelper.IsOk(ree) == true)
                         {
                             var data1 = ree["data"];
                             foreach (var dd in data1)
@@ -194,9 +204,14 @@ namespace Tiku.page
                                 tvi.Items.Add(tvi1);
                             }
                         }
-                        else
+                        else if (ree != null && HttpHelper.IsOk(ree) == null)
                         {
                             frmMain.ShowLogin(callback_QuestionBank, cate_id);
+                        }
+                        else
+                        {
+                            //frmMain.ShowLogin(callback_QuestionBank, cate_id);
+                            MessageBox.Show(ree["msg"].ToString());
                         }
                     }
                     if(tvMenu.Items != null && tvMenu.Items.Count > 0)
@@ -210,9 +225,14 @@ namespace Tiku.page
                         }
                     }
                 }
-                else
+                else if (re != null && HttpHelper.IsOk(re) == null)
                 {
                     frmMain.ShowLogin(callback_QuestionBank, cate_id);
+                }
+                else
+                {
+                    //frmMain.ShowLogin(callback_QuestionBank, cate_id);
+                    MessageBox.Show(re["msg"].ToString());
                 }
             }
         }
@@ -239,7 +259,7 @@ namespace Tiku.page
                     phone = Config.Phone,
                 };
                 var re = HttpHelper.Post(Config.Server + "/api/app", param);
-                if (re != null && HttpHelper.IsOk(re))
+                if (re != null && HttpHelper.IsOk(re) == true)
                 {
                     var data1 = re["data"];
                     foreach (var v in data1)
@@ -252,9 +272,14 @@ namespace Tiku.page
                     uc_question_bottom.Refresh(_questions.Count);
                     showQuestion(0);
                 }
-                else
+                else if (re != null && HttpHelper.IsOk(re) == null)
                 {
                     frmMain.ShowLogin(callback_Selected, data);
+                }
+                else
+                {
+                    //frmMain.ShowLogin(callback_Selected, data);
+                    MessageBox.Show(re["msg"].ToString());
                 }
             }
         }
@@ -341,15 +366,20 @@ namespace Tiku.page
                 sign = _max_index,
             };
             var re = HttpHelper.Post(Config.Server + "/record/mark", param);
-            if (re != null && HttpHelper.IsOk(re))
+            if (re != null && HttpHelper.IsOk(re) == true)
             {
                 var data = re["data"];
                 string msg = string.Format("总分：{0}\r\n总得分:{1}\r\n答对题数：{2}\r\n答错题数：{3}\r\n已做题总数：{4}\r\n试卷总题数：{5}\r\n未做题数：{6}\r\n正确率：{7}\r\n", data["max"], data["mark"], data["success"], data["error"], data["all"], data["num"], data["done"], data["CorrectRate"]);
                 MessageBox.Show(msg);
             }
-            else
+            else if (re != null && HttpHelper.IsOk(re) == null)
             {
                 frmMain.ShowLogin(callBack_submit);
+            }
+            else
+            {
+                //frmMain.ShowLogin(callBack_submit);
+                MessageBox.Show(re["msg"].ToString());
             }
         }
         private void callBack_submit(dynamic param)

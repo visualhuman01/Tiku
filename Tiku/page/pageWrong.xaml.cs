@@ -41,13 +41,19 @@ namespace Tiku.page
                 phone = Config.Phone,
             };
             var re = HttpHelper.Post(Config.Server + "/record/wrong", param);
-            if(re != null && HttpHelper.IsOk(re))
+            if (re != null && HttpHelper.IsOk(re) == true)
             {
                 var data = re["data"];
                 tbWrong.Data = data;
-            }else
+            }
+            else if (re != null && HttpHelper.IsOk(re) == null)
             {
                 frmMain.ShowLogin(callBack);
+            }
+            else
+            {
+                //frmMain.ShowLogin(callBack);
+                MessageBox.Show(re["msg"].ToString());
             }
         }
         private void callBack(dynamic param)
@@ -57,7 +63,7 @@ namespace Tiku.page
         private void btnAll_Click(object sender, RoutedEventArgs e)
         {
             List<dynamic> data = new List<dynamic>();
-            foreach(var d in tbWrong.Data)
+            foreach (var d in tbWrong.Data)
             {
                 data.Add(d);
             }
@@ -68,7 +74,7 @@ namespace Tiku.page
         {
             var items = tbWrong.SelectItems;
             List<dynamic> data = new List<dynamic>();
-            foreach(var d in items)
+            foreach (var d in items)
             {
                 data.Add(d.Data);
             }
@@ -77,12 +83,12 @@ namespace Tiku.page
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("没有接口");
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("没有接口");
         }
     }
 }

@@ -15,6 +15,7 @@ using Tiku.common;
 using Tiku.control;
 using Tiku.model;
 using Tiku.page;
+using Tiku.windows;
 
 namespace Tiku
 {
@@ -43,11 +44,13 @@ namespace Tiku
         private pageNews _news = null;
         private pageWrong _wrong = null;
         private pageConsolidate _consolidate= null;
+        private static frmMain _this = null;
         public string Cate_Id { get; set; }
 
         public frmMain()
         {
             InitializeComponent();
+            _this = this;
             _logo = new pageLogo(this);
             _main = new pageMain(this);
             _tools = new pageTools(this);
@@ -59,16 +62,29 @@ namespace Tiku
             SwitchPage(E_Page_Type.Main);
         }
         public delegate void CallBack(dynamic param);
-        public static void ShowLogin(CallBack callback,dynamic param = null)
+        public static bool ShowLogin(CallBack callback,dynamic param = null)
         {
             frmLogin frmlogin = new frmLogin();
+            frmlogin.Owner = _this;
             if (frmlogin.ShowDialog() == true)
             {
                 if(callback != null)
                 {
                     callback(param);
                 }
+                return true;
             }
+            return false;
+        }
+        public static bool ShowActive(string id)
+        {
+            frmActive act = new frmActive(id);
+            act.Owner = _this;
+            if(act.ShowDialog() == true)
+            {
+                return true;
+            }
+            return false;
         }
         public void SwitchPage(E_Page_Type type, object data = null)
         {

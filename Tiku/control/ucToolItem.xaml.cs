@@ -125,8 +125,8 @@ namespace Tiku.control
             InitializeComponent();
             this.ForegroundSelect = "#FFFFFFFF";
             this.ForegroundUnSelect = "#FFFFFFFF";
-            this.BackgroundSelect = "#FF007ACC";
-            this.BackgroundUnSelect = "#FF333337";
+            this.BackgroundSelect = "#FF333337";
+            this.BackgroundUnSelect = "#FF007ACC";
             setColor();
         }
         public ucToolItem(string name, string imgurl)
@@ -136,8 +136,8 @@ namespace Tiku.control
             this.Text = name;
             this.ForegroundSelect = "#FFFFFFFF";
             this.ForegroundUnSelect = "#FFFFFFFF";
-            this.BackgroundSelect = "#FF007ACC";
-            this.BackgroundUnSelect = "#FF333337";
+            this.BackgroundSelect = "#FF333337";
+            this.BackgroundUnSelect = "#FF007ACC";
             setColor();
         }
         public void setColor()

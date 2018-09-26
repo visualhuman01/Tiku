@@ -44,14 +44,20 @@ namespace Tiku.page
                 page = _current_page,
             };
             var re = HttpHelper.Post(Config.Server + "/user/active", param);
-            if(re != null && HttpHelper.IsOk(re))
+            if(re != null && HttpHelper.IsOk(re) == true)
             {
                 var data = re["data"]["data"];
                 _hasNext = re["data"]["hasNext"];
                 table.Data = data;
-            }else
+            }
+            else if (re != null && HttpHelper.IsOk(re) == null)
             {
                 frmMain.ShowLogin(callBack);
+            }
+            else
+            {
+                //frmMain.ShowLogin(callBack);
+                MessageBox.Show(re["msg"].ToString());
             }
             setBtnEnabled();
         }

@@ -366,9 +366,13 @@ namespace Tiku.control
                 qid = _data.qid,
             };
             var re = HttpHelper.Post(Config.Server + "/record/collect", param);
-            if(re!=null && HttpHelper.IsOk(re))
+            if(re!=null && HttpHelper.IsOk(re) == true)
             {
                 MessageBox.Show("收藏成功");
+            }
+            else
+            {
+                MessageBox.Show(re["msg"].ToString());
             }
         }
 
@@ -376,6 +380,11 @@ namespace Tiku.control
         {
             frmFeedback fb = new frmFeedback(E_Feedback_Type.question, _data.type, _data.qid);
             fb.ShowDialog();
+        }
+
+        private void btn_note_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("没接口");
         }
     }
 }

@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Tiku.common;
 using Tiku.control;
 using Tiku.model;
+using Tiku.windows;
 
 namespace Tiku.page
 {
@@ -41,7 +42,7 @@ namespace Tiku.page
                 token = Config.Token,
             };
             cate_res = HttpHelper.Post(Config.Server + "/api/cate", param);
-            if (cate_res != null && HttpHelper.IsOk(cate_res))
+            if (cate_res != null && HttpHelper.IsOk(cate_res) == true)
             {
                 var data = cate_res["data"];
                 bool b = true;
@@ -57,9 +58,14 @@ namespace Tiku.page
                     }
                 }
             }
-            else
+            else if (cate_res != null && HttpHelper.IsOk(cate_res) == null)
             {
                 frmMain.ShowLogin(callBack);
+            }
+            else
+            {
+                //frmMain.ShowLogin(callBack);
+                MessageBox.Show(cate_res["msg"].ToString());
             }
         }
         private void callBack(dynamic param)
@@ -161,15 +167,22 @@ namespace Tiku.page
                 id = cate_id,
             };
             var re = HttpHelper.Post(Config.Server + "/index/select", param);
-            if(re !=null && HttpHelper.IsOk(re))
+            if (re != null && HttpHelper.IsOk(re) == true)
             {
                 return true;
+            }else
+            {
+                MessageBox.Show(re["msg"].ToString());
             }
             return false;
         }
         private void Uc_Activate_Event(object sender)
         {
-            
+            ucCourse uc = (ucCourse)sender;
+            if (frmMain.ShowActive(uc.Gid) == true)
+            {
+                init();
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

@@ -76,7 +76,7 @@ namespace Tiku.windows
                 error = cbi.Tag.ToString(),
             };
             var re = HttpHelper.Post(Config.Server + "/user/opinion", param);
-            if (re != null && HttpHelper.IsOk(re))
+            if (re != null && HttpHelper.IsOk(re) == true)
             {
                 MessageBox.Show(re["msg"].ToString());
                 this.Close();

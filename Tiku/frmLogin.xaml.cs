@@ -48,7 +48,7 @@ namespace Tiku
                 token = token,
             };
             var re = HttpHelper.Post(Config.Server + "/login/login", lp);
-            if (re != null && HttpHelper.IsOk(re))
+            if (re != null && HttpHelper.IsOk(re) == true)
             {
                 Config.Phone = lp.phone;
                 Config.Token = re["data"]["token"].ToString();
@@ -58,7 +58,7 @@ namespace Tiku
             }
             else
             {
-                MessageBox.Show("登录失败");
+                MessageBox.Show(re["msg"].ToString());
             }
         }
 
@@ -80,7 +80,7 @@ namespace Tiku
         {
             var param = new { phone = txtPhone.Text };
             var re = HttpHelper.Post(Config.Server + "/index/sms", param);
-            if (re != null && HttpHelper.IsOk(re))
+            if (re != null && HttpHelper.IsOk(re) == true)
             {
                 btnSend.IsEnabled = false;
                 btnSend.Content = "60";
@@ -89,7 +89,7 @@ namespace Tiku
             }
             else
             {
-                MessageBox.Show("发送失败");
+                MessageBox.Show(re["msg"].ToString());
             }
         }
         System.Timers.Timer timer = new System.Timers.Timer(1000);

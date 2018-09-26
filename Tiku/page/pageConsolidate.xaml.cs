@@ -17,6 +17,11 @@ using Tiku.model;
 
 namespace Tiku.page
 {
+    public enum E_Consolidate_Type
+    {
+        collect = 0,
+        note,
+    }
     /// <summary>
     /// pageConsolidate.xaml 的交互逻辑
     /// </summary>
@@ -24,10 +29,29 @@ namespace Tiku.page
     {
         private frmMain _main = null;
         private List<TableColumn> _tc_collectList = new List<TableColumn>();
+        private E_Consolidate_Type _type = E_Consolidate_Type.collect;
         public pageConsolidate(frmMain main)
         {
             InitializeComponent();
             _main = main;
+            init();
+        }
+        private void init()
+        {
+            switch (_type)
+            {
+                case E_Consolidate_Type.collect:
+                    init_collect();
+                    break;
+                case E_Consolidate_Type.note:
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void init_collect()
+        {
+            _tc_collectList.Clear();
             TableColumn tc1 = new TableColumn
             {
                 field_type = E_Field_Type.check,
@@ -59,6 +83,7 @@ namespace Tiku.page
         }
         private void Reload()
         {
+            table.Data = null;
             table.Columns = _tc_collectList;
             var param = new
             {
@@ -66,27 +91,35 @@ namespace Tiku.page
                 token = Config.Token,
             };
             var re = HttpHelper.Post(Config.Server + "/record/collectList", param);
-            if (re != null && HttpHelper.IsOk(re))
+            if (re != null && HttpHelper.IsOk(re) == true)
             {
                 var data = re["data"];
                 table.Data = data;
-            }else
+            }
+            else if (re != null && HttpHelper.IsOk(re) == null)
             {
-                frmMain.ShowLogin(callback);
+                frmMain.ShowLogin(callBack);
+            }
+            else
+            {
+                //frmMain.ShowLogin(callback);
+                MessageBox.Show(re["msg"].ToString());
             }
         }
-        private void callback(dynamic param)
+        private void callBack(dynamic param)
         {
             Reload();
         }
         private void btnCollectList_Click(object sender, RoutedEventArgs e)
         {
-
+            _type = E_Consolidate_Type.collect;
+            init();
+            Reload();
         }
 
         private void btnNote_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("没接口");
         }
 
         private void btnAll_Click(object sender, RoutedEventArgs e)
@@ -102,6 +135,11 @@ namespace Tiku.page
         private void btnSelect_Click(object sender, RoutedEventArgs e)
         {
             var items = table.SelectItems;
+            if(items.Count == 0)
+            {
+                MessageBox.Show("请先选择题目");
+                return;
+            }
             List<dynamic> data = new List<dynamic>();
             foreach (var d in items)
             {
@@ -112,12 +150,12 @@ namespace Tiku.page
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("没接口");
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("没接口");
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

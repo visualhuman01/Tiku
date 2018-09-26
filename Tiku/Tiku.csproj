@@ -68,6 +68,9 @@
     <Compile Include="windows\frmAbout.xaml.cs">
       <DependentUpon>frmAbout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="windows\frmActive.xaml.cs">
+      <DependentUpon>frmActive.xaml</DependentUpon>
+    </Compile>
     <Compile Include="windows\frmFeedback.xaml.cs">
       <DependentUpon>frmFeedback.xaml</DependentUpon>
     </Compile>
@@ -198,6 +201,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="windows\frmAbout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\frmActive.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
