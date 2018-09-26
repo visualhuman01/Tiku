@@ -44,6 +44,7 @@ namespace Tiku.page
                     init_collect();
                     break;
                 case E_Consolidate_Type.note:
+                    init_note();
                     break;
                 default:
                     break;
@@ -81,7 +82,53 @@ namespace Tiku.page
             };
             _tc_collectList.Add(tc3);
         }
+        private void init_note()
+        {
+            _tc_collectList.Clear();
+            TableColumn tc1 = new TableColumn
+            {
+                field_type = E_Field_Type.check,
+                ha = HorizontalAlignment.Center,
+                type = GridUnitType.Pixel,
+                width = 30,
+            };
+            _tc_collectList.Add(tc1);
+            TableColumn tc2 = new TableColumn
+            {
+                field = "content",
+                field_name = "笔记",
+                field_type = E_Field_Type.text,
+                ha = HorizontalAlignment.Left,
+                type = GridUnitType.Pixel,
+                width = 1000,
+            };
+            _tc_collectList.Add(tc2);
+            TableColumn tc3 = new TableColumn
+            {
+                field = "create_time",
+                field_name = "日期",
+                field_type = E_Field_Type.datatime,
+                ha = HorizontalAlignment.Left,
+                type = GridUnitType.Pixel,
+                width = 150,
+            };
+            _tc_collectList.Add(tc3);
+        }
         private void Reload()
+        {
+            switch (_type)
+            {
+                case E_Consolidate_Type.collect:
+                    Reload_collect();
+                    break;
+                case E_Consolidate_Type.note:
+                    Reload_note();
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void Reload_collect()
         {
             table.Data = null;
             table.Columns = _tc_collectList;
@@ -91,6 +138,31 @@ namespace Tiku.page
                 token = Config.Token,
             };
             var re = HttpHelper.Post(Config.Server + "/record/collectList", param);
+            if (re != null && HttpHelper.IsOk(re) == true)
+            {
+                var data = re["data"];
+                table.Data = data;
+            }
+            else if (re != null && HttpHelper.IsOk(re) == null)
+            {
+                frmMain.ShowLogin(callBack);
+            }
+            else
+            {
+                //frmMain.ShowLogin(callback);
+                MessageBox.Show(re["msg"].ToString());
+            }
+        }
+        private void Reload_note()
+        {
+            table.Data = null;
+            table.Columns = _tc_collectList;
+            var param = new
+            {
+                phone = Config.Phone,
+                token = Config.Token,
+            };
+            var re = HttpHelper.Post(Config.Server + "/record/noteList", param);
             if (re != null && HttpHelper.IsOk(re) == true)
             {
                 var data = re["data"];
@@ -119,7 +191,9 @@ namespace Tiku.page
 
         private void btnNote_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("没接口");
+            _type = E_Consolidate_Type.note;
+            init();
+            Reload();
         }
 
         private void btnAll_Click(object sender, RoutedEventArgs e)
@@ -135,9 +209,9 @@ namespace Tiku.page
         private void btnSelect_Click(object sender, RoutedEventArgs e)
         {
             var items = table.SelectItems;
-            if(items.Count == 0)
+            if (items.Count == 0)
             {
-                MessageBox.Show("请先选择题目");
+                MessageBox.Show("请先进行选择");
                 return;
             }
             List<dynamic> data = new List<dynamic>();
@@ -150,12 +224,83 @@ namespace Tiku.page
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("没接口");
+            var items = table.SelectItems;
+            if (items.Count == 0)
+            {
+                MessageBox.Show("请先进行选择");
+                return;
+            }
+            delete(items);
+        }
+        private void delete(List<ucTableItem> items)
+        {
+            switch (_type)
+            {
+                case E_Consolidate_Type.collect:
+                    delete_collect(items);
+                    break;
+                case E_Consolidate_Type.note:
+                    delete_note(items);
+                    break;
+                default:
+                    break;
+            }
+            Reload();
+        }
+        private void delete_note(List<ucTableItem> items)
+        {
+            List<string> ids = new List<string>();
+            foreach (var s in items)
+            {
+                var data = s.Data;
+                ids.Add(data["nid"].ToString());
+            }
+            string id = string.Join(",", ids);
+            var param = new
+            {
+                token = Config.Token,
+                phone = Config.Phone,
+                id = id,
+            };
+            var re = HttpHelper.Post(Config.Server + "/record/delNote", param);
+            if (re != null && HttpHelper.IsOk(re) == true)
+            {
+                return;
+            }
+            else
+            {
+                MessageBox.Show(re["msg"].ToString());
+            }
+        }
+        private void delete_collect(List<ucTableItem> items)
+        {
+            List<string> ids = new List<string>();
+            foreach (var s in items)
+            {
+                var data = s.Data;
+                ids.Add(data["id"].ToString());
+            }
+            string id = string.Join(",", ids);
+            var param = new
+            {
+                token = Config.Token,
+                phone = Config.Phone,
+                id = id,
+            };
+            var re = HttpHelper.Post(Config.Server + "/record/delCollect", param);
+            if (re != null && HttpHelper.IsOk(re) == true)
+            {
+                return;
+            }
+            else
+            {
+                MessageBox.Show(re["msg"].ToString());
+            }
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("没接口");
+            delete(table.Items);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

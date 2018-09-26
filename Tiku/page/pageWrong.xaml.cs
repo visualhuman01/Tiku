@@ -73,6 +73,11 @@ namespace Tiku.page
         private void btnSelect_Click(object sender, RoutedEventArgs e)
         {
             var items = tbWrong.SelectItems;
+            if (items.Count == 0)
+            {
+                MessageBox.Show("请先进行选择");
+                return;
+            }
             List<dynamic> data = new List<dynamic>();
             foreach (var d in items)
             {
@@ -83,12 +88,63 @@ namespace Tiku.page
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("没有接口");
+            var items = tbWrong.SelectItems;
+            if (items.Count == 0)
+            {
+                MessageBox.Show("请先进行选择");
+                return;
+            }
+            List<string> ids = new List<string>();
+            foreach (var s in items)
+            {
+                var data = s.Data;
+                ids.Add(data["wid"].ToString());
+            }
+            string id = string.Join(",", ids);
+            var param = new
+            {
+                token = Config.Token,
+                phone = Config.Phone,
+                id = id,
+            };
+            var re = HttpHelper.Post(Config.Server + "/record/delWrong", param);
+            if (re != null && HttpHelper.IsOk(re) == true)
+            {
+                init();
+                return;
+            }
+            else
+            {
+                MessageBox.Show(re["msg"].ToString());
+            }
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("没有接口");
+            var items = tbWrong.Items;
+            List<string> ids = new List<string>();
+            foreach (var s in items)
+            {
+                var data = s.Data;
+                ids.Add(data["wid"].ToString());
+            }
+            string id = string.Join(",", ids);
+            var param = new
+            {
+                token = Config.Token,
+                phone = Config.Phone,
+                id = id,
+            };
+            var re = HttpHelper.Post(Config.Server + "/record/delWrong", param);
+            if (re != null && HttpHelper.IsOk(re) == true)
+            {
+                init();
+                return;
+            }
+            else
+            {
+                MessageBox.Show(re["msg"].ToString());
+            }
         }
     }
 }

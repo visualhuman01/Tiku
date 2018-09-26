@@ -63,7 +63,7 @@ namespace Tiku.control
         {
             get { return _answer; }
         }
-        public delegate void Redo_Delegate(object sender,int index);
+        public delegate void Redo_Delegate(object sender, int index);
         public event Redo_Delegate Redo_Event;
         private int _index;
         public ucQuestion()
@@ -93,7 +93,7 @@ namespace Tiku.control
             sp_answer.Children.Clear();
             question_data qd = (question_data)data;
             type = (E_Question_Type)Enum.Parse(typeof(E_Question_Type), qd.type, true);
-            txt_title.Text = (index+1) + ".  " + qd.title;
+            txt_title.Text = (index + 1) + ".  " + qd.title;
             string s = "";
             foreach (var ss in qd.analysis)
             {
@@ -156,9 +156,19 @@ namespace Tiku.control
             }
             gAnswer.Visibility = Visibility.Hidden;
             btn_show_answer.Content = "显示答案";
-            if(answer != null && answer.Count > 0)
+            if (isCollection(qd.type, qd.qid))
             {
-                foreach(var a in answer)
+                btn_collection.Content = "已收藏";
+                btn_collection.IsEnabled = false;
+            }
+            else
+            {
+                btn_collection.Content = "收藏";
+                btn_collection.IsEnabled = true;
+            }
+            if (answer != null && answer.Count > 0)
+            {
+                foreach (var a in answer)
                 {
                     switch (a)
                     {
@@ -247,6 +257,26 @@ namespace Tiku.control
                     }
                 }
             }
+        }
+        private bool isCollection(string type, string qid)
+        {
+            var param = new
+            {
+                phone = Config.Phone,
+                token = Config.Token,
+                type = type,
+                qid = qid,
+            };
+            var re = HttpHelper.Post(Config.Server + "/record/comment", param);
+            if (re != null && HttpHelper.IsOk(re) == true)
+            {
+                return (bool)re["data"];
+            }
+            else
+            {
+                MessageBox.Show(re["msg"].ToString());
+            }
+            return false;
         }
         public bool? JudgeAnswer()
         {
@@ -350,9 +380,9 @@ namespace Tiku.control
         private void btn_redo_Click(object sender, RoutedEventArgs e)
         {
             Init();
-            if(Redo_Event != null)
+            if (Redo_Event != null)
             {
-                Redo_Event(this,_index);
+                Redo_Event(this, _index);
             }
         }
 
@@ -366,7 +396,7 @@ namespace Tiku.control
                 qid = _data.qid,
             };
             var re = HttpHelper.Post(Config.Server + "/record/collect", param);
-            if(re!=null && HttpHelper.IsOk(re) == true)
+            if (re != null && HttpHelper.IsOk(re) == true)
             {
                 MessageBox.Show("收藏成功");
             }
@@ -384,7 +414,7 @@ namespace Tiku.control
 
         private void btn_note_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("没接口");
+            frmMain.ShowNote(_data);
         }
     }
 }

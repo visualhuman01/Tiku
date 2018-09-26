@@ -77,6 +77,9 @@
     <Compile Include="windows\frmFeedback.xaml.cs">
       <DependentUpon>frmFeedback.xaml</DependentUpon>
     </Compile>
+    <Compile Include="windows\frmNote.xaml.cs">
+      <DependentUpon>frmNote.xaml</DependentUpon>
+    </Compile>
     <Page Include="page\pageActive.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -212,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="windows\frmFeedback.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\frmNote.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

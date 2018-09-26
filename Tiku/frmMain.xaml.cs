@@ -86,6 +86,12 @@ namespace Tiku
             }
             return false;
         }
+        public static void ShowNote(question_data data)
+        {
+            frmNote note = new frmNote(data);
+            note.Owner = _this;
+            note.ShowDialog();
+        }
         public void SwitchPage(E_Page_Type type, object data = null)
         {
             switch (type)

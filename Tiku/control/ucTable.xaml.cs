@@ -51,6 +51,11 @@ namespace Tiku.control
                 reload();
             }
         }
+        private List<ucTableItem> _items = new List<ucTableItem>();
+        public List<ucTableItem> Items
+        {
+            get { return _items; }
+        }
         public ucTable()
         {
             InitializeComponent();
@@ -58,6 +63,8 @@ namespace Tiku.control
         }
         public void reload()
         {
+            _select_item.Clear();
+            gTitle.Children.Clear();
             spTable.Children.Clear();
             if (_columns != null && _columns.Count > 0)
             {
@@ -90,6 +97,7 @@ namespace Tiku.control
                     ti.Height = 30;
                     ti.Checked_Event += Ti_Checked_Event;
                     spTable.Children.Add(ti);
+                    _items.Add(ti);
                 }
             }
         }
