@@ -5,16 +5,37 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiku", "Tiku\Tiku.csproj", "{2FF2EB6B-FA07-478D-95A6-FE10B24BCA54}"
 EndProject
+Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "Setup", "Setup\Setup.isproj", "{C88180DB-33A4-418C-93D4-798B09D8BCD8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CD_ROM|Any CPU = CD_ROM|Any CPU
 		Debug|Any CPU = Debug|Any CPU
+		DVD-5|Any CPU = DVD-5|Any CPU
 		Release|Any CPU = Release|Any CPU
+		SingleImage|Any CPU = SingleImage|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2FF2EB6B-FA07-478D-95A6-FE10B24BCA54}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{2FF2EB6B-FA07-478D-95A6-FE10B24BCA54}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
 		{2FF2EB6B-FA07-478D-95A6-FE10B24BCA54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2FF2EB6B-FA07-478D-95A6-FE10B24BCA54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FF2EB6B-FA07-478D-95A6-FE10B24BCA54}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FF2EB6B-FA07-478D-95A6-FE10B24BCA54}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
 		{2FF2EB6B-FA07-478D-95A6-FE10B24BCA54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FF2EB6B-FA07-478D-95A6-FE10B24BCA54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FF2EB6B-FA07-478D-95A6-FE10B24BCA54}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{2FF2EB6B-FA07-478D-95A6-FE10B24BCA54}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{C88180DB-33A4-418C-93D4-798B09D8BCD8}.CD_ROM|Any CPU.ActiveCfg = CD_ROM
+		{C88180DB-33A4-418C-93D4-798B09D8BCD8}.CD_ROM|Any CPU.Build.0 = CD_ROM
+		{C88180DB-33A4-418C-93D4-798B09D8BCD8}.Debug|Any CPU.ActiveCfg = SingleImage
+		{C88180DB-33A4-418C-93D4-798B09D8BCD8}.Debug|Any CPU.Build.0 = SingleImage
+		{C88180DB-33A4-418C-93D4-798B09D8BCD8}.DVD-5|Any CPU.ActiveCfg = DVD-5
+		{C88180DB-33A4-418C-93D4-798B09D8BCD8}.DVD-5|Any CPU.Build.0 = DVD-5
+		{C88180DB-33A4-418C-93D4-798B09D8BCD8}.Release|Any CPU.ActiveCfg = SingleImage
+		{C88180DB-33A4-418C-93D4-798B09D8BCD8}.Release|Any CPU.Build.0 = SingleImage
+		{C88180DB-33A4-418C-93D4-798B09D8BCD8}.SingleImage|Any CPU.ActiveCfg = SingleImage
+		{C88180DB-33A4-418C-93D4-798B09D8BCD8}.SingleImage|Any CPU.Build.0 = SingleImage
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
