@@ -43,6 +43,9 @@ namespace Tiku.windows
             {
                 var data = re["data"];
                 txtContent.Text = data["content"].ToString();
+                //UTF8Encoding utf8 = new UTF8Encoding();
+                //Byte[] encodedBytes = utf8.GetBytes(data["content"].ToString());
+                //String decodedString = utf8.GetString(encodedBytes);
                 _nid = data["nid"].ToString();
             }
         }
