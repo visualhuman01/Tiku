@@ -48,6 +48,8 @@ namespace Tiku.control
     {
         public delegate void Checked_Delegate(object sender, bool check);
         public event Checked_Delegate Checked_Event;
+        public delegate void Click_Delegate(object sender);
+        public event Click_Delegate Click_Event;
         private List<TableColumn> _columns;
         public List<TableColumn> Columns
         {
@@ -159,6 +161,12 @@ namespace Tiku.control
             {
                 Checked_Event(this, ck.IsChecked == true ? true : false);
             }
+        }
+
+        private void UserControl_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (Click_Event != null)
+                Click_Event(this);
         }
     }
 }

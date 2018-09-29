@@ -25,10 +25,12 @@ namespace Tiku.page
         private pageStudy _study = null;
         private pageActive _active = null;
         private pageCollection _collection = null;
-        public pageUserInfo()
+        private frmMain _main = null;
+        public pageUserInfo(frmMain main)
         {
             InitializeComponent();
-            _study = new pageStudy();
+            _main = main;
+            _study = new pageStudy(_main);
             _active = new pageActive();
             _collection = new pageCollection();
         }

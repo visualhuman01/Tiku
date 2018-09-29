@@ -136,3 +136,7 @@ C:\Project\git\Tiku\Tiku\obj\Debug\windows\frmActive.g.cs
 C:\Project\git\Tiku\Tiku\obj\Debug\windows\frmActive.baml
 C:\Project\git\Tiku\Tiku\obj\Debug\windows\frmNote.g.cs
 C:\Project\git\Tiku\Tiku\obj\Debug\windows\frmNote.baml
+C:\Project\git\Tiku\Tiku\obj\Debug\windows\frmResult.g.cs
+C:\Project\git\Tiku\Tiku\obj\Debug\windows\frmResult.baml
+C:\Project\git\Tiku\Tiku\obj\Debug\page\pageAnalysis.g.cs
+C:\Project\git\Tiku\Tiku\obj\Debug\page\pageAnalysis.baml

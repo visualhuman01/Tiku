@@ -62,6 +62,7 @@ namespace Tiku.page
                     news.Link_Event += News_Link_Event;
                     news.Collection_Event += News_Collection_Event;
                     news.Width = 800;
+                    news.IsCollection = true;
                     spNews.Children.Add(news);
                 }
             }
@@ -86,7 +87,7 @@ namespace Tiku.page
                 token = Config.Token,
                 phone = Config.Phone,
                 id = id,
-                status = 0,
+                status = 2,
             };
             var re = HttpHelper.Post(Config.Server + "/Record/newsEdit", param);
             if (re != null && HttpHelper.IsOk(re) == true)

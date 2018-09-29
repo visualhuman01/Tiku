@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tiku.common;
+using Tiku.control;
 using Tiku.model;
 
 namespace Tiku.page
@@ -22,9 +23,11 @@ namespace Tiku.page
     /// </summary>
     public partial class pageStudy : Page
     {
-        public pageStudy()
+        private frmMain _main;
+        public pageStudy(frmMain main)
         {
             InitializeComponent();
+            _main = main;
         }
         public void init()
         {
@@ -39,6 +42,20 @@ namespace Tiku.page
             {
                 var data = re["data"];
                 tbStudy.Data = data;
+                Dictionary<string, int> dic = new Dictionary<string, int>();
+                foreach (var d in data)
+                {
+                    string gid = d["gid"].ToString();
+                    int sign = (int)d["sign"];
+                    if (dic.ContainsKey(gid))
+                    {
+                        dic[gid] = sign;
+                    }else
+                    {
+                        dic.Add(gid, sign);
+                    }
+                }
+                frmMain.Study_Data = dic;
             }
             else if (re != null && HttpHelper.IsOk(re) == null)
             {
@@ -78,6 +95,13 @@ namespace Tiku.page
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             init();
+        }
+
+        private void tbStudy_ItemClick_Event(object sender)
+        {
+            ucTableItem item = (ucTableItem)sender;
+            var data = item.Data;
+            _main.SwitchPage(E_Page_Type.StudyToPractice, data);
         }
     }
 }

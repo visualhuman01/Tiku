@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tiku"
         mc:Ignorable="d"
-        Title="登录" Height="250" Width="500" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="ToolWindow">
+        Title="账号密码登录" Height="250" Width="500" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="ToolWindow">
     <Grid>
         <Grid Margin="50,20">
             <Grid.RowDefinitions>

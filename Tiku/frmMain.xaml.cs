@@ -30,6 +30,9 @@ namespace Tiku
         Moni,
         WrongToPractice,
         Consolidate,
+        analysis,
+        StudyToPractice,
+        Null,
     }
     /// <summary>
     /// frmMain.xaml 的交互逻辑
@@ -43,9 +46,11 @@ namespace Tiku
         private pagePractice _practice = null;
         private pageNews _news = null;
         private pageWrong _wrong = null;
-        private pageConsolidate _consolidate= null;
+        private pageConsolidate _consolidate = null;
         private static frmMain _this = null;
+        private pageAnalysis _analysis = null;
         public string Cate_Id { get; set; }
+        public static Dictionary<string, int> Study_Data = new Dictionary<string, int>();
 
         public frmMain()
         {
@@ -54,21 +59,22 @@ namespace Tiku
             _logo = new pageLogo(this);
             _main = new pageMain(this);
             _tools = new pageTools(this);
-            _userinfo = new pageUserInfo();
+            _userinfo = new pageUserInfo(this);
             _practice = new pagePractice(this);
             _news = new pageNews();
             _wrong = new pageWrong(this);
             _consolidate = new pageConsolidate(this);
+            _analysis = new pageAnalysis();
             SwitchPage(E_Page_Type.Main);
         }
         public delegate void CallBack(dynamic param);
-        public static bool ShowLogin(CallBack callback,dynamic param = null)
+        public static bool ShowLogin(CallBack callback, dynamic param = null)
         {
             frmLogin frmlogin = new frmLogin();
             frmlogin.Owner = _this;
             if (frmlogin.ShowDialog() == true)
             {
-                if(callback != null)
+                if (callback != null)
                 {
                     callback(param);
                 }
@@ -80,7 +86,7 @@ namespace Tiku
         {
             frmActive act = new frmActive(id);
             act.Owner = _this;
-            if(act.ShowDialog() == true)
+            if (act.ShowDialog() == true)
             {
                 return true;
             }
@@ -92,7 +98,13 @@ namespace Tiku
             note.Owner = _this;
             note.ShowDialog();
         }
-        public void SwitchPage(E_Page_Type type, object data = null)
+        public static void ShowResult(dynamic data, List<question_data> all, string gid)
+        {
+            frmResult res = new frmResult(_this, data, all, gid);
+            res.Owner = _this;
+            res.ShowDialog();
+        }
+        public void SwitchPage(E_Page_Type type, object data = null,E_Page_Type back = E_Page_Type.Main)
         {
             switch (type)
             {
@@ -130,11 +142,25 @@ namespace Tiku
                 case E_Page_Type.WrongToPractice:
                     fmMain.Navigate(_practice);
                     fmTitle.Navigate(_tools);
-                    _practice.LoadWrong((List<dynamic>)data);
+                    _practice.LoadWrong((List<dynamic>)data, back);
                     break;
                 case E_Page_Type.Consolidate:
                     fmMain.Navigate(_consolidate);
                     fmTitle.Navigate(_tools);
+                    break;
+                case E_Page_Type.analysis:
+                    fmMain.Navigate(_analysis);
+                    fmTitle.Navigate(_tools);
+                    _analysis.Init((List<question_data>)data);
+                    break;
+                case E_Page_Type.StudyToPractice:
+                    fmMain.Navigate(_practice);
+                    fmTitle.Navigate(_tools);
+                    _practice.LoadStudy(data);
+                    break;
+                case E_Page_Type.Null:
+                    fmMain.Navigate(null);
+                    fmTitle.Navigate(_logo);
                     break;
                 default:
                     break;
@@ -150,7 +176,9 @@ namespace Tiku
         {
             Config.Token = "";
             Config.Save();
-            ShowLogin(null);
+            this.SwitchPage(E_Page_Type.Null);
+            if (ShowLogin(null) == true)
+                this.SwitchPage(E_Page_Type.Main);
         }
 
         private void menu_min_Click(object sender, RoutedEventArgs e)

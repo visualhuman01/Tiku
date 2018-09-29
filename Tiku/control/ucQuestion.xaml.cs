@@ -66,9 +66,15 @@ namespace Tiku.control
         public delegate void Redo_Delegate(object sender, int index);
         public event Redo_Delegate Redo_Event;
         private int _index;
+        private bool _isAnalysis = false;
         public ucQuestion()
         {
             InitializeComponent();
+        }
+        public ucQuestion(bool isAnalysis)
+        {
+            InitializeComponent();
+            _isAnalysis = isAnalysis;
         }
         public void Init()
         {
@@ -93,7 +99,28 @@ namespace Tiku.control
             sp_answer.Children.Clear();
             question_data qd = (question_data)data;
             type = (E_Question_Type)Enum.Parse(typeof(E_Question_Type), qd.type, true);
-            txt_title.Text = (index + 1) + ".  " + qd.title;
+            string str_type = "";
+            switch (type)
+            {
+                case E_Question_Type.brief:
+                    str_type = "简答题";
+                    break;
+                case E_Question_Type.judge:
+                    str_type = "判断题";
+                    break;
+                case E_Question_Type.one:
+                    str_type = "单选题";
+                    break;
+                case E_Question_Type.pack:
+                    str_type = "填空题";
+                    break;
+                case E_Question_Type.question:
+                    str_type = "多选题";
+                    break;
+                default:
+                    break;
+            }
+            txt_title.Text = (index + 1) + ".  " + "[" + str_type + "]    " + qd.title;
             string s = "";
             foreach (var ss in qd.analysis)
             {
@@ -106,37 +133,95 @@ namespace Tiku.control
                 s += ss;
             }
             txt_answer.Text = s;
-            TextBlock tbA = new TextBlock();
-            tbA.TextWrapping = TextWrapping.Wrap;
-            tbA.Height = 30;
-            tbA.Text = "A.  " + qd.A;
-            tbA.FontSize = 16;
-            sp_answer.Children.Add(tbA);
-            TextBlock tbB = new TextBlock();
-            tbB.TextWrapping = TextWrapping.Wrap;
-            tbB.Height = 30;
-            tbB.Text = "B.  " + qd.B;
-            tbB.FontSize = 16;
-            sp_answer.Children.Add(tbB);
-            TextBlock tbC = new TextBlock();
-            tbC.TextWrapping = TextWrapping.Wrap;
-            tbC.Height = 30;
-            tbC.Text = "C.  " + qd.C;
-            tbC.FontSize = 16;
-            sp_answer.Children.Add(tbC);
-            TextBlock tbD = new TextBlock();
-            tbD.TextWrapping = TextWrapping.Wrap;
-            tbD.Height = 30;
-            tbD.Text = "D.  " + qd.D;
-            tbD.FontSize = 16;
-            sp_answer.Children.Add(tbD);
-            TextBlock tbE = new TextBlock();
-            tbE.TextWrapping = TextWrapping.Wrap;
-            tbE.Height = 30;
-            tbE.Text = "E.  " + qd.E;
-            tbE.FontSize = 16;
-            sp_answer.Children.Add(tbE);
+            if (!string.IsNullOrEmpty(qd.A))
+            {
+                TextBlock tbA = new TextBlock();
+                tbA.TextWrapping = TextWrapping.Wrap;
+                tbA.Height = 30;
+                tbA.Text = "A.  " + qd.A;
+                tbA.FontSize = 16;
+                sp_answer.Children.Add(tbA);
 
+                rdJudgeA.Visibility = Visibility.Visible;
+                rdOneA.Visibility = Visibility.Visible;
+                ckQuestionA.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                rdJudgeA.Visibility = Visibility.Hidden;
+                rdOneA.Visibility = Visibility.Hidden;
+                ckQuestionA.Visibility = Visibility.Hidden;
+            }
+            if (!string.IsNullOrEmpty(qd.B))
+            {
+                TextBlock tbB = new TextBlock();
+                tbB.TextWrapping = TextWrapping.Wrap;
+                tbB.Height = 30;
+                tbB.Text = "B.  " + qd.B;
+                tbB.FontSize = 16;
+                sp_answer.Children.Add(tbB);
+
+                rdJudgeB.Visibility = Visibility.Visible;
+                rdOneB.Visibility = Visibility.Visible;
+                ckQuestionB.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                rdJudgeB.Visibility = Visibility.Hidden;
+                rdOneB.Visibility = Visibility.Hidden;
+                ckQuestionB.Visibility = Visibility.Hidden;
+            }
+            if (!string.IsNullOrEmpty(qd.C))
+            {
+                TextBlock tbC = new TextBlock();
+                tbC.TextWrapping = TextWrapping.Wrap;
+                tbC.Height = 30;
+                tbC.Text = "C.  " + qd.C;
+                tbC.FontSize = 16;
+                sp_answer.Children.Add(tbC);
+
+                rdOneC.Visibility = Visibility.Visible;
+                ckQuestionC.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                rdOneC.Visibility = Visibility.Hidden;
+                ckQuestionC.Visibility = Visibility.Hidden;
+            }
+            if (!string.IsNullOrEmpty(qd.D))
+            {
+                TextBlock tbD = new TextBlock();
+                tbD.TextWrapping = TextWrapping.Wrap;
+                tbD.Height = 30;
+                tbD.Text = "D.  " + qd.D;
+                tbD.FontSize = 16;
+                sp_answer.Children.Add(tbD);
+
+                rdOneD.Visibility = Visibility.Visible;
+                ckQuestionD.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                rdOneD.Visibility = Visibility.Hidden;
+                ckQuestionD.Visibility = Visibility.Hidden;
+            }
+            if (!string.IsNullOrEmpty(qd.E))
+            {
+                TextBlock tbE = new TextBlock();
+                tbE.TextWrapping = TextWrapping.Wrap;
+                tbE.Height = 30;
+                tbE.Text = "E.  " + qd.E;
+                tbE.FontSize = 16;
+                sp_answer.Children.Add(tbE);
+
+                rdOneE.Visibility = Visibility.Visible;
+                ckQuestionE.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                rdOneE.Visibility = Visibility.Hidden;
+                ckQuestionE.Visibility = Visibility.Hidden;
+            }
             gQuestion_Answer.Visibility = Visibility.Hidden;
             gOne_Answer.Visibility = Visibility.Hidden;
             gJudge_Answer.Visibility = Visibility.Hidden;
@@ -154,7 +239,16 @@ namespace Tiku.control
                 default:
                     break;
             }
-            gAnswer.Visibility = Visibility.Hidden;
+            if (_isAnalysis)
+            {
+                gAnswer.Visibility = Visibility.Visible;
+                gOperate.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                gAnswer.Visibility = Visibility.Hidden;
+                gOperate.Visibility = Visibility.Visible;
+            }
             btn_show_answer.Content = "显示答案";
             if (isCollection(qd.type, qd.qid))
             {

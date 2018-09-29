@@ -42,13 +42,33 @@ namespace Tiku.page
         private string _cate_id;
         private Dictionary<int, Answer_Data> _answer_List = new Dictionary<int, Answer_Data>();
         private int _max_index = 0;
+        private string _gid;
+        private E_Page_Type _pageType;
         public pagePractice(frmMain main)
         {
             _main = main;
             InitializeComponent();
         }
-        public void LoadWrong(List<dynamic> data)
+        public void LoadStudy(dynamic data)
         {
+            btnBack.Visibility = Visibility.Visible;
+            _pageType = E_Page_Type.User;
+            tvMenu.Items.Clear();
+            TreeViewItem tvi = new TreeViewItem();
+            TextBlock tb = new TextBlock();
+            tb.Text = data["good_name"].ToString();
+            tb.FontSize = 14;
+            tvi.Header = tb;
+            tvi.Tag = data;
+            tvi.Selected += Tvi_Selected;
+            tvMenu.Items.Add(tvi);
+            tvi.IsExpanded = true;
+            tvi.IsSelected = true;
+        }
+        public void LoadWrong(List<dynamic> data,E_Page_Type back)
+        {
+            btnBack.Visibility = Visibility.Visible;
+            _pageType = back;
             btnSubmit.IsEnabled = false;
             tvMenu.Items.Clear();
             _questions.Clear();
@@ -64,6 +84,7 @@ namespace Tiku.page
         }
         public void LoadSpecial(E_Special_Type type)
         {
+            btnBack.Visibility = Visibility.Hidden;
             btnSubmit.IsEnabled = true;
             tvMenu.Items.Clear();
             _questions.Clear();
@@ -124,7 +145,7 @@ namespace Tiku.page
                             tvi1.Selected += Tvi_Selected;
                             tvi.Items.Add(tvi1);
                         }
-                        if(tvi.Items != null && tvi.Items.Count > 0)
+                        if (tvi.Items != null && tvi.Items.Count > 0)
                         {
                             var tt = (TreeViewItem)tvi.Items[0];
                             tt.IsSelected = true;
@@ -157,6 +178,7 @@ namespace Tiku.page
         }
         public void LoadQuestionBank(string cate_id)
         {
+            btnBack.Visibility = Visibility.Hidden;
             btnSubmit.IsEnabled = true;
             _cate_id = cate_id;
             tvMenu.Items.Clear();
@@ -214,11 +236,11 @@ namespace Tiku.page
                             MessageBox.Show(ree["msg"].ToString());
                         }
                     }
-                    if(tvMenu.Items != null && tvMenu.Items.Count > 0)
+                    if (tvMenu.Items != null && tvMenu.Items.Count > 0)
                     {
                         TreeViewItem tvi1 = (TreeViewItem)tvMenu.Items[0];
                         tvi1.IsExpanded = true;
-                        if(tvi1.Items!=null && tvi1.Items.Count > 0)
+                        if (tvi1.Items != null && tvi1.Items.Count > 0)
                         {
                             TreeViewItem tvi2 = (TreeViewItem)tvi1.Items[0];
                             tvi2.IsSelected = true;
@@ -252,9 +274,10 @@ namespace Tiku.page
             if (data != null)
             {
                 _questions.Clear();
+                _gid = data["gid"].ToString();
                 var param = new
                 {
-                    id = data["gid"].ToString(),
+                    id = _gid,
                     token = Config.Token,
                     phone = Config.Phone,
                 };
@@ -269,8 +292,25 @@ namespace Tiku.page
                         question_data obj = JsonConvert.DeserializeObject<question_data>(json);
                         _questions.Add(obj);
                     }
-                    uc_question_bottom.Refresh(_questions.Count);
-                    showQuestion(0);
+                    if (frmMain.Study_Data.ContainsKey(_gid))
+                    {
+                        int index = frmMain.Study_Data[_gid];
+                        if (index <= _questions.Count && index > 0)
+                        {
+                            showQuestion(index - 1);
+                            uc_question_bottom.Refresh(_questions.Count, index - 1);
+                        }
+                        else
+                        {
+                            showQuestion(0);
+                            uc_question_bottom.Refresh(_questions.Count);
+                        }
+                    }
+                    else
+                    {
+                        showQuestion(0);
+                        uc_question_bottom.Refresh(_questions.Count);
+                    }
                 }
                 else if (re != null && HttpHelper.IsOk(re) == null)
                 {
@@ -361,7 +401,7 @@ namespace Tiku.page
             {
                 token = Config.Token,
                 phone = Config.Phone,
-                cid = _cate_id,
+                cid = _gid,//_cate_id,
                 answer = json,
                 sign = _max_index,
             };
@@ -369,8 +409,9 @@ namespace Tiku.page
             if (re != null && HttpHelper.IsOk(re) == true)
             {
                 var data = re["data"];
-                string msg = string.Format("总分：{0}\r\n总得分:{1}\r\n答对题数：{2}\r\n答错题数：{3}\r\n已做题总数：{4}\r\n试卷总题数：{5}\r\n未做题数：{6}\r\n正确率：{7}\r\n", data["max"], data["mark"], data["success"], data["error"], data["all"], data["num"], data["done"], data["CorrectRate"]);
-                MessageBox.Show(msg);
+                //string msg = string.Format("总分：{0}\r\n总得分:{1}\r\n答对题数：{2}\r\n答错题数：{3}\r\n已做题总数：{4}\r\n试卷总题数：{5}\r\n未做题数：{6}\r\n正确率：{7}\r\n", data["max"], data["mark"], data["success"], data["error"], data["all"], data["num"], data["done"], data["CorrectRate"]);
+                //MessageBox.Show(msg);
+                frmMain.ShowResult(data, _questions, _gid);
             }
             else if (re != null && HttpHelper.IsOk(re) == null)
             {
@@ -397,6 +438,11 @@ namespace Tiku.page
         {
             _answer_List.Remove(index);
             uc_question_bottom.SetColor(index, null);
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            _main.SwitchPage(_pageType);
         }
     }
 }

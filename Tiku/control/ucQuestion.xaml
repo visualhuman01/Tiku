@@ -12,6 +12,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="1"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <TextBlock x:Name="txt_title" TextWrapping="Wrap" FontSize="16">1.test</TextBlock>
@@ -23,7 +24,7 @@
                 </ScrollViewer.Content>
             </ScrollViewer>
         </Grid>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" x:Name="gOperate">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1"></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -43,66 +44,42 @@
                 <TextBlock Grid.Column="0" FontSize="16" VerticalAlignment="Center">请选择答案：</TextBlock>
                 <Grid x:Name="gQuestion_Answer" Grid.Column="1" Visibility="Hidden">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="30"></ColumnDefinition>
-                        <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="30"></ColumnDefinition>
-                        <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="30"></ColumnDefinition>
-                        <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="30"></ColumnDefinition>
-                        <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="30"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <CheckBox x:Name="ckQuestionA" Grid.Column="0" VerticalAlignment="Center" Tag="A"></CheckBox>
-                    <TextBlock Grid.Column="1" FontSize="16" VerticalAlignment="Center">A</TextBlock>
-                    <CheckBox x:Name="ckQuestionB" Grid.Column="2" VerticalAlignment="Center" Tag="B"></CheckBox>
-                    <TextBlock Grid.Column="3" FontSize="16" VerticalAlignment="Center">B</TextBlock>
-                    <CheckBox x:Name="ckQuestionC" Grid.Column="4" VerticalAlignment="Center" Tag="C"></CheckBox>
-                    <TextBlock Grid.Column="5" FontSize="16" VerticalAlignment="Center">C</TextBlock>
-                    <CheckBox x:Name="ckQuestionD" Grid.Column="6" VerticalAlignment="Center" Tag="D"></CheckBox>
-                    <TextBlock Grid.Column="7" FontSize="16" VerticalAlignment="Center">D</TextBlock>
-                    <CheckBox x:Name="ckQuestionE" Grid.Column="8" VerticalAlignment="Center" Tag="E"></CheckBox>
-                    <TextBlock Grid.Column="9" FontSize="16" VerticalAlignment="Center">E</TextBlock>
+                    <CheckBox x:Name="ckQuestionA" Grid.Column="0" VerticalAlignment="Center" Tag="A" Content="A"></CheckBox>
+                    <CheckBox x:Name="ckQuestionB" Grid.Column="1" VerticalAlignment="Center" Tag="B" Content="B"></CheckBox>
+                    <CheckBox x:Name="ckQuestionC" Grid.Column="2" VerticalAlignment="Center" Tag="C" Content="C"></CheckBox>
+                    <CheckBox x:Name="ckQuestionD" Grid.Column="3" VerticalAlignment="Center" Tag="D" Content="D"></CheckBox>
+                    <CheckBox x:Name="ckQuestionE" Grid.Column="4" VerticalAlignment="Center" Tag="E" Content="E"></CheckBox>
                 </Grid>
                 <Grid x:Name="gOne_Answer" Grid.Column="1" Visibility="Hidden">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="30"></ColumnDefinition>
-                        <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="30"></ColumnDefinition>
-                        <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="30"></ColumnDefinition>
-                        <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="30"></ColumnDefinition>
-                        <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="30"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <RadioButton x:Name="rdOneA" Grid.Column="0" VerticalAlignment="Center" GroupName="radio" Tag="A"></RadioButton>
-                    <TextBlock Grid.Column="1" FontSize="16" VerticalAlignment="Center">A</TextBlock>
-                    <RadioButton x:Name="rdOneB" Grid.Column="2" VerticalAlignment="Center" GroupName="radio" Tag="B"></RadioButton>
-                    <TextBlock Grid.Column="3" FontSize="16" VerticalAlignment="Center">B</TextBlock>
-                    <RadioButton x:Name="rdOneC" Grid.Column="4" VerticalAlignment="Center" GroupName="radio" Tag="C"></RadioButton>
-                    <TextBlock Grid.Column="5" FontSize="16" VerticalAlignment="Center">C</TextBlock>
-                    <RadioButton x:Name="rdOneD" Grid.Column="6" VerticalAlignment="Center" GroupName="radio" Tag="D"></RadioButton>
-                    <TextBlock Grid.Column="7" FontSize="16" VerticalAlignment="Center">D</TextBlock>
-                    <RadioButton x:Name="rdOneE" Grid.Column="8" VerticalAlignment="Center" GroupName="radio" Tag="E"></RadioButton>
-                    <TextBlock Grid.Column="9" FontSize="16" VerticalAlignment="Center">D</TextBlock>
+                    <RadioButton x:Name="rdOneA" Grid.Column="0" VerticalAlignment="Center" GroupName="radio" Tag="A" Content="A"></RadioButton>
+                    <RadioButton x:Name="rdOneB" Grid.Column="1" VerticalAlignment="Center" GroupName="radio" Tag="B" Content="B"></RadioButton>
+                    <RadioButton x:Name="rdOneC" Grid.Column="2" VerticalAlignment="Center" GroupName="radio" Tag="C" Content="C"></RadioButton>
+                    <RadioButton x:Name="rdOneD" Grid.Column="3" VerticalAlignment="Center" GroupName="radio" Tag="D" Content="D"></RadioButton>
+                    <RadioButton x:Name="rdOneE" Grid.Column="4" VerticalAlignment="Center" GroupName="radio" Tag="E" Content="E"></RadioButton>
                 </Grid>
                 <Grid x:Name="gJudge_Answer" Grid.Column="1" Visibility="Hidden">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="30"></ColumnDefinition>
-                        <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="30"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <RadioButton x:Name="rdJudgeA" Grid.Column="0" VerticalAlignment="Center" GroupName="radio" Tag="A"></RadioButton>
-                    <TextBlock Grid.Column="1" FontSize="16" VerticalAlignment="Center">是</TextBlock>
-                    <RadioButton x:Name="rdJudgeB" Grid.Column="2" VerticalAlignment="Center" GroupName="radio" Tag="B"></RadioButton>
-                    <TextBlock Grid.Column="3" FontSize="16" VerticalAlignment="Center">否</TextBlock>
+                    <RadioButton x:Name="rdJudgeA" Grid.Column="0" VerticalAlignment="Center" GroupName="radio" Tag="A" Content="是"></RadioButton>
+                    <RadioButton x:Name="rdJudgeB" Grid.Column="1" VerticalAlignment="Center" GroupName="radio" Tag="B" Content="否"></RadioButton>
                 </Grid>
                 <Button x:Name="btn_show_answer" Grid.Column="2" Margin="10" Click="btn_show_answer_Click">显示答案</Button>
                 <Button x:Name="btn_redo" Grid.Column="3" Margin="10" Click="btn_redo_Click">重做</Button>
@@ -141,5 +118,6 @@
                 </ScrollViewer>
             </Grid>
         </Grid>
+        <Grid Grid.Row="4" Background="#FF007ACC"></Grid>
     </Grid>
 </UserControl>

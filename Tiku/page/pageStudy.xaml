@@ -29,7 +29,7 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="1">
-            <local:ucTable x:Name="tbStudy" Margin="50">
+            <local:ucTable x:Name="tbStudy" Margin="50" ItemClick_Event="tbStudy_ItemClick_Event">
                 <local:ucTable.Columns>
                     <local:TableColumn field_name="题库名" field="good_name"/>
                     <local:TableColumn field_name="题目数量" field="num" type="Pixel" width="100" ha="Center"/>

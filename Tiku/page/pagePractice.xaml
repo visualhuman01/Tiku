@@ -37,6 +37,12 @@
                         <TextBlock VerticalAlignment="Center">提交答案</TextBlock>
                     </StackPanel>
                 </Button>
+                <Button x:Name="btnBack" Width="100" Height="30" Click="btnBack_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="30" Height="20" Source="/Tiku;component/image/提交.png" />
+                        <TextBlock VerticalAlignment="Center">返回</TextBlock>
+                    </StackPanel>
+                </Button>
             </StackPanel>
             <Grid Grid.Row="1" Margin="15">
                 <control:ucQuestion x:Name="uc_question" Redo_Event="uc_question_Redo_Event"/>

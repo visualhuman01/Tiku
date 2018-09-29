@@ -67,7 +67,7 @@ namespace Tiku.page
             {
                 data.Add(d);
             }
-            _main.SwitchPage(E_Page_Type.WrongToPractice, data);
+            _main.SwitchPage(E_Page_Type.WrongToPractice, data, E_Page_Type.Wrong);
         }
 
         private void btnSelect_Click(object sender, RoutedEventArgs e)
@@ -83,7 +83,7 @@ namespace Tiku.page
             {
                 data.Add(d.Data);
             }
-            _main.SwitchPage(E_Page_Type.WrongToPractice, data);
+            _main.SwitchPage(E_Page_Type.WrongToPractice, data, E_Page_Type.Wrong);
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)

@@ -50,7 +50,7 @@ namespace Tiku.control
             }
         }
 
-        public void Refresh(int count)
+        public void Refresh(int count,int current_index = 0)
         {
             _btn.Clear();
             spNoList.Children.Clear();
@@ -74,9 +74,12 @@ namespace Tiku.control
                 _btn.Add(btn);
             }
             txtAll.Text = count.ToString();
-            _current_index = 0;
             _max_index = count - 1;
             _min_index = 0;
+            if (current_index < _max_index)
+                _current_index = current_index;
+            else
+                _current_index = 0;
             setColor();
         }
         private void setColor()
@@ -102,18 +105,15 @@ namespace Tiku.control
             int old = _current_index;
             Button btn = (Button)sender;
             _current_index = (int)btn.Tag;
+            SetBtnEnabled();
             setColor();
             if (Select_Event != null)
             {
                 Select_Event(old, _current_index);
             }
         }
-
-        private void btn_next_Click(object sender, RoutedEventArgs e)
+        private void SetBtnEnabled()
         {
-            int old = _current_index;
-            btn_last.IsEnabled = true;
-            _current_index++;
             if (_current_index >= _max_index)
             {
                 _current_index = _max_index;
@@ -123,6 +123,23 @@ namespace Tiku.control
             {
                 btn_next.IsEnabled = true;
             }
+            if (_current_index <= _min_index)
+            {
+                _current_index = _min_index;
+                btn_last.IsEnabled = false;
+            }
+            else
+            {
+                btn_last.IsEnabled = true;
+            }
+        }
+
+        private void btn_next_Click(object sender, RoutedEventArgs e)
+        {
+            int old = _current_index;
+            btn_last.IsEnabled = true;
+            _current_index++;
+            SetBtnEnabled();
             setColor();
             if (Select_Event != null)
             {
@@ -135,15 +152,7 @@ namespace Tiku.control
             int old = _current_index;
             btn_next.IsEnabled = true;
             _current_index--;
-            if (_current_index <= _min_index)
-            {
-                _current_index = _min_index;
-                btn_last.IsEnabled = false;
-            }
-            else
-            {
-                btn_last.IsEnabled = true;
-            }
+            SetBtnEnabled();
             setColor();
             if (Select_Event != null)
             {

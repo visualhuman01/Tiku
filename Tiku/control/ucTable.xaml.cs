@@ -56,6 +56,8 @@ namespace Tiku.control
         {
             get { return _items; }
         }
+        public delegate void ItemClick_Delegate(object sender);
+        public event ItemClick_Delegate ItemClick_Event;
         public ucTable()
         {
             InitializeComponent();
@@ -63,6 +65,7 @@ namespace Tiku.control
         }
         public void reload()
         {
+            _items.Clear();
             _select_item.Clear();
             gTitle.Children.Clear();
             spTable.Children.Clear();
@@ -96,10 +99,17 @@ namespace Tiku.control
                     ti.Data = d;
                     ti.Height = 30;
                     ti.Checked_Event += Ti_Checked_Event;
+                    ti.Click_Event += Ti_Click_Event;
                     spTable.Children.Add(ti);
                     _items.Add(ti);
                 }
             }
+        }
+
+        private void Ti_Click_Event(object sender)
+        {
+            if (ItemClick_Event != null)
+                ItemClick_Event(sender);
         }
 
         private void Ti_Checked_Event(object sender, bool check)

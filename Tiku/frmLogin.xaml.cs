@@ -66,11 +66,15 @@ namespace Tiku
         {
             if (gPwd.Visibility == Visibility.Visible)
             {
+                this.Title = "手机验证码登录";
+                btnPwdCode.Content = "账号密码登录";
                 gPwd.Visibility = Visibility.Hidden;
                 gCode.Visibility = Visibility.Visible;
             }
             else
             {
+                this.Title = "账号密码登录";
+                btnPwdCode.Content = "手机验证码登录";
                 gPwd.Visibility = Visibility.Visible;
                 gCode.Visibility = Visibility.Hidden;
             }

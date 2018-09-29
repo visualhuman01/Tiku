@@ -1,0 +1,65 @@
+﻿<Window x:Class="Tiku.windows.frmResult"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tiku.windows"
+        mc:Ignorable="d"
+        Title="打分" Height="250" Width="300" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">再接再厉哦~</TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="txt_max" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">总分：</TextBlock>
+            <TextBlock x:Name="txt_mark" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">得分：</TextBlock>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="txt_num" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">试卷总题数：</TextBlock>
+            <TextBlock x:Name="txt_all" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">已做题总数：</TextBlock>
+            <TextBlock x:Name="txt_done" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">未做题数：</TextBlock>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="txt_success" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">答对题数：</TextBlock>
+            <TextBlock x:Name="txt_error" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">答错题数：</TextBlock>
+            <TextBlock x:Name="txt_CorrectRate" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">正确率：</TextBlock>
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnAll" Grid.Column="0" Width="100" Height="30" Click="btnAll_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="30" Height="20" Source="/Tiku;component/image/查找表单列表.png" />
+                    <TextBlock VerticalAlignment="Center">全部解析</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnWrong" Grid.Column="1" Width="100" Height="30" Click="btnWrong_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="30" Height="20" Source="/Tiku;component/image/错题库.png" />
+                    <TextBlock VerticalAlignment="Center">错题解析</TextBlock>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

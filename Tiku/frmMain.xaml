@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tiku"
         mc:Ignorable="d"
-        Title="frmMain" Height="800" Width="1280" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True">
+        Title="frmMain" Height="800" Width="1280" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Icon="48.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="84"></RowDefinition>

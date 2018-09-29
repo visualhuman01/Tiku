@@ -65,6 +65,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="page\pageAnalysis.xaml.cs">
+      <DependentUpon>pageAnalysis.xaml</DependentUpon>
+    </Compile>
     <Compile Include="page\pageConsolidate.xaml.cs">
       <DependentUpon>pageConsolidate.xaml</DependentUpon>
     </Compile>
@@ -79,6 +82,9 @@
     </Compile>
     <Compile Include="windows\frmNote.xaml.cs">
       <DependentUpon>frmNote.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\frmResult.xaml.cs">
+      <DependentUpon>frmResult.xaml</DependentUpon>
     </Compile>
     <Page Include="page\pageActive.xaml">
       <SubType>Designer</SubType>
@@ -97,6 +103,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="control\ucQuestionBottom.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="page\pageAnalysis.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -219,6 +229,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="windows\frmNote.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\frmResult.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -411,6 +425,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="48.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\查找表单列表.png" />
+    <Resource Include="image\错题库.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\关闭.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
