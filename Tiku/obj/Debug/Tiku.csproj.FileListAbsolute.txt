@@ -140,3 +140,7 @@ C:\Project\git\Tiku\Tiku\obj\Debug\windows\frmResult.g.cs
 C:\Project\git\Tiku\Tiku\obj\Debug\windows\frmResult.baml
 C:\Project\git\Tiku\Tiku\obj\Debug\page\pageAnalysis.g.cs
 C:\Project\git\Tiku\Tiku\obj\Debug\page\pageAnalysis.baml
+C:\Project\git\Tiku\Tiku\obj\Debug\frmRegister.g.cs
+C:\Project\git\Tiku\Tiku\obj\Debug\frmRegister.baml
+C:\Project\git\Tiku\Tiku\obj\Debug\frmSetPass.g.cs
+C:\Project\git\Tiku\Tiku\obj\Debug\frmSetPass.baml

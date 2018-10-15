@@ -75,7 +75,7 @@ namespace Tiku
                 SwitchPage(E_Page_Type.Main);
                 SetMenuText();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -197,11 +197,14 @@ namespace Tiku
 
         private void menu_logout_Click(object sender, RoutedEventArgs e)
         {
+            logout();
+        }
+        private void logout()
+        {
             this.SwitchPage(E_Page_Type.Null);
             if (ShowLogin(null) == true)
                 this.SwitchPage(E_Page_Type.Main);
         }
-
         private void menu_min_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
@@ -209,9 +212,38 @@ namespace Tiku
         public void SetMenuText()
         {
             if (!string.IsNullOrEmpty(Config.Token))
-                menu_logout.Header = "退出登录";
+            {
+                menu_logout.Header = "注销";
+                if (!menu_main.Items.Contains(menu_setpass))
+                {
+                    menu_main.Items.Add(menu_setpass);
+                }
+            }
             else
+            {
                 menu_logout.Header = "登录";
+                menu_main.Items.Remove(menu_setpass);
+            }
+        }
+
+        private void menu_register_Click(object sender, RoutedEventArgs e)
+        {
+            frmRegister frmr = new frmRegister();
+            frmr.Owner = _this;
+            if (frmr.ShowDialog() == true)
+            {
+                logout();
+            }
+        }
+
+        private void menu_setpass_Click(object sender, RoutedEventArgs e)
+        {
+            frmSetPass frmsp = new frmSetPass();
+            frmsp.Owner = _this;
+            if (frmsp.ShowDialog() == true)
+            {
+                logout();
+            }
         }
     }
 }

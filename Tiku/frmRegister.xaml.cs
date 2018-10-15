@@ -21,63 +21,30 @@ namespace Tiku
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class frmLogin : Window
+    public partial class frmRegister : Window
     {
-        public frmLogin()
+        public frmRegister()
         {
             InitializeComponent();
-            Config.Token = "";
-            Config.Save();
         }
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            if (gPwd.Visibility == Visibility.Visible)
-            {
-                login(txtPhone.Text, txtPwd.Text, null, null);
-            }
-            else
-            {
-                login(txtPhone.Text, null, txtCode.Text, null);
-            }
+            register(txtPhone.Text, txtPwd.Text, txtCode.Text);
         }
-        private void login(string phone, string pwd, string code, string token)
+        private void register(string phone, string pwd, string code)
         {
             var lp = new 
             {
                 phone = phone,
                 password = pwd,
                 code = code,
-                token = token,
             };
-            var re = HttpHelper.Post(Config.Server + "/login/login", lp);
+            var re = HttpHelper.Post(Config.Server + "/login/register", lp);
             var b = HttpHelper.IsOk(re);
             if (b == true)
             {
-                Config.Phone = lp.phone;
-                Config.Token = re["data"]["token"].ToString();
-                Config.Save();
                 this.DialogResult = true;
                 this.Close();
-            }
-        }
-
-        private void btnPwdCode_Click(object sender, RoutedEventArgs e)
-        {
-            if (gPwd.Visibility == Visibility.Visible)
-            {
-                this.Title = "手机验证码登录";
-                btnPwdCode.Content = "账号密码登录";
-                gPwd.Visibility = Visibility.Hidden;
-                gCode.Visibility = Visibility.Visible;
-                labPwd.Text = "验证码";
-            }
-            else
-            {
-                this.Title = "账号密码登录";
-                btnPwdCode.Content = "手机验证码登录";
-                gPwd.Visibility = Visibility.Visible;
-                gCode.Visibility = Visibility.Hidden;
-                labPwd.Text = "密码";
             }
         }
 

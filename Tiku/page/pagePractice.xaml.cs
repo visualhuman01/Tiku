@@ -189,7 +189,13 @@ namespace Tiku.page
                     {
                         TreeViewItem tvi = new TreeViewItem();
                         TextBlock tb = new TextBlock();
-                        tb.Text = d["goods_name"].ToString() + "(" + d["num"].ToString() + ")";
+                        string gid = d["gid"].ToString();
+                        int qq = 0;
+                        if (frmMain.Study_Data.ContainsKey(gid))
+                        {
+                            qq = frmMain.Study_Data[gid];
+                        }
+                        tb.Text = d["goods_name"].ToString() + "(" + qq + "/" + d["num"].ToString() + ")";
                         tb.FontSize = 14;
                         tvi.Header = tb;
                         tvMenu.Items.Add(tvi);
@@ -209,7 +215,13 @@ namespace Tiku.page
                             {
                                 TreeViewItem tvi1 = new TreeViewItem();
                                 TextBlock tb1 = new TextBlock();
-                                tb1.Text = dd["goods_name"].ToString() + "(" + dd["num"].ToString() + ")";
+                                string ggid = dd["gid"].ToString();
+                                int qqq = 0;
+                                if (frmMain.Study_Data.ContainsKey(ggid))
+                                {
+                                    qqq = frmMain.Study_Data[ggid];
+                                }
+                                tb1.Text = dd["goods_name"].ToString() + "(" + qqq + "/" + dd["num"].ToString() + ")";
                                 tb1.FontSize = 14;
                                 tvi1.Header = tb1;
                                 tvi1.Tag = dd;

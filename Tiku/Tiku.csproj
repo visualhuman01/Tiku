@@ -65,6 +65,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="frmSetPass.xaml.cs">
+      <DependentUpon>frmSetPass.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmRegister.xaml.cs">
+      <DependentUpon>frmRegister.xaml</DependentUpon>
+    </Compile>
     <Compile Include="page\pageAnalysis.xaml.cs">
       <DependentUpon>pageAnalysis.xaml</DependentUpon>
     </Compile>
@@ -86,6 +92,14 @@
     <Compile Include="windows\frmResult.xaml.cs">
       <DependentUpon>frmResult.xaml</DependentUpon>
     </Compile>
+    <Page Include="frmSetPass.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmRegister.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="page\pageActive.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

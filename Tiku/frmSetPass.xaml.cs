@@ -21,9 +21,9 @@ namespace Tiku
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class frmLogin : Window
+    public partial class frmSetPass : Window
     {
-        public frmLogin()
+        public frmSetPass()
         {
             InitializeComponent();
             Config.Token = "";
@@ -33,29 +33,27 @@ namespace Tiku
         {
             if (gPwd.Visibility == Visibility.Visible)
             {
-                login(txtPhone.Text, txtPwd.Text, null, null);
+                setPwd(txtPhone.Text, txtNewPass.Text, txtPwd.Text, null, null);
             }
             else
             {
-                login(txtPhone.Text, null, txtCode.Text, null);
+                setPwd(txtPhone.Text, txtNewPass.Text, null, txtCode.Text, null);
             }
         }
-        private void login(string phone, string pwd, string code, string token)
+        private void setPwd(string phone, string newpwd, string pwd, string code, string token)
         {
-            var lp = new 
+            var lp = new
             {
                 phone = phone,
+                newPassword = newpwd,
                 password = pwd,
                 code = code,
                 token = token,
             };
-            var re = HttpHelper.Post(Config.Server + "/login/login", lp);
+            var re = HttpHelper.Post(Config.Server + "/login/editPassWord", lp);
             var b = HttpHelper.IsOk(re);
             if (b == true)
             {
-                Config.Phone = lp.phone;
-                Config.Token = re["data"]["token"].ToString();
-                Config.Save();
                 this.DialogResult = true;
                 this.Close();
             }
@@ -65,19 +63,19 @@ namespace Tiku
         {
             if (gPwd.Visibility == Visibility.Visible)
             {
-                this.Title = "手机验证码登录";
-                btnPwdCode.Content = "账号密码登录";
+                this.Title = "手机验证码方式";
+                btnPwdCode.Content = "账号密码方式";
                 gPwd.Visibility = Visibility.Hidden;
                 gCode.Visibility = Visibility.Visible;
                 labPwd.Text = "验证码";
             }
             else
             {
-                this.Title = "账号密码登录";
-                btnPwdCode.Content = "手机验证码登录";
+                this.Title = "账号密码方式";
+                btnPwdCode.Content = "手机验证码方式";
                 gPwd.Visibility = Visibility.Visible;
                 gCode.Visibility = Visibility.Hidden;
-                labPwd.Text = "密码";
+                labPwd.Text = "旧密码";
             }
         }
 

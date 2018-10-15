@@ -10,21 +10,29 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="84"></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid>
                 <Frame x:Name="fmTitle" NavigationUIVisibility="Hidden"></Frame>
                 <Menu Grid.Column="2" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right">
-                    <MenuItem Header="菜单">
-                        <MenuItem x:Name="menu_logout" Header="退出登录" Click="menu_logout_Click"/>
+                    <MenuItem Header="菜单" x:Name="menu_main">
+                        <MenuItem x:Name="menu_register" Header="注册" Click="menu_register_Click"/>
+                        <MenuItem x:Name="menu_setpass" Header="修改密码" Click="menu_setpass_Click"/>
+                        <MenuItem x:Name="menu_logout" Header="注销" Click="menu_logout_Click"/>
+                        <MenuItem x:Name="menu_exit" Header="退出" Click="menu_Exit_Click"/>
                     </MenuItem>
                     <MenuItem x:Name="menu_min" Header="_" Click="menu_min_Click"/>
                     <MenuItem x:Name="menu_Exit" Header="X" Click="menu_Exit_Click"/>
                 </Menu>
             </Grid>
         </Grid>
-        <Frame x:Name="fmMain" Grid.Row="1" NavigationUIVisibility="Hidden" BorderBrush="#FF4A9AFB" BorderThickness="3,0,3,3">
+        <Frame x:Name="fmMain" Grid.Row="1" NavigationUIVisibility="Hidden" BorderBrush="#FF4A9AFB" BorderThickness="3,0,3,0">
 
         </Frame>
+        <StackPanel Grid.Row="2" Background="#FF4A9AFB" Orientation="Horizontal">
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0">@汤沐科技有限公司版权所有</TextBlock>
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0">官方主页：http://www.kszhuanjia.com/html/jianyi/</TextBlock>
+        </StackPanel>
     </Grid>
 </Window>
