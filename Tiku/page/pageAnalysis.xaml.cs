@@ -21,20 +21,28 @@ namespace Tiku.page
     /// </summary>
     public partial class pageAnalysis : Page
     {
-        public pageAnalysis()
+        private frmMain _main = null;
+        public pageAnalysis(frmMain main)
         {
             InitializeComponent();
+            _main = main;
         }
         public void Init(List<question_data> data)
         {
-            for(int i=0;i<data.Count;i++)
+            sp_content.Children.Clear();
+            for (int i=0;i<data.Count;i++)
             {
                 ucQuestion uq = new ucQuestion(true);
                 uq.Margin = new Thickness(10);
                 uq.Width = 1200;
-                uq.SetData(i + 1, data[i], null);
+                uq.SetData(i, data[i], null);
                 sp_content.Children.Add(uq);
             }
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            _main.GoBack();
         }
     }
 }

@@ -38,7 +38,8 @@ namespace Tiku.page
                 token = Config.Token,
             };
             var re = HttpHelper.Post(Config.Server + "/record/study", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 var data = re["data"];
                 tbStudy.Data = data;
@@ -50,24 +51,22 @@ namespace Tiku.page
                     if (dic.ContainsKey(gid))
                     {
                         dic[gid] = sign;
-                    }else
+                    }
+                    else
                     {
                         dic.Add(gid, sign);
                     }
                 }
                 frmMain.Study_Data = dic;
             }
-            else if (re != null && HttpHelper.IsOk(re) == null)
+            else if (b == null)
             {
                 frmMain.ShowLogin(callBack);
             }
-            else
-            {
-                //frmMain.ShowLogin(callBack);
-                MessageBox.Show(re["msg"].ToString());
-            }
+
             re = HttpHelper.Post(Config.Server + "/record/practice", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 var data = re["data"];
                 txt_all.Text = data["all"];
@@ -78,14 +77,9 @@ namespace Tiku.page
                 txt_all_pre.Text = data["all_pre"];
                 txt_right_pre.Text = data["right_pre"];
             }
-            else if (re != null && HttpHelper.IsOk(re) == null)
+            else if (b == null)
             {
                 frmMain.ShowLogin(callBack);
-            }
-            else
-            {
-                //frmMain.ShowLogin(callBack);
-                MessageBox.Show(re["msg"].ToString());
             }
         }
         private void callBack(dynamic param)

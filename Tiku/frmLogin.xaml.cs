@@ -26,6 +26,8 @@ namespace Tiku
         public frmLogin()
         {
             InitializeComponent();
+            Config.Token = "";
+            Config.Save();
         }
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
@@ -48,17 +50,14 @@ namespace Tiku
                 token = token,
             };
             var re = HttpHelper.Post(Config.Server + "/login/login", lp);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 Config.Phone = lp.phone;
                 Config.Token = re["data"]["token"].ToString();
                 Config.Save();
                 this.DialogResult = true;
                 this.Close();
-            }
-            else
-            {
-                MessageBox.Show(re["msg"].ToString());
             }
         }
 
@@ -84,16 +83,13 @@ namespace Tiku
         {
             var param = new { phone = txtPhone.Text };
             var re = HttpHelper.Post(Config.Server + "/index/sms", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 btnSend.IsEnabled = false;
                 btnSend.Content = "60";
                 timer.Elapsed += Timer_Elapsed;
                 timer.Start();
-            }
-            else
-            {
-                MessageBox.Show(re["msg"].ToString());
             }
         }
         System.Timers.Timer timer = new System.Timers.Timer(1000);

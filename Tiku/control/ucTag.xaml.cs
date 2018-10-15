@@ -65,6 +65,16 @@ namespace Tiku.control
         }
         public dynamic Data { get; set; }
         private int _level = 0;
+        private string _imgurl;
+        public string ImgUrl
+        {
+            get { return _imgurl; }
+            set
+            {
+                _imgurl = value;
+                imgTag.Source = new BitmapImage(new Uri(_imgurl, UriKind.RelativeOrAbsolute));
+            }
+        }
         public ucTag()
         {
             InitializeComponent();

@@ -11,11 +11,13 @@
     <Grid>
         <Image Stretch="Fill" Source="/Tiku;component/image/导航bg.png" MouseLeftButtonDown="Image_MouseLeftButtonDown"></Image>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Image Stretch="Fill" Margin="50,10" Source="/Tiku;component/image/logo.png"></Image>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Image Grid.Column="0" Stretch="Fill" Width="80" Margin="10" Source="/Tiku;component/image/logo2.png"></Image>
+                <Image Grid.Column="1" Stretch="Fill" Height="60" Source="/Tiku;component/image/logo1.png"></Image>
+            </StackPanel>
+            <Grid>
+                <Image Grid.Column="0" Stretch="Fill" Height="40" Width="260" Margin="10" Source="/Tiku;component/image/logo3.png"></Image>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

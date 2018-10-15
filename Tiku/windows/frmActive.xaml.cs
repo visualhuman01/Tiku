@@ -38,13 +38,11 @@ namespace Tiku.windows
                 code = txtCode.Text,
             };
             var re = HttpHelper.Post(Config.Server + "/user/code", param);
-            if(re != null && HttpHelper.IsOk(re))
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 this.DialogResult = true;
                 this.Close();
-            }else
-            {
-                MessageBox.Show(re["msg"].ToString());
             }
         }
 

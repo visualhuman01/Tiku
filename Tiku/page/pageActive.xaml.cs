@@ -44,20 +44,16 @@ namespace Tiku.page
                 page = _current_page,
             };
             var re = HttpHelper.Post(Config.Server + "/user/active", param);
-            if(re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 var data = re["data"]["data"];
                 _hasNext = re["data"]["hasNext"];
                 table.Data = data;
             }
-            else if (re != null && HttpHelper.IsOk(re) == null)
+            else if (b == null)
             {
                 frmMain.ShowLogin(callBack);
-            }
-            else
-            {
-                //frmMain.ShowLogin(callBack);
-                MessageBox.Show(re["msg"].ToString());
             }
             setBtnEnabled();
         }
@@ -98,10 +94,11 @@ namespace Tiku.page
 
         private void ActType_FieldFormat_Event(string value, out string new_value)
         {
-            if(value == "1")
+            if (value == "1")
             {
                 new_value = "永久";
-            }else
+            }
+            else
             {
                 new_value = "1年";
             }

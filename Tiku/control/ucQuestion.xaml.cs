@@ -362,13 +362,10 @@ namespace Tiku.control
                 qid = qid,
             };
             var re = HttpHelper.Post(Config.Server + "/record/comment", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 return (bool)re["data"];
-            }
-            else
-            {
-                MessageBox.Show(re["msg"].ToString());
             }
             return false;
         }
@@ -490,13 +487,10 @@ namespace Tiku.control
                 qid = _data.qid,
             };
             var re = HttpHelper.Post(Config.Server + "/record/collect", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 MessageBox.Show("收藏成功");
-            }
-            else
-            {
-                MessageBox.Show(re["msg"].ToString());
             }
         }
 

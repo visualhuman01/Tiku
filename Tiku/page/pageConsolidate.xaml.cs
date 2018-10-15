@@ -138,19 +138,15 @@ namespace Tiku.page
                 token = Config.Token,
             };
             var re = HttpHelper.Post(Config.Server + "/record/collectList", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 var data = re["data"];
                 table.Data = data;
             }
-            else if (re != null && HttpHelper.IsOk(re) == null)
+            else if (b == null)
             {
                 frmMain.ShowLogin(callBack);
-            }
-            else
-            {
-                //frmMain.ShowLogin(callback);
-                MessageBox.Show(re["msg"].ToString());
             }
         }
         private void Reload_note()
@@ -163,19 +159,15 @@ namespace Tiku.page
                 token = Config.Token,
             };
             var re = HttpHelper.Post(Config.Server + "/record/noteList", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 var data = re["data"];
                 table.Data = data;
             }
-            else if (re != null && HttpHelper.IsOk(re) == null)
+            else if (b == null)
             {
                 frmMain.ShowLogin(callBack);
-            }
-            else
-            {
-                //frmMain.ShowLogin(callback);
-                MessageBox.Show(re["msg"].ToString());
             }
         }
         private void callBack(dynamic param)
@@ -203,7 +195,7 @@ namespace Tiku.page
             {
                 data.Add(d);
             }
-            _main.SwitchPage(E_Page_Type.WrongToPractice, data, E_Page_Type.Consolidate);
+            _main.SwitchPage(E_Page_Type.WrongToPractice, data);
         }
 
         private void btnSelect_Click(object sender, RoutedEventArgs e)
@@ -219,7 +211,7 @@ namespace Tiku.page
             {
                 data.Add(d.Data);
             }
-            _main.SwitchPage(E_Page_Type.WrongToPractice, data, E_Page_Type.Consolidate);
+            _main.SwitchPage(E_Page_Type.WrongToPractice, data);
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -263,13 +255,10 @@ namespace Tiku.page
                 id = id,
             };
             var re = HttpHelper.Post(Config.Server + "/record/delNote", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 return;
-            }
-            else
-            {
-                MessageBox.Show(re["msg"].ToString());
             }
         }
         private void delete_collect(List<ucTableItem> items)
@@ -288,13 +277,10 @@ namespace Tiku.page
                 id = id,
             };
             var re = HttpHelper.Post(Config.Server + "/record/delCollect", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 return;
-            }
-            else
-            {
-                MessageBox.Show(re["msg"].ToString());
             }
         }
 

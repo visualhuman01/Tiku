@@ -43,7 +43,6 @@ namespace Tiku.page
         private Dictionary<int, Answer_Data> _answer_List = new Dictionary<int, Answer_Data>();
         private int _max_index = 0;
         private string _gid;
-        private E_Page_Type _pageType;
         public pagePractice(frmMain main)
         {
             _main = main;
@@ -52,7 +51,6 @@ namespace Tiku.page
         public void LoadStudy(dynamic data)
         {
             btnBack.Visibility = Visibility.Visible;
-            _pageType = E_Page_Type.User;
             tvMenu.Items.Clear();
             TreeViewItem tvi = new TreeViewItem();
             TextBlock tb = new TextBlock();
@@ -65,10 +63,9 @@ namespace Tiku.page
             tvi.IsExpanded = true;
             tvi.IsSelected = true;
         }
-        public void LoadWrong(List<dynamic> data,E_Page_Type back)
+        public void LoadWrong(List<dynamic> data)
         {
             btnBack.Visibility = Visibility.Visible;
-            _pageType = back;
             btnSubmit.IsEnabled = false;
             tvMenu.Items.Clear();
             _questions.Clear();
@@ -96,7 +93,8 @@ namespace Tiku.page
                     phone = Config.Phone,
                 };
                 var re = HttpHelper.Post(Config.Server + "/record/special", param);
-                if (re != null && HttpHelper.IsOk(re) == true)
+                var b = HttpHelper.IsOk(re);
+                if (b == true)
                 {
                     var data = re["data"];
                     TreeViewItem tvi = new TreeViewItem();
@@ -131,7 +129,8 @@ namespace Tiku.page
                         phone = Config.Phone,
                     };
                     var ree = HttpHelper.Post(Config.Server + "/api/course", param1);
-                    if (ree != null && HttpHelper.IsOk(ree) == true)
+                    var bb = HttpHelper.IsOk(ree);
+                    if (bb == true)
                     {
                         var data1 = ree["data"];
                         foreach (var dd in data1)
@@ -151,24 +150,14 @@ namespace Tiku.page
                             tt.IsSelected = true;
                         }
                     }
-                    else if (ree != null && HttpHelper.IsOk(ree) == null)
+                    else if (bb == null)
                     {
                         frmMain.ShowLogin(callback_Special, type);
                     }
-                    else
-                    {
-                        //frmMain.ShowLogin(callback_Special, type);
-                        MessageBox.Show(ree["msg"].ToString());
-                    }
                 }
-                else if (re != null && HttpHelper.IsOk(re) == null)
+                else if (b == null)
                 {
                     frmMain.ShowLogin(callback_Special, type);
-                }
-                else
-                {
-                    //frmMain.ShowLogin(callback_Special, type);
-                    MessageBox.Show(re["msg"].ToString());
                 }
             }
         }
@@ -192,7 +181,8 @@ namespace Tiku.page
                     phone = Config.Phone,
                 };
                 var re = HttpHelper.Post(Config.Server + "/record/questionBank", param);
-                if (re != null && HttpHelper.IsOk(re) == true)
+                var b = HttpHelper.IsOk(re);
+                if (b == true)
                 {
                     var data = re["data"];
                     foreach (var d in data)
@@ -211,7 +201,8 @@ namespace Tiku.page
                             phone = Config.Phone,
                         };
                         var ree = HttpHelper.Post(Config.Server + "/api/course", param1);
-                        if (ree != null && HttpHelper.IsOk(ree) == true)
+                        var bb = HttpHelper.IsOk(ree);
+                        if (bb == true)
                         {
                             var data1 = ree["data"];
                             foreach (var dd in data1)
@@ -226,14 +217,9 @@ namespace Tiku.page
                                 tvi.Items.Add(tvi1);
                             }
                         }
-                        else if (ree != null && HttpHelper.IsOk(ree) == null)
+                        else if (bb == null)
                         {
                             frmMain.ShowLogin(callback_QuestionBank, cate_id);
-                        }
-                        else
-                        {
-                            //frmMain.ShowLogin(callback_QuestionBank, cate_id);
-                            MessageBox.Show(ree["msg"].ToString());
                         }
                     }
                     if (tvMenu.Items != null && tvMenu.Items.Count > 0)
@@ -247,14 +233,9 @@ namespace Tiku.page
                         }
                     }
                 }
-                else if (re != null && HttpHelper.IsOk(re) == null)
+                else if (b == null)
                 {
                     frmMain.ShowLogin(callback_QuestionBank, cate_id);
-                }
-                else
-                {
-                    //frmMain.ShowLogin(callback_QuestionBank, cate_id);
-                    MessageBox.Show(re["msg"].ToString());
                 }
             }
         }
@@ -275,6 +256,7 @@ namespace Tiku.page
             {
                 _questions.Clear();
                 _gid = data["gid"].ToString();
+                _answer_List.Clear();
                 var param = new
                 {
                     id = _gid,
@@ -282,7 +264,8 @@ namespace Tiku.page
                     phone = Config.Phone,
                 };
                 var re = HttpHelper.Post(Config.Server + "/api/app", param);
-                if (re != null && HttpHelper.IsOk(re) == true)
+                var b = HttpHelper.IsOk(re);
+                if (b == true)
                 {
                     var data1 = re["data"];
                     foreach (var v in data1)
@@ -312,14 +295,9 @@ namespace Tiku.page
                         uc_question_bottom.Refresh(_questions.Count);
                     }
                 }
-                else if (re != null && HttpHelper.IsOk(re) == null)
+                else if (b == null)
                 {
                     frmMain.ShowLogin(callback_Selected, data);
-                }
-                else
-                {
-                    //frmMain.ShowLogin(callback_Selected, data);
-                    MessageBox.Show(re["msg"].ToString());
                 }
             }
         }
@@ -358,6 +336,7 @@ namespace Tiku.page
                 else
                     _answer_List[index] = ad;
                 uc_question_bottom.SetColor(index, (bool)b);
+                uc_question_bottom.SetText(_answer_List.Count, _questions.Count - _answer_List.Count);
                 if (index > _max_index)
                     _max_index = index;
             }
@@ -406,21 +385,17 @@ namespace Tiku.page
                 sign = _max_index,
             };
             var re = HttpHelper.Post(Config.Server + "/record/mark", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 var data = re["data"];
                 //string msg = string.Format("总分：{0}\r\n总得分:{1}\r\n答对题数：{2}\r\n答错题数：{3}\r\n已做题总数：{4}\r\n试卷总题数：{5}\r\n未做题数：{6}\r\n正确率：{7}\r\n", data["max"], data["mark"], data["success"], data["error"], data["all"], data["num"], data["done"], data["CorrectRate"]);
                 //MessageBox.Show(msg);
                 frmMain.ShowResult(data, _questions, _gid);
             }
-            else if (re != null && HttpHelper.IsOk(re) == null)
+            else if (b == null)
             {
                 frmMain.ShowLogin(callBack_submit);
-            }
-            else
-            {
-                //frmMain.ShowLogin(callBack_submit);
-                MessageBox.Show(re["msg"].ToString());
             }
         }
         private void callBack_submit(dynamic param)
@@ -442,7 +417,7 @@ namespace Tiku.page
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            _main.SwitchPage(_pageType);
+            _main.GoBack();
         }
     }
 }

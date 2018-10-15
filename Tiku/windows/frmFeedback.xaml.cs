@@ -76,14 +76,11 @@ namespace Tiku.windows
                 error = cbi.Tag.ToString(),
             };
             var re = HttpHelper.Post(Config.Server + "/user/opinion", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 MessageBox.Show(re["msg"].ToString());
                 this.Close();
-            }
-            else
-            {
-                MessageBox.Show(re["msg"].ToString());
             }
         }
 

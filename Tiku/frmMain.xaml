@@ -23,7 +23,7 @@
                 </Menu>
             </Grid>
         </Grid>
-        <Frame x:Name="fmMain" Grid.Row="1" NavigationUIVisibility="Hidden">
+        <Frame x:Name="fmMain" Grid.Row="1" NavigationUIVisibility="Hidden" BorderBrush="#FF4A9AFB" BorderThickness="3,0,3,3">
 
         </Frame>
     </Grid>

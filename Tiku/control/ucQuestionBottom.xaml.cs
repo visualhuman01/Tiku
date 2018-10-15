@@ -34,6 +34,11 @@ namespace Tiku.control
         {
             InitializeComponent();
         }
+        public void SetText(int over,int no)
+        {
+            txtOver.Text = over.ToString();
+            txtNo.Text = no.ToString();
+        }
         public void SetColor(int index, bool? answer)
         {
             if (answer == true)
@@ -81,6 +86,7 @@ namespace Tiku.control
             else
                 _current_index = 0;
             setColor();
+            SetText(0, count);
         }
         private void setColor()
         {

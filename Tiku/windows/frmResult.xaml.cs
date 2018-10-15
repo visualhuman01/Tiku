@@ -27,7 +27,7 @@ namespace Tiku.windows
         private List<question_data> _all = null;
         private string _gid;
         private frmMain _main = null;
-        public frmResult(frmMain main, dynamic data,List<question_data> all,string gid)
+        public frmResult(frmMain main, dynamic data, List<question_data> all, string gid)
         {
             InitializeComponent();
             _main = main;
@@ -66,7 +66,8 @@ namespace Tiku.windows
                 id = _gid,
             };
             var re = HttpHelper.Post(Config.Server + "/record/wrong", param);
-            if(re!=null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 var data = re["data"];
                 List<question_data> qlist = new List<question_data>();
@@ -79,10 +80,6 @@ namespace Tiku.windows
                 }
                 _main.SwitchPage(E_Page_Type.analysis, qlist);
                 this.Close();
-            }
-            else
-            {
-                MessageBox.Show(re["msg"].ToString());
             }
         }
     }

@@ -433,6 +433,29 @@
   <ItemGroup>
     <Resource Include="image\关闭.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\1.png" />
+    <Resource Include="image\2.png" />
+    <Resource Include="image\3.png" />
+    <Resource Include="image\4.png" />
+    <Resource Include="image\5.png" />
+    <Resource Include="image\6.png" />
+    <Resource Include="image\7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\logo1.png" />
+    <Resource Include="image\logo2.png" />
+    <Resource Include="image\logo3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\从业资格.png" />
+    <Resource Include="image\公务员.png" />
+    <Resource Include="image\其他考试.png" />
+    <Resource Include="image\医药卫生.png" />
+    <Resource Include="image\学历类.png" />
+    <Resource Include="image\工程类考试.png" />
+    <Resource Include="image\财务会计.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -52,20 +52,33 @@ namespace Tiku
         public string Cate_Id { get; set; }
         public static Dictionary<string, int> Study_Data = new Dictionary<string, int>();
 
+        private E_Page_Type _current = E_Page_Type.Main;
+        private dynamic _current_data = null;
+        private E_Page_Type _back = E_Page_Type.Main;
+        private dynamic _back_data = null;
+
         public frmMain()
         {
-            InitializeComponent();
-            _this = this;
-            _logo = new pageLogo(this);
-            _main = new pageMain(this);
-            _tools = new pageTools(this);
-            _userinfo = new pageUserInfo(this);
-            _practice = new pagePractice(this);
-            _news = new pageNews();
-            _wrong = new pageWrong(this);
-            _consolidate = new pageConsolidate(this);
-            _analysis = new pageAnalysis();
-            SwitchPage(E_Page_Type.Main);
+            try
+            {
+                InitializeComponent();
+                _this = this;
+                _logo = new pageLogo(this);
+                _main = new pageMain(this);
+                _tools = new pageTools(this);
+                _userinfo = new pageUserInfo(this);
+                _practice = new pagePractice(this);
+                _news = new pageNews();
+                _wrong = new pageWrong(this);
+                _consolidate = new pageConsolidate(this);
+                _analysis = new pageAnalysis(this);
+                SwitchPage(E_Page_Type.Main);
+                SetMenuText();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         public delegate void CallBack(dynamic param);
         public static bool ShowLogin(CallBack callback, dynamic param = null)
@@ -78,8 +91,10 @@ namespace Tiku
                 {
                     callback(param);
                 }
+                _this.SetMenuText();
                 return true;
             }
+            _this.SetMenuText();
             return false;
         }
         public static bool ShowActive(string id)
@@ -104,8 +119,12 @@ namespace Tiku
             res.Owner = _this;
             res.ShowDialog();
         }
-        public void SwitchPage(E_Page_Type type, object data = null,E_Page_Type back = E_Page_Type.Main)
+        public void SwitchPage(E_Page_Type type, object data = null)
         {
+            _back = _current;
+            _back_data = _current_data;
+            _current = type;
+            _current_data = data;
             switch (type)
             {
                 case E_Page_Type.Main:
@@ -142,7 +161,7 @@ namespace Tiku
                 case E_Page_Type.WrongToPractice:
                     fmMain.Navigate(_practice);
                     fmTitle.Navigate(_tools);
-                    _practice.LoadWrong((List<dynamic>)data, back);
+                    _practice.LoadWrong((List<dynamic>)data);
                     break;
                 case E_Page_Type.Consolidate:
                     fmMain.Navigate(_consolidate);
@@ -166,6 +185,10 @@ namespace Tiku
                     break;
             }
         }
+        public void GoBack()
+        {
+            SwitchPage(_back, _back_data);
+        }
 
         private void menu_Exit_Click(object sender, RoutedEventArgs e)
         {
@@ -174,8 +197,6 @@ namespace Tiku
 
         private void menu_logout_Click(object sender, RoutedEventArgs e)
         {
-            Config.Token = "";
-            Config.Save();
             this.SwitchPage(E_Page_Type.Null);
             if (ShowLogin(null) == true)
                 this.SwitchPage(E_Page_Type.Main);
@@ -184,6 +205,13 @@ namespace Tiku
         private void menu_min_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
+        }
+        public void SetMenuText()
+        {
+            if (!string.IsNullOrEmpty(Config.Token))
+                menu_logout.Header = "退出登录";
+            else
+                menu_logout.Header = "登录";
         }
     }
 }

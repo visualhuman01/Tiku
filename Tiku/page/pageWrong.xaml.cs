@@ -41,19 +41,15 @@ namespace Tiku.page
                 phone = Config.Phone,
             };
             var re = HttpHelper.Post(Config.Server + "/record/wrong", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 var data = re["data"];
                 tbWrong.Data = data;
             }
-            else if (re != null && HttpHelper.IsOk(re) == null)
+            else if (b == null)
             {
                 frmMain.ShowLogin(callBack);
-            }
-            else
-            {
-                //frmMain.ShowLogin(callBack);
-                MessageBox.Show(re["msg"].ToString());
             }
         }
         private void callBack(dynamic param)
@@ -67,7 +63,7 @@ namespace Tiku.page
             {
                 data.Add(d);
             }
-            _main.SwitchPage(E_Page_Type.WrongToPractice, data, E_Page_Type.Wrong);
+            _main.SwitchPage(E_Page_Type.WrongToPractice, data);
         }
 
         private void btnSelect_Click(object sender, RoutedEventArgs e)
@@ -83,7 +79,7 @@ namespace Tiku.page
             {
                 data.Add(d.Data);
             }
-            _main.SwitchPage(E_Page_Type.WrongToPractice, data, E_Page_Type.Wrong);
+            _main.SwitchPage(E_Page_Type.WrongToPractice, data);
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -108,14 +104,11 @@ namespace Tiku.page
                 id = id,
             };
             var re = HttpHelper.Post(Config.Server + "/record/delWrong", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 init();
                 return;
-            }
-            else
-            {
-                MessageBox.Show(re["msg"].ToString());
             }
         }
 
@@ -136,14 +129,11 @@ namespace Tiku.page
                 id = id,
             };
             var re = HttpHelper.Post(Config.Server + "/record/delWrong", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 init();
                 return;
-            }
-            else
-            {
-                MessageBox.Show(re["msg"].ToString());
             }
         }
     }

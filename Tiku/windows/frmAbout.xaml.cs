@@ -33,9 +33,9 @@ namespace Tiku.windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            init();
         }
-        private void init ()
+        private void init()
         {
             var param = new
             {
@@ -43,7 +43,8 @@ namespace Tiku.windows
                 phone = Config.Phone,
             };
             var re = HttpHelper.Post(Config.Server + "/index/custom", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 var data = re["data"];
                 txt_pre.Text = data["pre"].ToString();
@@ -54,14 +55,9 @@ namespace Tiku.windows
                 btnIOS.Tag = data["ios"].ToString();
                 btnWeb.Tag = data["url"].ToString();
             }
-            else if (re != null && HttpHelper.IsOk(re) == null)
+            else if (b == null)
             {
                 frmMain.ShowLogin(callBack);
-            }
-            else
-            {
-                //frmMain.ShowLogin(callBack);
-                MessageBox.Show(re["msg"].ToString());
             }
         }
         private void callBack(dynamic param)

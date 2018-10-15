@@ -42,30 +42,28 @@ namespace Tiku.page
                 token = Config.Token,
             };
             cate_res = HttpHelper.Post(Config.Server + "/api/cate", param);
-            if (cate_res != null && HttpHelper.IsOk(cate_res) == true)
+            var b = HttpHelper.IsOk(cate_res);
+            if (b == true)
             {
                 var data = cate_res["data"];
-                bool b = true;
+                bool bb = true;
                 foreach (var d in data)
                 {
                     ucTag ot = new ucTag(1, d["gid"].ToString(), d["goods_name"].ToString(), d["detail"]);
+                    ot.ImgUrl = "/image/" + d["goods_name"].ToString()+".png";
                     ot.Click_Event += Ot_Click_Event;
+                    ot.txtTag.HorizontalAlignment = HorizontalAlignment.Left;
                     spOneTag.Children.Add(ot);
-                    if (b)
+                    if (bb)
                     {
-                        b = false;
+                        bb = false;
                         ot.IsSelect = true;
                     }
                 }
             }
-            else if (cate_res != null && HttpHelper.IsOk(cate_res) == null)
+            else if (b == null)
             {
                 frmMain.ShowLogin(callBack);
-            }
-            else
-            {
-                //frmMain.ShowLogin(callBack);
-                MessageBox.Show(cate_res["msg"].ToString());
             }
         }
         private void callBack(dynamic param)
@@ -167,12 +165,10 @@ namespace Tiku.page
                 id = cate_id,
             };
             var re = HttpHelper.Post(Config.Server + "/index/select", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 return true;
-            }else
-            {
-                MessageBox.Show(re["msg"].ToString());
             }
             return false;
         }

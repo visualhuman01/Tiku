@@ -39,7 +39,8 @@ namespace Tiku.windows
                 qid = _data.qid,
             };
             var re = HttpHelper.Post(Config.Server + "/record/note", param);
-            if (re != null && HttpHelper.IsOk(re) == true)
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
             {
                 var data = re["data"];
                 txtContent.Text = data["content"].ToString();
@@ -72,13 +73,10 @@ namespace Tiku.windows
                     content = txtContent.Text,
                 };
                 var re = HttpHelper.Post(Config.Server + "/record/addNote", param);
-                if (re != null && HttpHelper.IsOk(re) == true)
+                var b = HttpHelper.IsOk(re);
+                if (b == true)
                 {
                     this.Close();
-                }
-                else
-                {
-                    MessageBox.Show(re["msg"].ToString());
                 }
             }
             else
@@ -91,13 +89,10 @@ namespace Tiku.windows
                     content = txtContent.Text,
                 };
                 var re = HttpHelper.Post(Config.Server + "/record/editNote", param);
-                if (re != null && HttpHelper.IsOk(re) == true)
+                var b = HttpHelper.IsOk(re);
+                if (b == true)
                 {
                     this.Close();
-                }
-                else
-                {
-                    MessageBox.Show(re["msg"].ToString());
                 }
             }
         }

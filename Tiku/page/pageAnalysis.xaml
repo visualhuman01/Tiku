@@ -9,9 +9,16 @@
       Title="pageAnalysis">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="btnBack"  Width="80" Margin="5" Click="btnBack_Click">返回</Button>
+        </StackPanel>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <ScrollViewer.Content>
-                <StackPanel x:Name="sp_content" Orientation="Vertical"  ScrollViewer.VerticalScrollBarVisibility="Auto"></StackPanel>
+                <StackPanel x:Name="sp_content" Orientation="Vertical"  ScrollViewer.VerticalScrollBarVisibility="Auto" Background="White"></StackPanel>
             </ScrollViewer.Content>
         </ScrollViewer>
     </Grid>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Tiku.common
 {
@@ -14,7 +15,7 @@ namespace Tiku.common
         public static dynamic Post(string url, dynamic param)
         {
             var json_str = JsonConvert.SerializeObject(param);
-            var json_data = Encoding.ASCII.GetBytes(json_str);
+            var json_data = Encoding.UTF8.GetBytes(json_str);
 
             Uri myuri = new Uri(url);
             WebRequest myreq = WebRequest.Create(myuri);
@@ -47,14 +48,24 @@ namespace Tiku.common
         }
         public static bool? IsOk(dynamic res)
         {
-            if (res["code"].ToString() == "1")
-                return true;
-            else if (res["code"].ToString() == "-1")
+            if(res == null)
             {
-                return null;
-            }
-            else
+                MessageBox.Show("无法连接服务器");
                 return false;
+            }else
+            {
+                if (res["code"].ToString() == "1")
+                    return true;
+                else if (res["code"].ToString() == "-1")
+                {
+                    return null;
+                }
+                else
+                {
+                    MessageBox.Show(res["msg"].ToString());
+                    return false;
+                }
+            }
         }
         public static bool CompareArr(string[] arr1, string[] arr2)
 
