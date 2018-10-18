@@ -26,6 +26,8 @@ namespace Tiku.page
     {
         private dynamic cate_res = null;
         private frmMain _main = null;
+        private string _one_gid = null;
+        private string _two_gid = null;
         public pageMain(frmMain main)
         {
             _main = main;
@@ -52,12 +54,23 @@ namespace Tiku.page
                     ucTag ot = new ucTag(1, d["gid"].ToString(), d["goods_name"].ToString(), d["detail"]);
                     ot.ImgUrl = "/image/" + d["goods_name"].ToString()+".png";
                     ot.Click_Event += Ot_Click_Event;
+                    ot.Selected_Event += Ot_Selected_Event;
                     ot.txtTag.HorizontalAlignment = HorizontalAlignment.Left;
                     spOneTag.Children.Add(ot);
-                    if (bb)
+                    if (string.IsNullOrEmpty(_one_gid))
                     {
-                        bb = false;
-                        ot.IsSelect = true;
+                        if (bb)
+                        {
+                            bb = false;
+                            ot.IsSelect = true;
+                        }
+                    }
+                    else
+                    {
+                        if(_one_gid == d["gid"].ToString())
+                        {
+                            ot.IsSelect = true;
+                        }
                     }
                 }
             }
@@ -66,26 +79,12 @@ namespace Tiku.page
                 frmMain.ShowLogin(callBack);
             }
         }
-        private void callBack(dynamic param)
-        {
-            init();
-        }
-        private void otAllUnSelect(StackPanel sp, object obj)
-        {
-            spCourse.Children.Clear();
-            foreach (var o in sp.Children)
-            {
-                if (o != obj)
-                {
-                    ucTag ot = (ucTag)o;
-                    ot.IsSelect = false;
-                }
-            }
-        }
-        private void Ot_Click_Event(object sender)
+
+        private void Ot_Selected_Event(object sender)
         {
             otAllUnSelect(spOneTag, sender);
             ucTag ot = (ucTag)sender;
+            _one_gid = ot.Gid;
             var data = ot.Data;
             spTwoTag.Children.Clear();
             bool b = true;
@@ -95,19 +94,31 @@ namespace Tiku.page
                 tt.Width = 150;
                 tt.Height = 30;
                 tt.Click_Event += Tt_Click_Event;
+                tt.Selected_Event += Tt_Selected_Event;
                 spTwoTag.Children.Add(tt);
-                if (b)
+                if (string.IsNullOrEmpty(_two_gid))
                 {
-                    b = false;
-                    tt.IsSelect = true;
+                    if (b)
+                    {
+                        b = false;
+                        tt.IsSelect = true;
+                    }
+                }
+                else
+                {
+                    if (_two_gid == d["gid"].ToString())
+                    {
+                        tt.IsSelect = true;
+                    }
                 }
             }
         }
 
-        private void Tt_Click_Event(object sender)
+        private void Tt_Selected_Event(object sender)
         {
             otAllUnSelect(spTwoTag, sender);
             ucTag tt = (ucTag)sender;
+            _two_gid = tt.Gid;
             var data = tt.Data;
             spCourse.Children.Clear();
             for (int i = 0; i < data.Count; i += 2)
@@ -139,6 +150,32 @@ namespace Tiku.page
                 g.Margin = new Thickness(10);
                 spCourse.Children.Add(g);
             }
+        }
+
+        private void callBack(dynamic param)
+        {
+            init();
+        }
+        private void otAllUnSelect(StackPanel sp, object obj)
+        {
+            spCourse.Children.Clear();
+            foreach (var o in sp.Children)
+            {
+                if (o != obj)
+                {
+                    ucTag ot = (ucTag)o;
+                    ot.IsSelect = false;
+                }
+            }
+        }
+        private void Ot_Click_Event(object sender)
+        {
+            _two_gid = "";
+        }
+
+        private void Tt_Click_Event(object sender)
+        {
+            
         }
 
         private void Uc_Click_Event(object sender)

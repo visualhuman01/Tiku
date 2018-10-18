@@ -39,7 +39,7 @@ namespace Tiku.windows
                 qid = _data.qid,
             };
             var re = HttpHelper.Post(Config.Server + "/record/note", param);
-            var b = HttpHelper.IsOk(re);
+            var b = HttpHelper.IsOk(re,false);
             if (b == true)
             {
                 var data = re["data"];

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -12,6 +13,7 @@ namespace Tiku.common
 {
     public class HttpHelper
     {
+
         public static dynamic Post(string url, dynamic param)
         {
             var json_str = JsonConvert.SerializeObject(param);
@@ -46,13 +48,14 @@ namespace Tiku.common
 
             return json;
         }
-        public static bool? IsOk(dynamic res)
+        public static bool? IsOk(dynamic res, bool isShowMsg = true)
         {
-            if(res == null)
+            if (res == null)
             {
                 MessageBox.Show("无法连接服务器");
                 return false;
-            }else
+            }
+            else
             {
                 if (res["code"].ToString() == "1")
                     return true;
@@ -62,7 +65,8 @@ namespace Tiku.common
                 }
                 else
                 {
-                    MessageBox.Show(res["msg"].ToString());
+                    if (isShowMsg)
+                        MessageBox.Show(res["msg"].ToString());
                     return false;
                 }
             }

@@ -132,7 +132,15 @@ namespace Tiku.control
             {
                 s += ss;
             }
-            txt_answer.Text = s;
+            if (type == E_Question_Type.brief)
+            {
+                txt_answer.Text = "";
+                txt_analysis.Text = s;
+            }
+            else
+            {
+                txt_answer.Text = s;
+            }
             if (!string.IsNullOrEmpty(qd.A))
             {
                 TextBlock tbA = new TextBlock();
@@ -436,13 +444,18 @@ namespace Tiku.control
                     }
                     break;
                 default:
+                    asw.Add("");
                     break;
             }
             question_data qb = (question_data)_data;
             if (asw.Count > 0)
             {
                 _answer = asw;
-                if (HttpHelper.CompareArr(asw.ToArray(), qb.answer.ToArray()))
+                if(type == E_Question_Type.brief)
+                {
+                    return true;
+                }
+                else if (HttpHelper.CompareArr(asw.ToArray(), qb.answer.ToArray()))
                 {
                     return true;
                 }

@@ -33,8 +33,8 @@ namespace Tiku.control
                 setColor();
                 if (_is_select)
                 {
-                    if (Click_Event != null)
-                        Click_Event(this);
+                    if (Selected_Event != null)
+                        Selected_Event(this);
                 }
             }
         }
@@ -130,8 +130,12 @@ namespace Tiku.control
         }
         public delegate void Click_Delegate(object sender);
         public event Click_Delegate Click_Event;
+        public delegate void Selected_Delegate(object sender);
+        public event Selected_Delegate Selected_Event;
         private void gTag_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            if (Click_Event != null)
+                Click_Event(this);
             this.IsSelect = true;
         }
     }

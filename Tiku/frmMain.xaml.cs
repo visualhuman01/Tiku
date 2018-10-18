@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -243,6 +244,42 @@ namespace Tiku
             if (frmsp.ShowDialog() == true)
             {
                 logout();
+            }
+        }
+
+        private void menu_max_Click(object sender, RoutedEventArgs e)
+        {
+            FullOrMin(this);
+        }
+
+        public void FullOrMin(Window window)
+        {
+            //如果是窗口,则全屏
+            if (window.WindowState == WindowState.Normal)
+            {
+                //变成无边窗体
+                window.WindowState = WindowState.Normal;//假如已经是Maximized，就不能进入全屏，所以这里先调整状态
+                window.WindowStyle = WindowStyle.None;
+                window.ResizeMode = ResizeMode.NoResize;
+                window.Topmost = true;//最大化后总是在最上面
+
+                //获取窗口句柄 
+                var handle = new WindowInteropHelper(window).Handle;
+
+                //获取当前显示器屏幕
+                System.Windows.Forms.Screen screen = System.Windows.Forms.Screen.FromHandle(handle);
+
+                //调整窗口最大化,全屏的关键代码就是下面3句
+                window.MaxWidth = screen.Bounds.Width;
+                window.MaxHeight = screen.Bounds.Height;
+                window.WindowState = WindowState.Maximized;
+
+            }else
+            {
+                window.WindowState = WindowState.Normal;
+                window.WindowStyle = WindowStyle.None;
+                window.MaxWidth = 1280;
+                window.MaxHeight = 800;
             }
         }
     }

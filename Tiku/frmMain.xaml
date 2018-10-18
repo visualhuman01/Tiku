@@ -22,6 +22,7 @@
                         <MenuItem x:Name="menu_logout" Header="注销" Click="menu_logout_Click"/>
                         <MenuItem x:Name="menu_exit" Header="退出" Click="menu_Exit_Click"/>
                     </MenuItem>
+                    <MenuItem x:Name="menu_max" Header="☐" Click="menu_max_Click"/>
                     <MenuItem x:Name="menu_min" Header="_" Click="menu_min_Click"/>
                     <MenuItem x:Name="menu_Exit" Header="X" Click="menu_Exit_Click"/>
                 </Menu>

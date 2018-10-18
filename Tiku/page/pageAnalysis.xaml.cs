@@ -36,6 +36,7 @@ namespace Tiku.page
                 uq.Margin = new Thickness(10);
                 uq.Width = 1200;
                 uq.SetData(i, data[i], null);
+                uq.IsHitTestVisible = false;
                 sp_content.Children.Add(uq);
             }
         }

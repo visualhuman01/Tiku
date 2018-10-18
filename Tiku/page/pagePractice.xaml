@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Tiku.page"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="800"
+      d:DesignHeight="300" d:DesignWidth="1800"
       Title="pagePractice" ShowsNavigationUI="False">
 
     <Grid>
@@ -24,26 +24,33 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="200"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10,0,0,0">
-                <Button x:Name="btnRedo" Width="100" Height="30" Click="btnRedo_Click">
+            <Grid Grid.Row="0" Margin="10,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btnRedo" Grid.Column="0" Width="100" Height="30" Click="btnRedo_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Width="30" Height="20" Source="/Tiku;component/image/刷新.png" />
                         <TextBlock VerticalAlignment="Center">重新做题</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnSubmit" Width="100" Height="30" Click="btnSubmit_Click">
+                <Button x:Name="btnSubmit" Grid.Column="1" Width="100" Height="30" Click="btnSubmit_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Width="30" Height="20" Source="/Tiku;component/image/提交.png" />
-                        <TextBlock VerticalAlignment="Center">提交答案</TextBlock>
+                        <TextBlock VerticalAlignment="Center">交卷</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnBack" Width="100" Height="30" Click="btnBack_Click">
+                <Button x:Name="btnBack" Grid.Column="2" Width="100" Height="30" Click="btnBack_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Width="30" Height="20" Source="/Tiku;component/image/提交.png" />
                         <TextBlock VerticalAlignment="Center">返回</TextBlock>
                     </StackPanel>
                 </Button>
-            </StackPanel>
+                <TextBlock x:Name="labRed" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Red">亲，该试卷做完请点击交卷额，系统才会记录错题！</TextBlock>
+            </Grid>
             <Grid Grid.Row="1" Margin="15">
                 <control:ucQuestion x:Name="uc_question" Redo_Event="uc_question_Redo_Event"/>
             </Grid>

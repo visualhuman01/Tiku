@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,6 +68,7 @@ namespace Tiku.page
         {
             btnBack.Visibility = Visibility.Visible;
             btnSubmit.IsEnabled = false;
+            labRed.Visibility = Visibility.Hidden;
             tvMenu.Items.Clear();
             _questions.Clear();
             foreach (var v in data)
@@ -83,6 +85,7 @@ namespace Tiku.page
         {
             btnBack.Visibility = Visibility.Hidden;
             btnSubmit.IsEnabled = true;
+            labRed.Visibility = Visibility.Visible;
             tvMenu.Items.Clear();
             _questions.Clear();
             if (!string.IsNullOrEmpty(_main.Cate_Id))
@@ -169,6 +172,7 @@ namespace Tiku.page
         {
             btnBack.Visibility = Visibility.Hidden;
             btnSubmit.IsEnabled = true;
+            labRed.Visibility = Visibility.Visible;
             _cate_id = cate_id;
             tvMenu.Items.Clear();
             _questions.Clear();
@@ -180,7 +184,16 @@ namespace Tiku.page
                     token = Config.Token,
                     phone = Config.Phone,
                 };
+
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+
                 var re = HttpHelper.Post(Config.Server + "/record/questionBank", param);
+
+                sw.Stop();
+                TimeSpan ts = sw.Elapsed;
+                Console.WriteLine(Config.Server + "/record/questionBank post {0}", ts.TotalMilliseconds);
+
                 var b = HttpHelper.IsOk(re);
                 if (b == true)
                 {
@@ -198,51 +211,14 @@ namespace Tiku.page
                         tb.Text = d["goods_name"].ToString() + "(" + qq + "/" + d["num"].ToString() + ")";
                         tb.FontSize = 14;
                         tvi.Header = tb;
+                        tvi.Selected += Tvi_main_Selected;
+                        tvi.Tag = d;
                         tvMenu.Items.Add(tvi);
-
-                        var param1 = new
-                        {
-                            id = d["gid"].ToString(),
-                            token = Config.Token,
-                            phone = Config.Phone,
-                        };
-                        var ree = HttpHelper.Post(Config.Server + "/api/course", param1);
-                        var bb = HttpHelper.IsOk(ree);
-                        if (bb == true)
-                        {
-                            var data1 = ree["data"];
-                            foreach (var dd in data1)
-                            {
-                                TreeViewItem tvi1 = new TreeViewItem();
-                                TextBlock tb1 = new TextBlock();
-                                string ggid = dd["gid"].ToString();
-                                int qqq = 0;
-                                if (frmMain.Study_Data.ContainsKey(ggid))
-                                {
-                                    qqq = frmMain.Study_Data[ggid];
-                                }
-                                tb1.Text = dd["goods_name"].ToString() + "(" + qqq + "/" + dd["num"].ToString() + ")";
-                                tb1.FontSize = 14;
-                                tvi1.Header = tb1;
-                                tvi1.Tag = dd;
-                                tvi1.Selected += Tvi_Selected;
-                                tvi.Items.Add(tvi1);
-                            }
-                        }
-                        else if (bb == null)
-                        {
-                            frmMain.ShowLogin(callback_QuestionBank, cate_id);
-                        }
                     }
                     if (tvMenu.Items != null && tvMenu.Items.Count > 0)
                     {
                         TreeViewItem tvi1 = (TreeViewItem)tvMenu.Items[0];
-                        tvi1.IsExpanded = true;
-                        if (tvi1.Items != null && tvi1.Items.Count > 0)
-                        {
-                            TreeViewItem tvi2 = (TreeViewItem)tvi1.Items[0];
-                            tvi2.IsSelected = true;
-                        }
+                        tvi1.IsSelected = true;
                     }
                 }
                 else if (b == null)
@@ -251,6 +227,73 @@ namespace Tiku.page
                 }
             }
         }
+
+        private void Tvi_main_Selected(object sender, RoutedEventArgs e)
+        {
+            TreeViewItem tvi = (TreeViewItem)sender;
+            if (tvi.IsSelected)
+            {
+                LoadCourse(tvi);
+            }
+        }
+
+        private void LoadCourse(TreeViewItem tvi)
+        {
+            tvi.Items.Clear();
+            dynamic d = tvi.Tag;
+            var param1 = new
+            {
+                id = d["gid"].ToString(),
+                token = Config.Token,
+                phone = Config.Phone,
+            };
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+            var ree = HttpHelper.Post(Config.Server + "/api/course", param1);
+
+            sw.Stop();
+            TimeSpan ts = sw.Elapsed;
+            Console.WriteLine(Config.Server + "/api/course post {0}", ts.TotalMilliseconds);
+
+            var bb = HttpHelper.IsOk(ree);
+            if (bb == true)
+            {
+                var data1 = ree["data"];
+                foreach (var dd in data1)
+                {
+                    TreeViewItem tvi1 = new TreeViewItem();
+                    TextBlock tb1 = new TextBlock();
+                    string ggid = dd["gid"].ToString();
+                    int qqq = 0;
+                    if (frmMain.Study_Data.ContainsKey(ggid))
+                    {
+                        qqq = frmMain.Study_Data[ggid];
+                    }
+                    tb1.Text = dd["goods_name"].ToString() + "(" + qqq + "/" + dd["num"].ToString() + ")";
+                    tb1.FontSize = 14;
+                    tvi1.Header = tb1;
+                    tvi1.Tag = dd;
+                    tvi1.Selected += Tvi_Selected;
+                    tvi.Items.Add(tvi1);
+                }
+                if (tvi.Items != null && tvi.Items.Count > 0)
+                {
+                    TreeViewItem tvi1 = (TreeViewItem)tvi.Items[0];
+                    tvi1.IsSelected = true;
+                }
+            }
+            else if (bb == null)
+            {
+                frmMain.ShowLogin(callback_Course, tvi);
+            }
+        }
+        private void callback_Course(dynamic param)
+        {
+            LoadCourse((TreeViewItem)param);
+        }
+
         private void callback_QuestionBank(dynamic param)
         {
             LoadQuestionBank((string)param);
@@ -259,8 +302,11 @@ namespace Tiku.page
         private void Tvi_Selected(object sender, RoutedEventArgs e)
         {
             TreeViewItem tvi = (TreeViewItem)sender;
-            dynamic data = tvi.Tag;
-            Selected_App(data);
+            if (tvi.IsSelected)
+            {
+                dynamic data = tvi.Tag;
+                Selected_App(data);
+            }
         }
         private void Selected_App(JObject data)
         {
@@ -275,7 +321,15 @@ namespace Tiku.page
                     token = Config.Token,
                     phone = Config.Phone,
                 };
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+
                 var re = HttpHelper.Post(Config.Server + "/api/app", param);
+
+                sw.Stop();
+                TimeSpan ts = sw.Elapsed;
+                Console.WriteLine(Config.Server + "/api/app post {0}", ts.TotalMilliseconds);
+
                 var b = HttpHelper.IsOk(re);
                 if (b == true)
                 {

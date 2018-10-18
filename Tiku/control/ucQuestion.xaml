@@ -14,10 +14,10 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="1"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" IsHitTestVisible="False">
+        <Grid Grid.Row="0">
             <TextBlock x:Name="txt_title" TextWrapping="Wrap" FontSize="16">1.test</TextBlock>
         </Grid>
-        <Grid Grid.Row="1" IsHitTestVisible="False">
+        <Grid Grid.Row="1">
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <ScrollViewer.Content>
                     <StackPanel x:Name="sp_answer" Orientation="Vertical"  ScrollViewer.VerticalScrollBarVisibility="Auto"></StackPanel>
@@ -89,7 +89,7 @@
             </Grid>
             <Grid Grid.Row="2" Background="#FF007ACC"></Grid>
         </Grid>
-        <Grid x:Name="gAnswer" Grid.Row="3" Visibility="Hidden" IsHitTestVisible="False">
+        <Grid x:Name="gAnswer" Grid.Row="3" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
