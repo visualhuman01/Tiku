@@ -91,7 +91,7 @@ namespace Tiku.control
             rdOneD.IsChecked = false;
             rdOneE.IsChecked = false;
         }
-        public void SetData(int index, question_data data, List<string> answer)
+        public void SetData(int index, question_data data, List<string> answer, bool show_answer = true)
         {
             _index = index;
             Init();
@@ -104,18 +104,28 @@ namespace Tiku.control
             {
                 case E_Question_Type.brief:
                     str_type = "简答题";
+                    grdAnswer.Height = new GridLength(30);
+                    TextBlock tb = new TextBlock();
+                    tb.TextWrapping = TextWrapping.Wrap;
+                    tb.Height = 30;
+                    tb.Text = "本题不支持作答，请自行作答后核对答案并查看解析";
+                    tb.FontSize = 16;
+                    tb.Foreground = new SolidColorBrush(Colors.Red);
+                    sp_answer.Children.Add(tb);
                     break;
                 case E_Question_Type.judge:
                     str_type = "判断题";
                     break;
                 case E_Question_Type.one:
                     str_type = "单选题";
+                    grdAnswer.Height = new GridLength(150);
                     break;
                 case E_Question_Type.pack:
                     str_type = "填空题";
                     break;
                 case E_Question_Type.question:
                     str_type = "多选题";
+                    grdAnswer.Height = new GridLength(150);
                     break;
                 default:
                     break;
@@ -251,13 +261,24 @@ namespace Tiku.control
             {
                 gAnswer.Visibility = Visibility.Visible;
                 gOperate.Visibility = Visibility.Hidden;
+                grdOperate.Height = new GridLength(0);
             }
             else
             {
                 gAnswer.Visibility = Visibility.Hidden;
                 gOperate.Visibility = Visibility.Visible;
+                grdOperate.Height = new GridLength(60);
             }
-            btn_show_answer.Content = "显示答案";
+            if (show_answer)
+            {
+                btn_show_answer.Content = "显示答案";
+                btn_show_answer.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btn_show_answer.Visibility = Visibility.Hidden;
+            }
+
             if (isCollection(qd.type, qd.qid))
             {
                 btn_collection.Content = "已收藏";
@@ -268,6 +289,7 @@ namespace Tiku.control
                 btn_collection.Content = "收藏";
                 btn_collection.IsEnabled = true;
             }
+            showComment(qd.type, qd.qid);
             if (answer != null && answer.Count > 0)
             {
                 foreach (var a in answer)
@@ -357,6 +379,33 @@ namespace Tiku.control
                         default:
                             break;
                     }
+                }
+            }
+        }
+        private void showComment(string type, string qid)
+        {
+            spComment.Children.Clear();
+            var param = new
+            {
+                phone = Config.Phone,
+                token = Config.Token,
+                type = type,
+                qid = qid,
+            };
+            var re = HttpHelper.Post(Config.Server + "/record/getComment", param);
+            var b = HttpHelper.IsOk(re, false);
+            if (b == true)
+            {
+                var data = re["data"];
+                foreach (var d in data)
+                {
+                    ucComment uc = new ucComment();
+                    uc.Header = Config.Server + d["header_img"].ToString();
+                    uc.NikeName = d["nike_name"].ToString();
+                    uc.Time = d["create_time"].ToString();
+                    uc.Content = d["content"].ToString();
+                    uc.Margin = new Thickness(0, 3, 0, 0);
+                    spComment.Children.Add(uc);
                 }
             }
         }
@@ -451,7 +500,7 @@ namespace Tiku.control
             if (asw.Count > 0)
             {
                 _answer = asw;
-                if(type == E_Question_Type.brief)
+                if (type == E_Question_Type.brief)
                 {
                     return true;
                 }
@@ -472,11 +521,13 @@ namespace Tiku.control
             if (gAnswer.Visibility == Visibility.Hidden)
             {
                 gAnswer.Visibility = Visibility.Visible;
-                btn_show_answer.Content = "隐藏答案";
+                gComment.Visibility = Visibility.Hidden;
+                btn_show_answer.Content = "显示评论";
             }
             else
             {
                 gAnswer.Visibility = Visibility.Hidden;
+                gComment.Visibility = Visibility.Visible;
                 btn_show_answer.Content = "显示答案";
             }
         }
@@ -516,6 +567,12 @@ namespace Tiku.control
         private void btn_note_Click(object sender, RoutedEventArgs e)
         {
             frmMain.ShowNote(_data);
+        }
+
+        private void btn_comment_Click(object sender, RoutedEventArgs e)
+        {
+            frmMain.ShowComment(_data);
+            showComment(_data.type, _data.qid);
         }
     }
 }

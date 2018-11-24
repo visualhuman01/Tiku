@@ -37,7 +37,7 @@
                 </local:ucTable.Columns>
             </local:ucTable>
         </Grid>
-        <Grid Grid.Row="2" Background="#FF007ACC"></Grid>
+        <Grid Grid.Row="2" Background="Gray"></Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80"></ColumnDefinition>

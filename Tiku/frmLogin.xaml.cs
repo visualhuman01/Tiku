@@ -118,7 +118,14 @@ namespace Tiku
 
         private void btnSetPass_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+            frmMain.ShowSetpass(1);
+        }
 
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            frmMain.ShowRegister();
         }
     }
 }

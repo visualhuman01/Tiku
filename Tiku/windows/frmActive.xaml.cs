@@ -22,10 +22,36 @@ namespace Tiku.windows
     public partial class frmActive : Window
     {
         private string _id;
-        public frmActive(string id)
+        private string _pre;
+        public frmActive(string id, string name)
         {
             InitializeComponent();
             _id = id;
+            txtName.Text = "当前课程：" + name;
+            init();
+        }
+
+        private void init()
+        {
+            var param = new
+            {
+                token = Config.Token,
+                phone = Config.Phone,
+            };
+            var re = HttpHelper.Post(Config.Server + "/index/custom", param);
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
+            {
+                var data = re["data"];
+                _pre = data["pre"].ToString();
+                labPre.Text = "支付后联系微信或者QQ：" + _pre + "领取激活码";
+                string url = data["url"].ToString() + data["alipay"].ToString();
+                imgZFB.Source = new BitmapImage(new Uri(url, UriKind.RelativeOrAbsolute));
+                imgZFB.Stretch = Stretch.Fill;
+                url = data["url"].ToString() + data["wechat"].ToString();
+                imgWX.Source = new BitmapImage(new Uri(url, UriKind.RelativeOrAbsolute));
+                imgWX.Stretch = Stretch.Fill;
+            }
         }
 
         private void btnActive_Click(object sender, RoutedEventArgs e)
@@ -49,6 +75,12 @@ namespace Tiku.windows
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void imgQQ_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            string url = "http://wpa.qq.com/msgrd?v=3&uin=" + _pre + "&site=qq&menu=yes";
+            System.Diagnostics.Process.Start(url);
         }
     }
 }

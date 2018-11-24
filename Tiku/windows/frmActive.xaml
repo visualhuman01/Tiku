@@ -5,18 +5,94 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tiku.windows"
         mc:Ignorable="d"
-        Title="激活" Height="160" Width="300" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+        Title="付费激活" Height="500" Width="600" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" VerticalAlignment="Center" FontSize="16" Margin="10">请输入激活码：</TextBlock>
-        <TextBox x:Name="txtCode" Grid.Row="1" Margin="10"></TextBox>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <Button x:Name="btnCancel" Width="80" Height="30" Margin="5" Click="btnCancel_Click">取消</Button>
-            <Button x:Name="btnActive" Width="80" Height="30" Margin="5" Click="btnActive_Click">激活</Button>
-        </StackPanel>
+        <Grid Grid.Row="0" Margin="10,10,10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" TextWrapping="Wrap" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Run Foreground="Red">温馨提示：</Run> 感谢您使用题库专家考试辅导软件！你可以通过下方渠道购买题库专家考试软件，如有疑问请联系我们。
+                <Run Foreground="Red">（软件激活后无使用期限 无数量限制 终生免费升级）</Run></TextBlock>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="/Tiku;component/image/扫码支付.png"></Image>
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="20,0,0,0">
+                        <TextBlock FontSize="14">用手机扫描下方二维码进行支付</TextBlock>
+                        <TextBox x:Name="labPre" BorderThickness="0" FontSize="14" IsReadOnly="True">支付后联系微信或者QQ：56566领取激活码</TextBox>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="1" Width="450">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel  Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image  x:Name="imgZFB" Width="200" Height="200"></Image>
+                        <TextBlock  HorizontalAlignment="Center">扫一扫支付宝付款</TextBlock>
+                    </StackPanel>
+                    <StackPanel  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image x:Name="imgWX" Width="200" Height="200"></Image>
+                        <TextBlock  HorizontalAlignment="Center">扫一扫微信付款</TextBlock>
+                    </StackPanel>
+                    
+                </Grid>
+                <TextBlock x:Name="txtName" Grid.Row="2" VerticalAlignment="Center" FontSize="16" Foreground="Red">当前课程：</TextBlock>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1" Margin="10,0,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" VerticalAlignment="Center" FontSize="16">请输入激活码：</TextBlock>
+            <TextBox x:Name="txtCode" Grid.Column="1" Margin="5" FontSize="14" VerticalContentAlignment="Center">
+                <TextBox.Resources>
+                    <VisualBrush x:Key="HelpBrush" TileMode="None" Opacity="0.3" Stretch="None" AlignmentX="Left" AlignmentY="Center">
+                        <VisualBrush.Visual>
+                            <TextBlock FontStyle="Normal" FontSize="14" Text='购买软件后将激活码填入文本框中'/>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </TextBox.Resources>
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="Foreground" Value="#FF333333"/>
+                        <Setter Property="BorderBrush" Value="#8F666666"/>
+                        <Style.Triggers>
+                            <Trigger Property="Text" Value="{x:Null}">
+                                <Setter Property="Background" Value="{StaticResource HelpBrush}"/>
+                            </Trigger>
+                            <Trigger Property="Text" Value="">
+                                <Setter Property="Background" Value="{StaticResource HelpBrush}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <Button x:Name="btnActive" Grid.Column="2" Width="80" Height="30" Margin="5" Click="btnActive_Click">激活</Button>
+        </Grid>
+        <Grid Grid.Row="2" Background="#FFD7D0D0" >
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right">
+                <Image x:Name="imgQQ" Height="20" Source="/Tiku;component/image/组5.png" MouseUp="imgQQ_MouseUp"></Image>
+            </StackPanel>
+        </Grid>
     </Grid>
+    
 </Window>

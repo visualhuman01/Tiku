@@ -9,15 +9,15 @@
       Title="pageLogo" ShowsNavigationUI="False">
 
     <Grid>
-        <Image Stretch="Fill" Source="/Tiku;component/image/导航bg.png" MouseLeftButtonDown="Image_MouseLeftButtonDown"></Image>
+        <Image Stretch="Fill" Source="/Tiku;component/image/导航bg.jpg" MouseLeftButtonDown="Image_MouseLeftButtonDown"></Image>
         <Grid>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <Image Grid.Column="0" Stretch="Fill" Width="80" Margin="10" Source="/Tiku;component/image/logo2.png"></Image>
-                <Image Grid.Column="1" Stretch="Fill" Height="60" Source="/Tiku;component/image/logo1.png"></Image>
+                <Image Grid.Column="0" Stretch="UniformToFill" Margin="50,10,0,10" Source="/Tiku;component/image/logo2.png"></Image>
             </StackPanel>
-            <Grid>
-                <Image Grid.Column="0" Stretch="Fill" Height="40" Width="260" Margin="10" Source="/Tiku;component/image/logo3.png"></Image>
-            </Grid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Image Grid.Column="0" Stretch="UniformToFill" Margin="10" Source="/Tiku;component/image/logo3.png"></Image>
+                <Image Grid.Column="0" Stretch="UniformToFill" Margin="20" Source="/Tiku;component/image/logo4.png"></Image>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

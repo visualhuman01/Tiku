@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
         <Grid x:Name="gTitle" Grid.Row="0">
         </Grid>
-        <Grid Grid.Row="1" Background="#FF007ACC"></Grid>
+        <Grid Grid.Row="1" Background="Gray"></Grid>
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,10,0,0">
             <ScrollViewer.Content>
                 <StackPanel x:Name="spTable" Orientation="Vertical"  ScrollViewer.VerticalScrollBarVisibility="Auto">

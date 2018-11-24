@@ -43,6 +43,11 @@ namespace Tiku.page
                 phone = Config.Phone,
                 token = Config.Token,
             };
+            if (string.IsNullOrEmpty(param.token))
+            {
+                frmMain.ShowLogin(callBack);
+                return;
+            }
             cate_res = HttpHelper.Post(Config.Server + "/api/cate", param);
             var b = HttpHelper.IsOk(cate_res);
             if (b == true)
@@ -56,6 +61,9 @@ namespace Tiku.page
                     ot.Click_Event += Ot_Click_Event;
                     ot.Selected_Event += Ot_Selected_Event;
                     ot.txtTag.HorizontalAlignment = HorizontalAlignment.Left;
+                    ot.Height = 68;
+                    ot.Width = 180;
+                    ot.HorizontalAlignment = HorizontalAlignment.Left;
                     spOneTag.Children.Add(ot);
                     if (string.IsNullOrEmpty(_one_gid))
                     {
@@ -182,6 +190,8 @@ namespace Tiku.page
         {
             ucCourse uc = (ucCourse)sender;
             _main.Cate_Id = uc.Gid;
+            _main.Cate_Name = uc.GoodsName;
+            _main.Cate_Act = uc.IsAct;
             selectCate(_main.Cate_Id);
             _main.SwitchPage(E_Page_Type.User);
         }
@@ -190,6 +200,8 @@ namespace Tiku.page
         {
             ucCourse uc = (ucCourse)sender;
             _main.Cate_Id = uc.Gid;
+            _main.Cate_Name = uc.GoodsName;
+            _main.Cate_Act = uc.IsAct;
             selectCate(_main.Cate_Id);
             _main.SwitchPage(E_Page_Type.User);
         }
@@ -212,7 +224,7 @@ namespace Tiku.page
         private void Uc_Activate_Event(object sender)
         {
             ucCourse uc = (ucCourse)sender;
-            if (frmMain.ShowActive(uc.Gid) == true)
+            if (frmMain.ShowActive(uc.Gid,uc.GoodsName) == true)
             {
                 init();
             }

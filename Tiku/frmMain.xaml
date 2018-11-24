@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tiku"
         mc:Ignorable="d"
-        Title="frmMain" Height="800" Width="1280" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Icon="48.ico">
+        Title="frmMain" Height="800" Width="1280" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Icon="image/1071924714.jpg" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="84"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid>
@@ -19,21 +19,24 @@
                     <MenuItem Header="菜单" x:Name="menu_main">
                         <MenuItem x:Name="menu_register" Header="注册" Click="menu_register_Click"/>
                         <MenuItem x:Name="menu_setpass" Header="修改密码" Click="menu_setpass_Click"/>
-                        <MenuItem x:Name="menu_logout" Header="注销" Click="menu_logout_Click"/>
+                        <MenuItem x:Name="menu_logout" Header="登录/注销" Click="menu_logout_Click"/>
                         <MenuItem x:Name="menu_exit" Header="退出" Click="menu_Exit_Click"/>
                     </MenuItem>
-                    <MenuItem x:Name="menu_max" Header="☐" Click="menu_max_Click"/>
                     <MenuItem x:Name="menu_min" Header="_" Click="menu_min_Click"/>
+                    <MenuItem x:Name="menu_max" Header="☐" Click="menu_max_Click"/>
                     <MenuItem x:Name="menu_Exit" Header="X" Click="menu_Exit_Click"/>
                 </Menu>
             </Grid>
         </Grid>
-        <Frame x:Name="fmMain" Grid.Row="1" NavigationUIVisibility="Hidden" BorderBrush="#FF4A9AFB" BorderThickness="3,0,3,0">
+        <Frame x:Name="fmMain" Grid.Row="1" NavigationUIVisibility="Hidden" BorderBrush="#FF1267A7" BorderThickness="3,0,3,0">
 
         </Frame>
-        <StackPanel Grid.Row="2" Background="#FF4A9AFB" Orientation="Horizontal">
-            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0">@汤沐科技有限公司版权所有</TextBlock>
-            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0">官方主页：http://www.kszhuanjia.com/html/jianyi/</TextBlock>
+        <StackPanel Grid.Row="2" Background="#FF1267A7" Orientation="Horizontal">
+            <TextBlock x:Name="labCompanyName" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0">@汤沐科技有限公司版权所有</TextBlock>
+            <TextBlock x:Name="labUrl" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" MouseUp="labUrl_MouseUp">官方主页：http://www.kszhuanjia.com/html/jianyi/</TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Image x:Name="imgQQ" Width="170" Source="image/图层15.png" Stretch="Fill" Margin="5" MouseUp="imgQQ_MouseUp"></Image>
         </StackPanel>
     </Grid>
 </Window>

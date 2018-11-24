@@ -15,20 +15,25 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <TreeView Grid.Column="0" x:Name="tvMenu">
-            
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
+                    <EventSetter Event="RequestBringIntoView" Handler="TreeViewItem_RequestBringIntoView"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
         </TreeView>
         <GridSplitter Grid.Column="1" x:Name="gridSplitter" Width="3" HorizontalAlignment="Stretch"/>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"></RowDefinition>
                 <RowDefinition></RowDefinition>
-                <RowDefinition Height="200"></RowDefinition>
+                <RowDefinition Height="150"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="10,0,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110"></ColumnDefinition>
                     <ColumnDefinition Width="110"></ColumnDefinition>
                     <ColumnDefinition Width="110"></ColumnDefinition>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Button x:Name="btnRedo" Grid.Column="0" Width="100" Height="30" Click="btnRedo_Click">
@@ -49,7 +54,8 @@
                         <TextBlock VerticalAlignment="Center">返回</TextBlock>
                     </StackPanel>
                 </Button>
-                <TextBlock x:Name="labRed" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Red">亲，该试卷做完请点击交卷额，系统才会记录错题！</TextBlock>
+                <TextBlock x:Name="labTime" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Hidden">考试倒计时：</TextBlock>
+                <TextBlock x:Name="labRed" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Red" FontSize="14">亲，该试卷做完请点击交卷额，系统才会记录错题！</TextBlock>
             </Grid>
             <Grid Grid.Row="1" Margin="15">
                 <control:ucQuestion x:Name="uc_question" Redo_Event="uc_question_Redo_Event"/>

@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using Tiku.common;
 using Tiku.control;
 using Tiku.model;
+using Tiku.windows;
 
 namespace Tiku.page
 {
@@ -44,13 +45,35 @@ namespace Tiku.page
         private Dictionary<int, Answer_Data> _answer_List = new Dictionary<int, Answer_Data>();
         private int _max_index = 0;
         private string _gid;
+        private bool _showModel = false;
+        private bool _show_answer = true;
+        private double _testTime = 0;
+        System.Timers.Timer timer = null;
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            this.labTime.Dispatcher.Invoke(new Action(delegate
+            {
+                _testTime -= 1000;
+                var time = DateTime.Parse(DateTime.Now.ToString("1970-01-01 00:00:00")).AddMilliseconds(_testTime);
+                labTime.Text = "考试时间：" + time.ToString("HH:mm:ss");
+                if(_testTime == 0)
+                {
+                    timer.Stop();
+                    submit();
+                }
+            }));
+        }
         public pagePractice(frmMain main)
         {
             _main = main;
             InitializeComponent();
+            timer = new System.Timers.Timer(1000);
+            timer.Elapsed += Timer_Elapsed;
         }
         public void LoadStudy(dynamic data)
         {
+            _showModel = false;
+            _show_answer = true;
             btnBack.Visibility = Visibility.Visible;
             tvMenu.Items.Clear();
             TreeViewItem tvi = new TreeViewItem();
@@ -66,6 +89,8 @@ namespace Tiku.page
         }
         public void LoadWrong(List<dynamic> data)
         {
+            _showModel = false;
+            _show_answer = true;
             btnBack.Visibility = Visibility.Visible;
             btnSubmit.IsEnabled = false;
             labRed.Visibility = Visibility.Hidden;
@@ -83,6 +108,8 @@ namespace Tiku.page
         }
         public void LoadSpecial(E_Special_Type type)
         {
+            _showModel = true;
+            _show_answer = false;
             btnBack.Visibility = Visibility.Hidden;
             btnSubmit.IsEnabled = true;
             labRed.Visibility = Visibility.Visible;
@@ -140,7 +167,13 @@ namespace Tiku.page
                         {
                             TreeViewItem tvi1 = new TreeViewItem();
                             TextBlock tb1 = new TextBlock();
-                            tb1.Text = dd["goods_name"].ToString() + "(" + dd["num"].ToString() + ")";
+                            string gid = dd["gid"].ToString();
+                            int qq = 0;
+                            if (frmMain.Study_Data.ContainsKey(gid))
+                            {
+                                qq = frmMain.Study_Data[gid];
+                            }
+                            tb1.Text = dd["goods_name"].ToString() + "(" + qq + "/" + dd["num"].ToString() + ")";
                             tb1.FontSize = 14;
                             tvi1.Header = tb1;
                             tvi1.Tag = dd;
@@ -170,6 +203,8 @@ namespace Tiku.page
         }
         public void LoadQuestionBank(string cate_id)
         {
+            _showModel = false;
+            _show_answer = true;
             btnBack.Visibility = Visibility.Hidden;
             btnSubmit.IsEnabled = true;
             labRed.Visibility = Visibility.Visible;
@@ -210,6 +245,7 @@ namespace Tiku.page
                         }
                         tb.Text = d["goods_name"].ToString() + "(" + qq + "/" + d["num"].ToString() + ")";
                         tb.FontSize = 14;
+                        tb.Margin = new Thickness(0,3,0,0);
                         tvi.Header = tb;
                         tvi.Selected += Tvi_main_Selected;
                         tvi.Tag = d;
@@ -233,6 +269,8 @@ namespace Tiku.page
             TreeViewItem tvi = (TreeViewItem)sender;
             if (tvi.IsSelected)
             {
+                tvi.IsSelected = false;
+                tvi.IsExpanded = true;
                 LoadCourse(tvi);
             }
         }
@@ -273,6 +311,7 @@ namespace Tiku.page
                     }
                     tb1.Text = dd["goods_name"].ToString() + "(" + qqq + "/" + dd["num"].ToString() + ")";
                     tb1.FontSize = 14;
+                    tb1.Margin = new Thickness(0, 3, 0, 0);
                     tvi1.Header = tb1;
                     tvi1.Tag = dd;
                     tvi1.Selected += Tvi_Selected;
@@ -301,10 +340,31 @@ namespace Tiku.page
 
         private void Tvi_Selected(object sender, RoutedEventArgs e)
         {
+            timer.Stop();
             TreeViewItem tvi = (TreeViewItem)sender;
             if (tvi.IsSelected)
             {
                 dynamic data = tvi.Tag;
+                if (_showModel)
+                {
+                    frmModel frm = new frmModel();
+                    frm.Owner = _main;
+                    _show_answer = frm.ShowDialog() == true ? true : false;
+                }
+                if (!_show_answer)
+                {
+                    labTime.Visibility = Visibility.Visible;
+                    string t = data["testTime"].ToString();
+                    _testTime = double.Parse(t);
+                    var time = DateTime.Parse(DateTime.Now.ToString("1970-01-01 00:00:00")).AddMilliseconds(_testTime);
+                    labTime.Text = "考试时间：" + time.ToString("HH:mm:ss");
+                    timer.Start();
+                }
+                else
+                {
+                    labTime.Visibility = Visibility.Hidden;
+                }
+
                 Selected_App(data);
             }
         }
@@ -377,10 +437,10 @@ namespace Tiku.page
             {
                 var a = _answer_List[index];
                 var aa = a.select.Split(',');
-                uc_question.SetData(index, _questions[index], aa.ToList());
+                uc_question.SetData(index, _questions[index], aa.ToList(), _show_answer);
             }
             else
-                uc_question.SetData(index, _questions[index], null);
+                uc_question.SetData(index, _questions[index], null, _show_answer);
         }
 
         private void uc_question_bottom_Select_Event(int index, int next)
@@ -484,6 +544,10 @@ namespace Tiku.page
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             _main.GoBack();
+        }
+        private void TreeViewItem_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

@@ -27,10 +27,10 @@ namespace Tiku.page
         {
             _main = main;
             InitializeComponent();
-            init();
         }
         public void init()
         {
+            spTools.Children.Clear();
             ucToolItem item1 = new ucToolItem("个人中心", "/Tiku;component/image/userform1.png");
             item1.IsSelect = true;
             item1.Click_Event += Item_Click_Event;
@@ -53,9 +53,12 @@ namespace Tiku.page
             //ucToolItem item7 = new ucToolItem("进度分析", "/Tiku;component/image/userform7.png");
             //item7.Click_Event += Item_Click_Event;
             //spTools.Children.Add(item7);
-            ucToolItem item8 = new ucToolItem("激活软件", "/Tiku;component/image/userform8.png");
-            item8.Click_Event += Item_Click_Event;
-            spTools.Children.Add(item8);
+            if (!_main.Cate_Act)
+            {
+                ucToolItem item8 = new ucToolItem("激活软件", "/Tiku;component/image/userform8.png");
+                item8.Click_Event += Item_Click_Event;
+                spTools.Children.Add(item8);
+            }
             ucToolItem item9 = new ucToolItem("考试资讯", "/Tiku;component/image/userform9.png");
             item9.Click_Event += Item_Click_Event;
             spTools.Children.Add(item9);
@@ -65,9 +68,9 @@ namespace Tiku.page
         }
         private void itemAllUnSelect(object obj)
         {
-            foreach(var o in spTools.Children)
+            foreach (var o in spTools.Children)
             {
-                if(o != obj)
+                if (o != obj)
                 {
                     ucToolItem ti = (ucToolItem)o;
                     ti.IsSelect = false;
@@ -98,7 +101,7 @@ namespace Tiku.page
                 case "进度分析":
                     break;
                 case "激活软件":
-                    frmMain.ShowActive(_main.Cate_Id);
+                    frmMain.ShowActive(_main.Cate_Id, _main.Cate_Name);
                     break;
                 case "考试资讯":
                     _main.SwitchPage(E_Page_Type.News);
@@ -115,6 +118,11 @@ namespace Tiku.page
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             _main.DragMove();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            init();
         }
     }
 }

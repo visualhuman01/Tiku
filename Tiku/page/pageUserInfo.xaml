@@ -15,16 +15,16 @@
             <ColumnDefinition Width="400"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Frame x:Name="fmContent"></Frame>
-        <Grid Grid.Column="1" Background="#FF007ACC"></Grid>
+        <Grid Grid.Column="1" Background="Gray"></Grid>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Margin="80,20"></Grid>
+            <Grid Grid.Row="0">
+            </Grid>
             <Grid x:Name="gMenu" Grid.Row="1" Margin="30" Height="300" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
@@ -38,7 +38,7 @@
                 <control:ucToolItem Text="资讯收藏" Click_Event="ucToolItem_Click_Event" Grid.Row="0" Grid.Column="2" Width="100" Height="90" ImageSource="/Tiku;component/image/4.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
                 <control:ucToolItem Text="意见反馈" Click_Event="ucToolItem_Click_Event" Grid.Row="1" Grid.Column="0" Width="100" Height="90" ImageSource="/Tiku;component/image/5.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
                 <control:ucToolItem Text="关于我们" Click_Event="ucToolItem_Click_Event" Grid.Row="1" Grid.Column="1" Width="100" Height="90" ImageSource="/Tiku;component/image/6.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
-                <control:ucToolItem Text="分享" Click_Event="ucToolItem_Click_Event" Grid.Row="1" Grid.Column="2" Width="100" Height="90" ImageSource="/Tiku;component/image/7.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
+                <control:ucToolItem Text="常见问题" Click_Event="ucToolItem_Click_Event" Grid.Row="1" Grid.Column="2" Width="100" Height="90" ImageSource="/Tiku;component/image/7.png" BackgroundSelect="#FF007ACC" BackgroundUnSelect="#FFFFFFFF" ForegroundSelect="#FFFFFFFF"  ForegroundUnSelect="#FF007ACC"/>
             </Grid>
         </Grid>
     </Grid>

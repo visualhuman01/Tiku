@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tiku.common;
 using Tiku.control;
+using Tiku.model;
 using Tiku.windows;
 
 namespace Tiku.page
@@ -74,7 +76,20 @@ namespace Tiku.page
                     frmAbout ab = new frmAbout();
                     ab.ShowDialog();
                     break;
-                case "分享":
+                case "常见问题":
+                    var param = new
+                    {
+                        token = Config.Token,
+                        phone = Config.Phone,
+                    };
+                    var re = HttpHelper.Post(Config.Server + "/index/custom", param);
+                    var b = HttpHelper.IsOk(re);
+                    if (b == true)
+                    {
+                        var data = re["data"];
+                        string url = data["about"].ToString();
+                        System.Diagnostics.Process.Start(url);
+                    }
                     break;
                 default:
                     break;

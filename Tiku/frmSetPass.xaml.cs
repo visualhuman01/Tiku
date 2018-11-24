@@ -23,11 +23,18 @@ namespace Tiku
     /// </summary>
     public partial class frmSetPass : Window
     {
-        public frmSetPass()
+        public frmSetPass(int mode)
         {
             InitializeComponent();
             Config.Token = "";
             Config.Save();
+            if(mode == 0)
+            {
+                setPassMode();
+            }else
+            {
+                setPhoneMode();
+            }
         }
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
@@ -58,24 +65,31 @@ namespace Tiku
                 this.Close();
             }
         }
-
+        private void setPhoneMode()
+        {
+            this.Title = "手机验证码方式";
+            btnPwdCode.Content = "账号密码方式";
+            gPwd.Visibility = Visibility.Hidden;
+            gCode.Visibility = Visibility.Visible;
+            labPwd.Text = "验证码";
+        } 
+        private void setPassMode()
+        {
+            this.Title = "账号密码方式";
+            btnPwdCode.Content = "手机验证码方式";
+            gPwd.Visibility = Visibility.Visible;
+            gCode.Visibility = Visibility.Hidden;
+            labPwd.Text = "旧密码";
+        }
         private void btnPwdCode_Click(object sender, RoutedEventArgs e)
         {
             if (gPwd.Visibility == Visibility.Visible)
             {
-                this.Title = "手机验证码方式";
-                btnPwdCode.Content = "账号密码方式";
-                gPwd.Visibility = Visibility.Hidden;
-                gCode.Visibility = Visibility.Visible;
-                labPwd.Text = "验证码";
+                setPhoneMode();
             }
             else
             {
-                this.Title = "账号密码方式";
-                btnPwdCode.Content = "手机验证码方式";
-                gPwd.Visibility = Visibility.Visible;
-                gCode.Visibility = Visibility.Hidden;
-                labPwd.Text = "旧密码";
+                setPassMode();
             }
         }
 

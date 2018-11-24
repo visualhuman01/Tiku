@@ -10,10 +10,15 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition Width="250"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel x:Name="spOneTag" Grid.Column="0" Background="#FF3E3E42">
+        <Grid Grid.Column="0">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Tiku;component/image/图层4.png"/>
+            </Grid.Background>
+        </Grid>
+        <StackPanel x:Name="spOneTag" Grid.Column="0" Width="200" HorizontalAlignment="Left">
         </StackPanel>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>

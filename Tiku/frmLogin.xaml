@@ -41,7 +41,50 @@
                 </Grid>
             </Grid>
             <Grid Grid.Row="2" VerticalAlignment="Center">
-                <Button x:Name="btnPwdCode" Content="手机验证码登录" Cursor="Hand" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,0,20,0" Click="btnPwdCode_Click">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btnRegister" Grid.Column="0" Content="立即注册" Cursor="Hand" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="0,0,20,0" Click="btnRegister_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <TextBlock TextDecorations="Underline">  
+                <ContentPresenter />
+                            </TextBlock>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Foreground" Value="Blue" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Foreground" Value="Red" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button x:Name="btnSetPass" Grid.Column="1" Content="忘记密码" Cursor="Hand" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="0,0,20,0" Click="btnSetPass_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <TextBlock TextDecorations="Underline">  
+                <ContentPresenter />
+                            </TextBlock>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Foreground" Value="Blue" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Foreground" Value="Red" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button x:Name="btnPwdCode" Grid.Column="2" Content="手机验证码登录" Cursor="Hand" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="0,0,20,0" Click="btnPwdCode_Click">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <TextBlock TextDecorations="Underline">  

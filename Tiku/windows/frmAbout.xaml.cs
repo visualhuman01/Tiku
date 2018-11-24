@@ -47,10 +47,13 @@ namespace Tiku.windows
             if (b == true)
             {
                 var data = re["data"];
-                txt_pre.Text = data["pre"].ToString();
-                txt_after.Text = data["after"].ToString();
+                btn_pre.Content = data["pre"].ToString();
+                btn_pre.Tag = "http://wpa.qq.com/msgrd?v=3&uin="+ data["pre"].ToString() + "&site=qq&menu=yes";
+                btn_after.Content = data["after"].ToString();
+                btn_after.Tag = "http://wpa.qq.com/msgrd?v=3&uin=" + data["pre"].ToString() + "&site=qq&menu=yes";
                 txt_record.Text = data["record"].ToString();
-                txt_tel.Text = data["tel"].ToString();
+                txtTel.Text = data["tel"].ToString();
+                //btn_tel.Tag = "http://wpa.qq.com/msgrd?v=3&uin=" + data["pre"].ToString() + "&site=qq&menu=yes";
                 btnAndroid.Tag = data["android"].ToString();
                 btnIOS.Tag = data["ios"].ToString();
                 btnWeb.Tag = data["url"].ToString();
@@ -65,6 +68,27 @@ namespace Tiku.windows
             init();
         }
         private void Link_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            string url = btn.Tag.ToString();
+            System.Diagnostics.Process.Start(url);
+        }
+
+        private void btn_pre_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            string url = btn.Tag.ToString();
+            System.Diagnostics.Process.Start(url);
+        }
+
+        private void btn_after_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            string url = btn.Tag.ToString();
+            System.Diagnostics.Process.Start(url);
+        }
+
+        private void btn_tel_Click(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
             string url = btn.Tag.ToString();

@@ -1,0 +1,26 @@
+﻿<Window x:Class="Tiku.windows.frmModel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tiku.windows"
+        mc:Ignorable="d"
+        Title="请选择模式" Height="100" Width="300" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True">
+    <Grid Background="#FF1267A7">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" >
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="White">请选择模式</TextBlock>
+        </Grid>
+        <Grid Grid.Row="1" Background="White" Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnModel1" Grid.Column="0" Width="100" Height="30" Click="btnModel1_Click">考试模式</Button>
+            <Button x:Name="btnModel2" Grid.Column="1" Width="100" Height="30" Click="btnModel2_Click">练习模式</Button>
+        </Grid>
+    </Grid>
+</Window>

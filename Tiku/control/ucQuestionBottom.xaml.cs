@@ -87,6 +87,7 @@ namespace Tiku.control
                 _current_index = 0;
             setColor();
             SetText(0, count);
+            SetBtnEnabled();
         }
         private void setColor()
         {

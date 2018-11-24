@@ -96,15 +96,20 @@ namespace Tiku.control
                     gTagFrame.ColumnDefinitions[0].Width = new GridLength(60);
                     if (this._is_select)
                     {
-                        gTag.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF007ACC"));
-                        gTagFrame.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF007ACC"));
-                        txtTag.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFFFF"));
+                        ImageBrush imageBrush = new ImageBrush();
+                        imageBrush.ImageSource = new BitmapImage(new Uri("image/图层11.png", UriKind.RelativeOrAbsolute));
+                        imageBrush.Stretch = Stretch.Fill;
+                        gTag.Background = imageBrush;
+                        gTagFrame.Background = null;
+                        txtTag.FontSize = 14;
+                        txtTag.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF000000"));
                     }
                     else
                     {
-                        gTag.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3E3E42"));
-                        gTagFrame.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3E3E42"));
-                        txtTag.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFFFF"));
+                        gTag.Background = null;
+                        gTagFrame.Background = null;
+                        txtTag.FontSize = 14;
+                        txtTag.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF000000"));
                     }
                     txtTag.FontSize = 18;
                     break;

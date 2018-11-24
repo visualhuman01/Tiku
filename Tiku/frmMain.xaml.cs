@@ -51,6 +51,8 @@ namespace Tiku
         private static frmMain _this = null;
         private pageAnalysis _analysis = null;
         public string Cate_Id { get; set; }
+        public string Cate_Name { get; set; }
+        public bool Cate_Act { get; set; }
         public static Dictionary<string, int> Study_Data = new Dictionary<string, int>();
 
         private E_Page_Type _current = E_Page_Type.Main;
@@ -58,6 +60,11 @@ namespace Tiku
         private E_Page_Type _back = E_Page_Type.Main;
         private dynamic _back_data = null;
 
+        private System.Timers.Timer timer = new System.Timers.Timer(1000*60*30);
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            MessageBox.Show("感谢使用测试版本");
+        }
         public frmMain()
         {
             try
@@ -73,8 +80,10 @@ namespace Tiku
                 _wrong = new pageWrong(this);
                 _consolidate = new pageConsolidate(this);
                 _analysis = new pageAnalysis(this);
-                SwitchPage(E_Page_Type.Main);
-                SetMenuText();
+                //SwitchPage(E_Page_Type.Main);
+                //SetMenuText();
+                timer.Elapsed += Timer_Elapsed;
+                timer.Start();
             }
             catch (Exception ex)
             {
@@ -98,9 +107,9 @@ namespace Tiku
             _this.SetMenuText();
             return false;
         }
-        public static bool ShowActive(string id)
+        public static bool ShowActive(string id, string name)
         {
-            frmActive act = new frmActive(id);
+            frmActive act = new frmActive(id, name);
             act.Owner = _this;
             if (act.ShowDialog() == true)
             {
@@ -113,6 +122,12 @@ namespace Tiku
             frmNote note = new frmNote(data);
             note.Owner = _this;
             note.ShowDialog();
+        }
+        public static void ShowComment(question_data data)
+        {
+            frmComment comment = new frmComment(data);
+            comment.Owner = _this;
+            comment.ShowDialog();
         }
         public static void ShowResult(dynamic data, List<question_data> all, string gid)
         {
@@ -212,39 +227,45 @@ namespace Tiku
         }
         public void SetMenuText()
         {
-            if (!string.IsNullOrEmpty(Config.Token))
-            {
-                menu_logout.Header = "注销";
-                if (!menu_main.Items.Contains(menu_setpass))
-                {
-                    menu_main.Items.Add(menu_setpass);
-                }
-            }
-            else
-            {
-                menu_logout.Header = "登录";
-                menu_main.Items.Remove(menu_setpass);
-            }
+            //if (!string.IsNullOrEmpty(Config.Token))
+            //{
+            //    menu_logout.Header = "注销";
+            //    if (!menu_main.Items.Contains(menu_setpass))
+            //    {
+            //        menu_main.Items.Add(menu_setpass);
+            //    }
+            //}
+            //else
+            //{
+            //    menu_logout.Header = "登录";
+            //    menu_main.Items.Remove(menu_setpass);
+            //}
         }
-
-        private void menu_register_Click(object sender, RoutedEventArgs e)
+        public static void ShowRegister()
         {
             frmRegister frmr = new frmRegister();
             frmr.Owner = _this;
             if (frmr.ShowDialog() == true)
             {
-                logout();
+                _this.logout();
             }
         }
-
-        private void menu_setpass_Click(object sender, RoutedEventArgs e)
+        private void menu_register_Click(object sender, RoutedEventArgs e)
         {
-            frmSetPass frmsp = new frmSetPass();
+            ShowRegister();
+        }
+        public static void ShowSetpass(int mode)
+        {
+            frmSetPass frmsp = new frmSetPass(mode);
             frmsp.Owner = _this;
             if (frmsp.ShowDialog() == true)
             {
-                logout();
+                _this.logout();
             }
+        }
+        private void menu_setpass_Click(object sender, RoutedEventArgs e)
+        {
+            ShowSetpass(0);
         }
 
         private void menu_max_Click(object sender, RoutedEventArgs e)
@@ -274,13 +295,59 @@ namespace Tiku
                 window.MaxHeight = screen.Bounds.Height;
                 window.WindowState = WindowState.Maximized;
 
-            }else
+            }
+            else
             {
                 window.WindowState = WindowState.Normal;
                 window.WindowStyle = WindowStyle.None;
                 window.MaxWidth = 1280;
                 window.MaxHeight = 800;
             }
+        }
+
+        private void imgQQ_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            string url = "http://wpa.qq.com/msgrd?v=3&uin=" + _pre + "&site=qq&menu=yes";
+            System.Diagnostics.Process.Start(url);
+        }
+        private string _pre = "";
+        private void init()
+        {
+            var param = new
+            {
+                token = Config.Token,
+                phone = Config.Phone,
+            };
+            var re = HttpHelper.Post(Config.Server + "/index/custom", param);
+            var b = HttpHelper.IsOk(re);
+            if (b == true)
+            {
+                var data = re["data"];
+                _pre = data["pre"].ToString();
+                labCompanyName.Text = data["companyName"].ToString();
+                labUrl.Text = "官方主页：" + data["url"].ToString();
+                labUrl.Tag = data["url"].ToString();
+                SwitchPage(E_Page_Type.Main);
+                SetMenuText();
+            }
+            else if (b == null)
+            {
+                ShowLogin(callBack);
+            }
+        }
+        private void callBack(dynamic param)
+        {
+            init();
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            init();
+        }
+
+        private void labUrl_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            string url = labUrl.Tag.ToString();
+            System.Diagnostics.Process.Start(url);
         }
     }
 }

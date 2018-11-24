@@ -65,6 +65,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="control\ucComment.xaml.cs">
+      <DependentUpon>ucComment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="frmSetPass.xaml.cs">
       <DependentUpon>frmSetPass.xaml</DependentUpon>
     </Compile>
@@ -86,12 +89,22 @@
     <Compile Include="windows\frmFeedback.xaml.cs">
       <DependentUpon>frmFeedback.xaml</DependentUpon>
     </Compile>
+    <Compile Include="windows\frmModel.xaml.cs">
+      <DependentUpon>frmModel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\frmComment.xaml.cs">
+      <DependentUpon>frmComment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="windows\frmNote.xaml.cs">
       <DependentUpon>frmNote.xaml</DependentUpon>
     </Compile>
     <Compile Include="windows\frmResult.xaml.cs">
       <DependentUpon>frmResult.xaml</DependentUpon>
     </Compile>
+    <Page Include="control\ucComment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="frmSetPass.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -241,6 +254,14 @@
     <Page Include="windows\frmFeedback.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\frmModel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\frmComment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="windows\frmNote.xaml">
       <SubType>Designer</SubType>
@@ -469,6 +490,23 @@
     <Resource Include="image\学历类.png" />
     <Resource Include="image\工程类考试.png" />
     <Resource Include="image\财务会计.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\logo4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\图层4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\1071924714.jpg" />
+    <Content Include="image\图层11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="image\组3.jpg" />
+    <Resource Include="image\导航bg.jpg" />
+    <Resource Include="image\组5.png" />
+    <Resource Include="image\组3.png" />
+    <Resource Include="image\图层15.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

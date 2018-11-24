@@ -6,10 +6,10 @@
       xmlns:local="clr-namespace:Tiku.page"
       mc:Ignorable="d" 
       d:DesignHeight="84" d:DesignWidth="1280"
-      Title="pageTools" ShowsNavigationUI="False">
+      Title="pageTools" ShowsNavigationUI="False" Loaded="Page_Loaded">
 
     <Grid>
-        <Image Stretch="Fill" Source="/Tiku;component/image/导航bg.png" MouseLeftButtonDown="Grid_MouseLeftButtonDown"></Image>
+        <Image Stretch="Fill" Source="/Tiku;component/image/导航bg.jpg" MouseLeftButtonDown="Grid_MouseLeftButtonDown"></Image>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"></ColumnDefinition>

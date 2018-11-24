@@ -28,6 +28,14 @@ namespace Tiku.control
                 return _gid;
             }
         }
+        private string _goods_name;
+        public string GoodsName
+        {
+            get
+            {
+                return _goods_name;
+            }
+        }
 
         public ucCourse()
         {
@@ -41,13 +49,22 @@ namespace Tiku.control
         public event Click_Delegate Click_Event;
         private bool _is_sale = false;
         private bool _is_act = false;
+        public bool IsAct
+        {
+            get
+            {
+                return _is_act;
+            }
+        }
         public ucCourse(string gid, string goods_name, string price, string sale, bool is_sale, bool is_act)
         {
             InitializeComponent();
             _is_act = is_act;
             _is_sale = is_sale;
             _gid = gid;
+            _goods_name = goods_name;
             txtName.Text = goods_name;
+            txtNameEx.Text = goods_name;
             txtPrice.Text = "原价：￥" + price;
             if (_is_sale)
             {
@@ -59,24 +76,35 @@ namespace Tiku.control
             }
             if (_is_act)
             {
-                btnActivate.Content = "已激活";
-                btnActivate.IsEnabled = false;
+                btnActivate.Content = "进入题库";
+                //btnActivate.IsEnabled = false;
                 btnTryout.Visibility = Visibility.Hidden;
             }
             else
             {
                 btnActivate.Content = "激活";
-                btnActivate.IsEnabled = true;
+                //btnActivate.IsEnabled = true;
                 btnTryout.Visibility = Visibility.Visible;
             }
         }
 
         private void btnActivate_Click(object sender, RoutedEventArgs e)
         {
-            if (Activate_Event != null)
+            if (_is_act)
             {
-                Activate_Event(this);
+                if (Click_Event != null)
+                {
+                    Click_Event(this);
+                }
             }
+            else
+            {
+                if (Activate_Event != null)
+                {
+                    Activate_Event(this);
+                }
+            }
+            
         }
 
         private void btnTryout_Click(object sender, RoutedEventArgs e)
@@ -89,10 +117,10 @@ namespace Tiku.control
 
         private void UserControl_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (Click_Event != null)
-            {
-                Click_Event(this);
-            }
+            //if (Click_Event != null)
+            //{
+            //    Click_Event(this);
+            //}
         }
     }
 }
